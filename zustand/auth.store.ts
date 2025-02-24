@@ -15,7 +15,7 @@ export const useAuthStore = create<AuthStoreType>()((set) => ({
     try {
       const token = Cookies.get('token');
       const dataParse = parseJwt(token || '')
-      if(dataParse.user_id) {
+      if(dataParse?.user_id) {
         const res = await getMe()
         set({ me: res.user })
       }

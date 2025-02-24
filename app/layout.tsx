@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const { getMe } = useAuthStore();
-  
+
   useEffect(() => {
     (async () => {
       await getMe()
@@ -31,7 +31,6 @@ export default function RootLayout({
           children
         ) : (
           <div className="flex">
-
             <Sidebar />
             <main className="p-2 bg-[#faf2de] w-[calc(100%-240px)] h-screen">
               {children}
