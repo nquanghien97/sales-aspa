@@ -7,15 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model insight_mother {
-  id        Int      @id @default(autoincrement())
-  keyword   String
-  content   String   @db.LongText
-  authorId  Int
-  author    user     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-}
-
 enum ImageCategory {
   salesPolicy
   products
@@ -52,13 +43,23 @@ model user {
 
   image files[]
 
-
   handle_rejection handle_rejection[]
+
+  proposal proposal[]
 }
 
 enum user_role {
   USER
   ADMIN
+}
+
+model insight_mother {
+  id        Int      @id @default(autoincrement())
+  keyword   String
+  content   String   @db.LongText
+  authorId  Int
+  author    user     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model handle_rejection {
@@ -68,4 +69,29 @@ model handle_rejection {
   authorId  Int
   author    user     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
+}
+
+enum CATEGORY_PROPOSAL {
+  INSIGHT_MOTHER
+  HANDLE_REJECTION
+}
+
+model proposal {
+  id        Int               @id @default(autoincrement())
+  keyword   String
+  authorId  Int
+  author    user              @relation(fields: [authorId], references: [id])
+  category  CATEGORY_PROPOSAL
+  createdAt DateTime          @default(now())
+
+  proposalCategory proposal_category?
+}
+
+model proposal_category {
+  id         Int      @id @default(autoincrement())
+  proposalId Int      @unique
+  proposal   proposal @relation(fields: [proposalId], references: [id])
+
+  categoryId   Int
+  categoryType CATEGORY_PROPOSAL
 }
