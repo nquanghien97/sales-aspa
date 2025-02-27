@@ -1,7 +1,7 @@
 import BanIcon from "@/assets/icons/BanIcon";
 import ChildrenIcon from "@/assets/icons/ChildrenIcon";
 import FilesIcon from "@/assets/icons/FilesIcon";
-import ProposalIcon from "@/assets/icons/Proposal";
+// import ProposalIcon from "@/assets/icons/Proposal";
 import UsersIcon from "@/assets/icons/UsersIcon";
 import WomenIcon from "@/assets/icons/WomenIcon";
 
@@ -58,10 +58,10 @@ export const menu_sidebar = [
       }
     ]
   },
-  {
-    title: 'Đề xuất',
-    url: '/de-xuat',
-    icon: <ProposalIcon width={20} height={20} />,
-    allowRole: ['ADMIN', 'USER']
-  }
+  // {
+  //   title: 'Đề xuất',
+  //   url: '/de-xuat',
+  //   icon: <ProposalIcon width={20} height={20} />,
+  //   allowRole: ['ADMIN', 'USER']
+  // }
 ]
