@@ -39,7 +39,7 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
   const onSubmit = async ({ keyword }: FormValues) => {
     setLoading(true);
     try {
-      await updateCategory({ id: data.id, data: { keyword } })
+      await updateCategory({ id: data.id, data: { keyword, content } })
       toast.success('Cập nhật thông tin thành công');
       setRefreshKey(pre => !pre);
       onClose();

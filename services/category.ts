@@ -17,7 +17,7 @@ export function getCategories({ search, page, pageSize, category }: { search?: s
   return api(`/api/category?${params.toString()}`);
 }
 
-export function updateCategory({ id, data } : { id: number, data: { keyword: string } }) {
+export function updateCategory({ id, data } : { id: number, data: { keyword: string, content: string } }) {
   return api(`/api/category/${id}`, {
     method: 'PUT',
     body: JSON.stringify(data),
