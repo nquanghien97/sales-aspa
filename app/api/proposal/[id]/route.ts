@@ -88,10 +88,23 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
       }, { status: 401 });
     }
 
-    if (user.user_role !== 'ADMIN') {
+    const existProposal = await prisma.proposal.findUnique({
+      where: {
+        id: +id
+      }
+    })
+
+    if (!existProposal) {
       return NextResponse.json({
         success: false,
-        message: "Bạn không có quyền"
+        message: "Đề xuất không tồn tại."
+      }, { status: 404 });
+    }
+
+    if (Number(user.user_id) !== existProposal.authorId && user.user_role !== 'ADMIN') {
+      return NextResponse.json({
+        success: false,
+        message: "Bạn không có quyền chỉnh sửa"
       }, { status: 403 });
     }
 
@@ -142,10 +155,23 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: n
         message: "Phiên làm việc đã hết hạn, vui lòng đăng nhập lại."
       }, { status: 401 });
     }
-    if (user.user_role !== 'ADMIN') {
+
+    const existProposal = await prisma.proposal.findUnique({
+      where: {
+        id: +id
+      }
+    })
+    if (!existProposal) {
       return NextResponse.json({
         success: false,
-        message: "Bạn không có quyền"
+        message: "Đề xuất không tồn tại."
+      }, { status: 404 });
+    }
+
+    if (Number(user.user_id) !== existProposal.authorId && user.user_role !== 'ADMIN') {
+      return NextResponse.json({
+        success: false,
+        message: "Bạn không có quyền xóa đề xuất"
       }, { status: 403 });
     }
 

@@ -107,27 +107,31 @@ function Proposal() {
           <th className="px-4 py-2 text-left font-medium border border-black">{optionsCategory[data.categoryType]}</th>
           <th className="px-4 py-2 text-left font-medium border border-black">{formatDate(data.createdAt)}</th>
           <th className="px-4 py-2 text-left font-medium border border-black">{data.author.fullName}</th>
-          {me?.role === 'ADMIN' && (
-            <th className="px-4 py-2 text-left font-medium border border-black">
-              <div className="flex gap-2">
-                {/* update user */}
-                <ButtonIcon
-                  onClick={() => {
-                    setIsOpenUpdate(true);
-                    setData(data);
-                  }}
-                >
-                  <DataIcon color='#1677ff' title='Cập nhật thông tin' width={20} height={20} />
-                </ButtonIcon>
-                <ButtonIcon
-                  onClick={() => {
-                    setIsOpenDelete(true);
-                    setData(data);
-                  }}
-                >
-                  <DeleteIcon color='#1677ff' title='Xóa dữ liệu' width={20} height={20} />
-                </ButtonIcon>
-                {/* approve proposal */}
+          <th className="px-4 py-2 text-left font-medium border border-black">
+            <div className="flex gap-2">
+              {(me?.id === data.author.id || me?.role === 'ADMIN') && (
+                <>
+                  {/* update user */}
+                  <ButtonIcon
+                    onClick={() => {
+                      setIsOpenUpdate(true);
+                      setData(data);
+                    }}
+                  >
+                    <DataIcon color='#1677ff' title='Cập nhật thông tin' width={20} height={20} />
+                  </ButtonIcon>
+                  <ButtonIcon
+                    onClick={() => {
+                      setIsOpenDelete(true);
+                      setData(data);
+                    }}
+                  >
+                    <DeleteIcon color='#1677ff' title='Xóa dữ liệu' width={20} height={20} />
+                  </ButtonIcon>
+                </>
+              )}
+              {/* approve proposal */}
+              {me?.role === 'ADMIN' && (
                 <ButtonIcon
                   onClick={() => {
                     setIsOpenApprove(true);
@@ -136,9 +140,9 @@ function Proposal() {
                 >
                   <ApproveIcon color='#1677ff' title='Thêm content' width={20} height={20} />
                 </ButtonIcon>
-              </div>
-            </th>
-          )}
+              )}
+            </div>
+          </th>
         </tr>
       ))
     )
@@ -162,7 +166,7 @@ function Proposal() {
                 <th className="px-4 py-2 text-left border border-black">Danh mục</th>
                 <th className="px-4 py-2 text-left border border-black">Thời gian tạo</th>
                 <th className="px-4 py-2 text-left border border-black">Người tạo</th>
-                {me?.role === 'ADMIN' && <th className="px-4 py-2 text-left border border-black">Chức năng</th>}
+                <th className="px-4 py-2 text-left border border-black">Chức năng</th>
               </tr>
             </thead>
             <tbody>

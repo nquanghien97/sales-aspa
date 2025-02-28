@@ -28,12 +28,6 @@ export async function POST(req: NextRequest) {
         message: "Phiên làm việc đã hết hạn, vui lòng đăng nhập lại."
       }, { status: 401 });
     }
-    if (user.user_role !== 'ADMIN') {
-      return NextResponse.json({
-        success: false,
-        message: "Bạn không có quyền tạo đề xuất"
-      }, { status: 403 });
-    }
 
     await prisma.proposal.create({
       data: {
