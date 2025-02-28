@@ -21,7 +21,7 @@ function Delete(props: DeleteProps) {
     setLoading(true);
     try {
       await deleteProposal(data.id);
-      toast.success('Xóa data thành công');
+      toast.success('Xóa đề xuất thành công');
       setRefreshKey(pre => !pre);
       onClose();
     } catch (err) {

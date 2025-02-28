@@ -39,7 +39,7 @@ function Create(props: CreateProps) {
         keyword: data.keyword,
         category: data.category
       })
-
+      toast.success('Tạo đề xuất thành công')
       setRefreshKey(pre => !pre);
       handleClose();
     } catch (e) {

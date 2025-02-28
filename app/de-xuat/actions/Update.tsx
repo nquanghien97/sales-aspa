@@ -38,7 +38,7 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
     setLoading(true);
     try {
       await updateProposal({ id: data.id, data: { keyword } })
-      toast.success('Cập nhật thông tin thành công');
+      toast.success('Cập nhật đề xuất thành công');
       setRefreshKey(pre => !pre);
       onClose();
 
