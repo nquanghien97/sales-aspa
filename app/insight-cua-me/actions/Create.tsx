@@ -6,7 +6,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Form } from "antd";
-import { createInsightMother } from '@/services/insight-mother'
+import { createCategory } from '@/services/category'
 
 interface CreateUserProps {
   open: boolean
@@ -38,9 +38,10 @@ function CreateUser(props: CreateUserProps) {
     setLoading(true);
     try {
       
-      await createInsightMother({
+      await createCategory({
         keyword: data.keyword,
         content,
+        category: 'INSIGHT_MOTHER'
       })
       
       setRefreshKey(pre => !pre);

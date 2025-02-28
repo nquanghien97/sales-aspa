@@ -2,9 +2,8 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input'
 import LoadingIcon from '@/components/ui/LoadingIcon';
 import Modal from '@/components/ui/Modal'
-import { CategoryEntity } from '@/entities/category';
-import { updateCategory } from '@/services/category';
-import { Editor } from '@tinymce/tinymce-react';
+import { ProposalEntity } from '@/entities/proposal';
+import { updateProposal } from '@/services/proposal';
 import { Form } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -13,7 +12,7 @@ interface UpdateHandleRejectionProps {
   open: boolean
   onClose: () => void
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
-  data: CategoryEntity
+  data: ProposalEntity
 }
 
 interface FormValues {
@@ -24,22 +23,21 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
   const { open, onClose, setRefreshKey, data } = props;
 
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState('');
 
   const [form] = Form.useForm();
 
   useEffect(() => {
-      if(data) {
-        form.setFieldsValue({
-          keyword: data.keyword
-        })
-      }
-    }, [data, form])
+    if(data) {
+      form.setFieldsValue({
+        keyword: data.keyword
+      })
+    }
+  }, [data, form])
 
   const onSubmit = async ({ keyword }: FormValues) => {
     setLoading(true);
     try {
-      await updateCategory({ id: data.id, data: { keyword } })
+      await updateProposal({ id: data.id, data: { keyword } })
       toast.success('Cập nhật thông tin thành công');
       setRefreshKey(pre => !pre);
       onClose();
@@ -75,36 +73,6 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
             >
               <Input className="py-2" />
             </Form.Item>
-          </div>
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
-              <p className="w-[106px] text-left text-[#2563eb]">Nội dung</p>
-              <Editor
-                apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
-                value={content}
-                onEditorChange={(newContent) => setContent(newContent)}
-                init={{
-                  height: 300,
-                  flex: 1,
-                  menubar: false,
-                  extended_valid_elements: "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
-                  valid_elements: '*[*]',
-                  plugins: [
-                    'table',
-                    'media',
-                  ],
-                  toolbar:
-                    'undo redo | formatselect | bold italic backcolor | ' +
-                    'alignleft aligncenter alignright alignjustify | ' +
-                    'bullist numlist outdent indent | table | forecolor | removeformat | media',
-                    setup: (editor) => {
-                      editor.on('init', () => {
-                        editor.setContent(data.content)
-                      })
-                    }
-                }}
-              />
-            </div>
           </div>
           <div className="flex justify-center gap-4">
             <Button variant='danger' onClick={onClose}>Hủy</Button>

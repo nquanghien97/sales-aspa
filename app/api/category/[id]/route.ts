@@ -33,7 +33,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: numb
       }, { status: 403 });
     }
 
-    const data = await prisma.handle_rejection.findUnique({
+    const data = await prisma.category.findUnique({
       where: {
         id: +id
       }
@@ -95,7 +95,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
       }, { status: 403 });
     }
 
-    await prisma.handle_rejection.update({
+    await prisma.category.update({
       where: {
         id: +id
       },
@@ -150,7 +150,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: n
       }, { status: 403 });
     }
 
-    await prisma.handle_rejection.delete({
+    await prisma.category.delete({
       where: {
         id: +id
       }

@@ -1,18 +1,18 @@
 import prisma from "@/lib/db";
 import { verifyToken } from "@/lib/token";
+import { PROPOSAL_STATUS } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+
   try {
-    const { keyword, content } = await req.json()
-
-    if (!keyword || !content) {
-      return NextResponse.json(
-        { success: false, message: "Thiếu dữ liệu bắt buộc." },
-        { status: 400 }
-      );
+    const { keyword, category } = await req.json();
+    if (!keyword || !category) {
+      return NextResponse.json({
+        success: false,
+        message: "Vui lòng nhập đầy đủ thông tin"
+      }, { status: 400 });
     }
-
     const authorization = req.headers.get('authorization');
     const token = authorization?.split(' ')[1];
     if (!token) {
@@ -28,25 +28,24 @@ export async function POST(req: NextRequest) {
         message: "Phiên làm việc đã hết hạn, vui lòng đăng nhập lại."
       }, { status: 401 });
     }
-    
     if (user.user_role !== 'ADMIN') {
       return NextResponse.json({
         success: false,
-        message: "Bạn không có quyền"
+        message: "Bạn không có quyền tạo đề xuất"
       }, { status: 403 });
     }
 
-    await prisma.insight_mother.create({
+    await prisma.proposal.create({
       data: {
         keyword,
-        content,
-        authorId: Number(user.user_id)
+        categoryType: category,
+        authorId: Number(user.user_id),
       }
     })
 
     return NextResponse.json({
       success: true,
-      message: "Tạo data thành công",
+      message: "Tạo đề xuất thành công",
     }, { status: 200 });
 
   } catch (err) {
@@ -64,7 +63,8 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const pageParam = url.searchParams.get('page');
   const pageSizeParam = url.searchParams.get('pageSize')
-  const search = url.searchParams.get('search') || '';
+  const keyword = url.searchParams.get('keyword') || '';
+  const status = url.searchParams.get('status')
 
   const page = pageParam ? parseInt(pageParam, 10) : null;
   const pageSize = pageSizeParam ? parseInt(pageSizeParam, 10) : null;
@@ -78,8 +78,9 @@ export async function GET(req: NextRequest) {
   }
   const whereCondition = {
     keyword: {
-      contains: search.toLowerCase(),
+      contains: keyword.toLowerCase(),
     },
+    ...(status === "ALL" ? {} : { status: status as PROPOSAL_STATUS || PROPOSAL_STATUS.PENDING })
   };
 
   try {
@@ -99,9 +100,9 @@ export async function GET(req: NextRequest) {
       }, { status: 401 });
     }
 
-    const data = await prisma.insight_mother.findMany({
+    const data = await prisma.proposal.findMany({
       where: {
-        ...whereCondition
+        ...whereCondition,
       },
       include: {
         author: {
@@ -118,7 +119,7 @@ export async function GET(req: NextRequest) {
       }
     })
 
-    const total = await prisma.insight_mother.count({
+    const total = await prisma.proposal.count({
       where: {
         ...whereCondition
       }

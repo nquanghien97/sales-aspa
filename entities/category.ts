@@ -1,6 +1,6 @@
 import { UserEntity } from "./user";
 
-export interface InsightMotherEntity {
+export interface CategoryEntity {
   id: number;
   keyword: string;
   content: string;

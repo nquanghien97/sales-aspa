@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/Button'
 import LoadingIcon from '@/components/ui/LoadingIcon'
 import Modal from '@/components/ui/Modal'
-import { CategoryEntity } from '@/entities/category'
-import { deleteCategory } from '@/services/category'
+import { ProposalEntity } from '@/entities/proposal'
+import { deleteProposal } from '@/services/proposal'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -10,7 +10,7 @@ interface DeleteProps {
   open: boolean
   onClose: () => void
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
-  data: CategoryEntity
+  data: ProposalEntity
 }
 
 function Delete(props: DeleteProps) {
@@ -20,7 +20,7 @@ function Delete(props: DeleteProps) {
   const onDelete = async () => {
     setLoading(true);
     try {
-      await deleteCategory(data.id);
+      await deleteProposal(data.id);
       toast.success('Xóa data thành công');
       setRefreshKey(pre => !pre);
       onClose();

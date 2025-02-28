@@ -1,58 +1,52 @@
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
 import LoadingIcon from '@/components/ui/LoadingIcon'
 import Modal from '@/components/ui/Modal'
+import { ProposalEntity } from '@/entities/proposal'
+import { approveProposal } from '@/services/proposal'
 import { Editor } from '@tinymce/tinymce-react'
-import { useState } from 'react'
+import { Alert, Form } from 'antd'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { Form } from "antd";
-import { createCategory } from '@/services/category'
 
-interface CreateUserProps {
+interface ApproveProposalProps {
   open: boolean
   onClose: () => void
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
+  proposal: ProposalEntity
 }
 
-interface FormValues {
-  keyword: string
+const optionsCategory = {
+  INSIGHT_MOTHER: 'INSIGHT CỦA MẸ',
+  HANDLE_REJECTION: 'XỬ LÝ TỪ CHỐI'
 }
 
-function CreateUser(props: CreateUserProps) {
-  const { open, onClose, setRefreshKey } = props;
-
+function ApproveProposal(props: ApproveProposalProps) {
+  const { open, onClose, setRefreshKey, proposal } = props;
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState('')
-
+  const [content, setContent] = useState('');
   const [form] = Form.useForm();
 
   const handleClose = () => {
     onClose();
-    setContent('')
-    form.setFieldsValue({
-      keyword: '',
-    })
   }
 
-  const onSubmit = async (data: FormValues) => {
-    setLoading(true);
+  const onSubmit = async () => {
+    setLoading(true)
     try {
-      
-      await createCategory({
-        keyword: data.keyword,
+      await approveProposal({
+        keyword: proposal.keyword,
         content,
-        category: 'HANDLE_REJECTION'
+        category: proposal.categoryType,
+        proposalId: proposal.id
       })
-      
-      setRefreshKey(pre => !pre);
-      handleClose();
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(e.message);
-        toast.error(e.message)
+      setRefreshKey(pre => !pre)
+      onClose();
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message)
       }
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
@@ -62,23 +56,16 @@ function CreateUser(props: CreateUserProps) {
       onClose={() => { }}
       className='w-1/2'
     >
-      <h1 className="mb-4 text-2xl font-bold text-center">Thêm mới nội dung</h1>
+      <h1 className="mb-4 text-2xl font-bold text-center">Thêm mới đề xuất</h1>
       <div>
-        <Form form={form} onFinish={onSubmit} initialValues={{ keyword: '' }}>
+        <Form form={form} onFinish={onSubmit}>
           <div className="flex items-center h-[40px] mb-6">
             <p className="w-[106px] text-left text-[#2563eb]">Từ khóa</p>
-            <Form.Item
-              className="!mb-0 w-full flex-1"
-              name="keyword"
-              rules={[
-                {
-                  required: true,
-                  message: "Trường này là bắt buộc"
-                },
-              ]}
-            >
-              <Input className="py-2" />
-            </Form.Item>
+            <Alert message={proposal.keyword} className="w-full flex-1" />
+          </div>
+          <div className="flex items-center h-[40px] mb-6">
+            <p className="w-[106px] text-left text-[#2563eb]">Danh mục</p>
+            <Alert message={optionsCategory[proposal.categoryType]} className="w-full flex-1" />
           </div>
           <div className="mb-4">
             <div className="flex items-center mb-2">
@@ -118,4 +105,4 @@ function CreateUser(props: CreateUserProps) {
   )
 }
 
-export default CreateUser
+export default ApproveProposal

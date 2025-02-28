@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
-import { InsightMotherEntity } from '@/entities/insight-mother'
+import { CategoryEntity } from '@/entities/category'
 import { handleRejectionParams } from '@/dto/insight-mother'
 import { formatDate } from '@/utils/formatDate'
 import Select from '@/components/ui/Select'
@@ -13,19 +13,19 @@ import DeleteIcon from '@/assets/icons/DeleteIcon'
 import withAuth from '@/hocs/withAuth'
 import Delete from './actions/Delete'
 import Update from './actions/Update'
-import { getInsightMothers } from '@/services/insight-mother'
+import { getCategories } from '@/services/category'
 import { useAuthStore } from '@/zustand/auth.store'
 import DataIcon from '@/assets/icons/DataIcon'
 
 function HandleRejection() {
-  const [datas, setDatas] = useState<InsightMotherEntity[]>([]);
+  const [datas, setDatas] = useState<CategoryEntity[]>([]);
   const [searchParams, setSearchParams] = useState<handleRejectionParams>({});
   const [refreshKey, setRefreshKey] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<InsightMotherEntity>();
+  const [data, setData] = useState<CategoryEntity>();
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
 
@@ -39,10 +39,11 @@ function HandleRejection() {
     (async () => {
       try {
         setLoading(true)
-        const res = await getInsightMothers({
+        const res = await getCategories({
           ...searchParams,
           page,
-          pageSize
+          pageSize,
+          category: 'INSIGHT_MOTHER',
         })
         setDatas(res.data);
         setTotal(res.total);

@@ -33,7 +33,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: numb
       }, { status: 403 });
     }
 
-    const data = await prisma.insight_mother.findUnique({
+    const data = await prisma.proposal.findUnique({
       where: {
         id: +id
       }
@@ -58,14 +58,14 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
   try {
     const { id } = await params;
 
-    const { keyword, content } = await req.json();
+    const { keyword } = await req.json();
 
     if (!id) return NextResponse.json({
       success: false,
       message: "Missing id"
     }, { status: 403 });
 
-    if (!keyword || !content) {
+    if (!keyword) {
       return NextResponse.json(
         { success: false, message: "Thiếu dữ liệu bắt buộc." },
         { status: 400 }
@@ -95,13 +95,12 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
       }, { status: 403 });
     }
 
-    await prisma.insight_mother.update({
+    await prisma.proposal.update({
       where: {
         id: +id
       },
       data: {
         keyword,
-        content,
       }
     })
 
@@ -150,7 +149,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: n
       }, { status: 403 });
     }
 
-    await prisma.insight_mother.delete({
+    await prisma.proposal.delete({
       where: {
         id: +id
       }

@@ -1,12 +1,13 @@
 import prisma from "@/lib/db";
 import { verifyToken } from "@/lib/token";
+import { CATEGORY } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { keyword, content } = await req.json()
+    const { keyword, content, category } = await req.json()
 
-    if (!keyword || !content) {
+    if (!keyword || !content || !category) {
       return NextResponse.json(
         { success: false, message: "Thiếu dữ liệu bắt buộc." },
         { status: 400 }
@@ -36,10 +37,11 @@ export async function POST(req: NextRequest) {
       }, { status: 403 });
     }
 
-    await prisma.handle_rejection.create({
+    await prisma.category.create({
       data: {
         keyword,
         content,
+        category,
         authorId: Number(user.user_id)
       }
     })
@@ -65,12 +67,20 @@ export async function GET(req: NextRequest) {
   const pageParam = url.searchParams.get('page');
   const pageSizeParam = url.searchParams.get('pageSize')
   const search = url.searchParams.get('search') || '';
+  const category = url.searchParams.get('category') as CATEGORY;
 
   const page = pageParam ? parseInt(pageParam, 10) : null;
   const pageSize = pageSizeParam ? parseInt(pageSizeParam, 10) : null;
 
   let skip: number | undefined;
   let take: number | undefined;
+
+  if (!category) {
+    return NextResponse.json(
+      { success: false, message: "Thiếu danh mục" },
+      { status: 400 }
+    );
+  }
 
   if (page !== null && pageSize !== null) {
     skip = (page - 1) * pageSize;
@@ -80,6 +90,7 @@ export async function GET(req: NextRequest) {
     keyword: {
       contains: search.toLowerCase(),
     },
+    ...(category && { category }),
   };
 
   try {
@@ -99,7 +110,7 @@ export async function GET(req: NextRequest) {
       }, { status: 401 });
     }
 
-    const data = await prisma.handle_rejection.findMany({
+    const data = await prisma.category.findMany({
       where: {
         ...whereCondition
       },
@@ -118,7 +129,7 @@ export async function GET(req: NextRequest) {
       }
     })
 
-    const total = await prisma.handle_rejection.count({
+    const total = await prisma.category.count({
       where: {
         ...whereCondition
       }
