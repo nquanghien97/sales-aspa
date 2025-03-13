@@ -7,7 +7,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
   return ( 
     [
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number, currentAge: number, gender: Gender }) => currentHeight < heightBelowStandard && currentWeight > weightAboveStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number, currentAge: number, gender: Gender }) => currentHeight < heightBelowStandard && currentWeight < weightBelowStandard,
         title: 'Thấp - Gầy',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -19,7 +19,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         )
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number, currentAge: number, gender: Gender }) => currentHeight < heightBelowStandard && currentWeight > weightBelowStandard && currentWeight < heightAboveStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number, currentAge: number, gender: Gender }) => currentHeight < heightBelowStandard && currentWeight > weightAboveStandard,
         title: 'Thấp - Béo',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -30,7 +30,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       }, 
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightBelowStandard && currentWeight < weightBelowStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightBelowStandard && currentWeight > weightBelowStandard && currentWeight < heightAboveStandard,
         title: 'Thấp - Cân nặng trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -40,7 +40,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight > weightAboveStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight < weightBelowStandard,
         title: 'Cao - Gầy',
         content: (
           <ul className="text-lg font-semibold px-8 list-disc">
@@ -51,7 +51,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight > weightBelowStandard && currentWeight < weightAboveStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight > weightAboveStandard,
         title: 'Cao - Béo',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -61,7 +61,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight < weightBelowStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight > weightBelowStandard && currentWeight < weightAboveStandard,
         title: 'Cao - Cân nặng trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -71,7 +71,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight > weightAboveStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight < weightBelowStandard,
         title: 'Chiều cao trung bình - Gầy',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -82,7 +82,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight > weightBelowStandard && currentWeight < weightAboveStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight > weightAboveStandard,
         title: 'Chiều cao trung bình - Béo',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
@@ -92,7 +92,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
         ),
       },
       {
-        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight < weightBelowStandard,
+        condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight < heightAboveStandard && currentWeight > heightBelowStandard,
         title: 'Chiều cao trung bình - Cân nặng trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
