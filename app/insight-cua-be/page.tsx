@@ -7,7 +7,12 @@ import React, { JSX, useEffect, useState } from 'react'
 import { data_height, data_weight } from '@/constants/data'
 import { data_config, Gender } from './data_config'
 import withAuth from '@/hocs/withAuth'
+import { heightCalculator } from '@/utils/heightCalculator'
 
+const optionsGender = {
+  BOY: 'Nam',
+  GIRL: 'Nữ'
+}
 function Content() {
   const [currentHeight, setCurrentHeight] = useState('');
   const [currentWeight, setCurrentWeight] = useState('');
@@ -128,6 +133,39 @@ function Content() {
     return <strong>đạt cân nặng tiêu chuẩn</strong>
   }
 
+  const BMI = (Number(currentWeight)) / ((Number(currentHeight) / 100) * (Number(currentHeight) / 100))
+  const ketLuanBMI = () => {
+    if (BMI < 18.5) {
+      return <strong>Bé nằm trong cân nặng: Thiếu cân</strong>
+    }
+    if (BMI >= 18.5 && BMI < 24.9) {
+      return <strong>Bé nằm trong cân nặng: Trung Bình</strong>
+    }
+    if (BMI >= 25 && BMI < 29.9) {
+      return <strong>Bé nằm trong cân nặng: Thừa cân</strong>
+    }
+    if (BMI >= 30 && BMI < 34.9) {
+      return <strong>Bé nằm trong cân nặng: Béo phì</strong>
+    }
+    if (BMI >= 50) {
+      return <strong>Bé nằm trong cân nặng: Cực kỳ béo phì</strong>
+    }
+  }
+
+  const ketLuanGiaiDoan = () => {
+    if(0 < Number(currentAge) && Number(currentAge) <= 2 ) {
+      return <p><strong>Giai đoạn 1000 ngày đầu đời (0-2 tuổi): </strong>Giai đoạn quyết định 60% tiềm năng chiều cao tương lai, cần tập trung vào dinh dưỡng và phát triển xương nền tảng.</p>
+    }
+    if(Number(currentAge) > 3 && Number(currentAge) <= 12) {
+      return <p><strong>Giai đoạn vàng (3-12 tuổi): </strong>Trẻ phát triển đều đặn, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
+    }
+    if(Number(currentAge) > 12 && Number(currentAge) <= 18) {
+      return <p><strong>Giai đoạn bứt phá (12-18 tuổi): </strong>Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn.</p>
+    }
+  }
+
+  const heightTo20 = heightCalculator(Number(currentHeight), Number(currentAge), gender as Gender);
+
   return (
     <>
       <h1 className="text-center text-4xl font-bold mb-4 py-4">INSIGHT CỦA BÉ</h1>
@@ -170,16 +208,60 @@ function Content() {
       {dataResponse && (
         <div className="bg-white p-4 rounded-xl">
           <div className="mb-4">
-            <h2 className="text-2xl font-semibold uppercase mb-2">Kết luận kích nhu cầu</h2>
-            {ketLuanDayThi()}
-            <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}, {ketLuanCanNang()}</p>
-            <p>Hiện trạng của con đang như vậy mà <strong>mẹ quan tâm tìm hiểu sữa bổ sung cho con giai đoạn này là rất phù hợp và kịp thời.</strong></p>
+            <h2 className="text-2xl font-semibold uppercase mb-2">1. Thông tin khách hàng:</h2>
+            <ul className="list-disc pl-6">
+              <li><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
+              <li><strong>Tuổi:</strong> {currentAge} tuổi</li>
+              <li><strong>Chiều cao:</strong> {currentHeight} cm</li>
+              <li><strong>Cân nặng:</strong> {currentWeight} kg</li>
+            </ul>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-2xl font-semibold uppercase mb-2">2. Đánh giá chỉ số:</h2>
+            <ul className="list-disc pl-6">
+              <li>
+                <p><strong>Chỉ số BMI (Body Mass Index): </strong> {BMI.toFixed(1)} kg/m2</p>
+                <p>{ketLuanBMI()}</p>
+              </li>
+              <li>
+                <p><strong>So sánh chiều cao với chuẩn WHO:</strong></p>
+                <p>Chiều cao trung bình của bé {gender && optionsGender[gender]} {currentAge} tuổi: <strong>{gender && data_height[gender][Number(currentAge)] - 1.5} cm - {gender && data_height[gender][Number(currentAge)] + 1.5} cm</strong></p>
+                <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}</p>
+              </li>
+            </ul>
           </div>
           <div>
-            <h2 className="text-2xl mb-2 font-semibold">{dataResponse.title}</h2>
-            <div className="">
-              {dataResponse.content}
+            <div className="mb-4">
+              <h2 className="text-2xl font-semibold uppercase mb-2">3. KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
+              {ketLuanDayThi()}
+              <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}, {ketLuanCanNang()}</p>
+              <p>Hiện trạng của con đang như vậy mà <strong>mẹ quan tâm tìm hiểu sữa bổ sung cho con giai đoạn này là rất phù hợp và kịp thời.</strong></p>
             </div>
+            <div className="mb-4">
+              <h2 className="text-2xl mb-2 font-semibold">{dataResponse.title}</h2>
+              <div className="">
+                {dataResponse.content}
+              </div>
+            </div>
+            <div className="mb-4">
+              <p className="text-xl"><strong>{currentAge} tuổi là giai đoạn vàng để bứt phá chiều cao</strong>, cần bổ sung dưỡng chất đầy đủ để tối ưu hóa tiềm năng phát triển.</p>
+              {ketLuanGiaiDoan()}
+            </div>
+            <div className="mb-4">
+              <h3 className="text-xl font-semibold uppercase mb-2">Giải pháp dinh dưỡng:</h3>
+              <ul className="list-disc pl-6">
+                <li><strong>Dùng sữa Wowtop:</strong> 2 ly/ngày để bổ sung <strong>CBP, canxi, vitamin D3, K</strong> giúp xương chắc khỏe, dài ra nhanh chóng.</li>
+                <li><strong>Chế độ ăn khoa học:</strong> Bổ sung nhiều protein (thịt, cá, trứng, sữa), rau xanh, hạn chế đồ ngọt và nước có ga.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold uppercase mb-2">Giải pháp vận động:</h3>
+              <ul className="list-disc pl-6">
+                <li>Khuyến khích <strong>bơi lội, nhảy dây, đạp xe, chơi bóng rổ</strong> để kích thích xương phát triển.</li>
+                <li>Ngủ sớm trước 22h để tăng hormone tăng trưởng tự nhiên.</li>
+              </ul>
+            </div>
+            <p><strong>Dự đoán tiềm năng:</strong> Nếu duy trì chế độ dinh dưỡng và vận động hợp lý, bé có thể đạt chiều cao trên <strong>{heightTo20?.predictedHeightAt20} cm</strong> khi trưởng thành, và có thể cao thêm 5-15 cm so với dự đoán.</p>
           </div>
         </div>
       )}

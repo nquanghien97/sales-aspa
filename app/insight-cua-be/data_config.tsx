@@ -8,7 +8,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
     [
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number, currentAge: number, gender: Gender }) => currentHeight < heightBelowStandard && currentWeight < weightBelowStandard,
-        title: 'Thấp - Gầy',
+        title: 'Thấp hơn trung bình - Cân nặng dưới trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Bé có biếng ăn không me?</li>
@@ -20,7 +20,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       },
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number, currentAge: number, gender: Gender }) => currentHeight < heightBelowStandard && currentWeight > weightAboveStandard,
-        title: 'Thấp - Béo',
+        title: 'Thấp hơn trung bình - Cân nặng trên trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Hiện tại con đang béo nguy cơ gây dậy thì sớm, đóng khung xương sớm. Báo động ảnh hưởng tới chiều cao, cần kiểm soát lại.</li>
@@ -31,7 +31,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       }, 
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightBelowStandard && currentWeight > weightBelowStandard && currentWeight < heightAboveStandard,
-        title: 'Thấp - Cân nặng trung bình',
+        title: 'Thấp hơn trung bình - Cân nặng trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Tình trạng của con đang ở giai đoạn quan trọng, con đang thấp hơn trung bình, đang là biểu hiện con thiếu dinh dưỡng ở xương, xương không đủ dinh dưỡng, nguyên bào sản sinh ra ít dẫn tới xương không phát triển đều, giảm tốc độ tăng trưởng xương.</li>
@@ -41,7 +41,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       },
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight < weightBelowStandard,
-        title: 'Cao - Gầy',
+        title: 'Cao hơn trung bình - Cân nặng dưới trung bình',
         content: (
           <ul className="text-lg font-semibold px-8 list-disc">
             <li>Bé có biếng ăn không mẹ?</li>
@@ -52,7 +52,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       },
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight > weightAboveStandard,
-        title: 'Cao - Béo',
+        title: 'Cao hơn trung bình - Cân nặng trên trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Hiện tại con đang béo nguy cơ gây dậy thì sớm, đóng khung xương sớm, cần kiểm soát lại.</li>
@@ -62,7 +62,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       },
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight > heightAboveStandard && currentWeight > weightBelowStandard && currentWeight < weightAboveStandard,
-        title: 'Cao - Cân nặng trung bình',
+        title: 'Cao hơn trung bình - Cân nặng trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Con cân nặng ở mức trung bình, như này là phù hợp</li>
@@ -72,7 +72,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       },
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight < weightBelowStandard,
-        title: 'Chiều cao trung bình - Gầy',
+        title: 'Chiều cao trung bình - Cân nặng dưới trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Bé có biếng ăn không mẹ?</li>
@@ -83,7 +83,7 @@ export const data_config = ({ heightBelowStandard, heightAboveStandard, weightBe
       },
       {
         condition: ({ currentHeight, currentWeight } : { currentHeight: number, currentWeight: number }) => currentHeight < heightAboveStandard && currentHeight > heightBelowStandard && currentWeight > weightAboveStandard,
-        title: 'Chiều cao trung bình - Béo',
+        title: 'Chiều cao trung bình - Cân nặng trên trung bình',
         content: (
           <ul className="text-lg font-semibold list-disc px-8">
             <li>Hiện tại con đang béo nguy cơ gây dậy thì sớm, đóng khung xương sớm. Báo động ảnh hưởng tới chiều cao, cần kiểm soát lại.</li>
