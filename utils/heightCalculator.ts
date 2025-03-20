@@ -41,7 +41,7 @@ export function heightCalculator(
   }
 
   return {
-    predictedHeightAt20: heightsByAge[20],
+    predictedHeightAt20: heightsByAge[20] as number[],
     heightsByAge: heightsByAge
   };
 }

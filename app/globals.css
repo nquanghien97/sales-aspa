@@ -91,3 +91,7 @@ p, li {
   width: 100%;
 }
 
+
+.bg-insight-item {
+  background: linear-gradient(to right, rgba(225, 183, 84, 0.3), rgba(235, 201, 130, 0.3), rgba(251, 248, 208, 0.3));
+}

@@ -8,6 +8,8 @@ import { data_height, data_weight } from '@/constants/data'
 import { data_config, Gender } from './data_config'
 import withAuth from '@/hocs/withAuth'
 import { heightCalculator } from '@/utils/heightCalculator'
+import { weightCalculator } from '@/utils/weightCalculator'
+import { BMICalculator } from '@/utils/BMICalculator'
 
 const optionsGender = {
   BOY: 'Nam',
@@ -153,18 +155,21 @@ function Content() {
   }
 
   const ketLuanGiaiDoan = () => {
-    if(0 < Number(currentAge) && Number(currentAge) <= 2 ) {
+    if (0 < Number(currentAge) && Number(currentAge) <= 2) {
       return <p><strong>Giai đoạn 1000 ngày đầu đời (0-2 tuổi): </strong>Giai đoạn quyết định 60% tiềm năng chiều cao tương lai, cần tập trung vào dinh dưỡng và phát triển xương nền tảng.</p>
     }
-    if(Number(currentAge) > 3 && Number(currentAge) <= 12) {
+    if (Number(currentAge) > 3 && Number(currentAge) <= 12) {
       return <p><strong>Giai đoạn vàng (3-12 tuổi): </strong>Trẻ phát triển đều đặn, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
     }
-    if(Number(currentAge) > 12 && Number(currentAge) <= 18) {
+    if (Number(currentAge) > 12 && Number(currentAge) <= 18) {
       return <p><strong>Giai đoạn bứt phá (12-18 tuổi): </strong>Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn.</p>
     }
   }
 
   const heightTo20 = heightCalculator(Number(currentHeight), Number(currentAge), gender as Gender);
+  const weightTo20 = weightCalculator(Number(currentWeight), Number(currentAge), gender as Gender);
+  const BMI_data = (heightTo20 && weightTo20) && BMICalculator(heightTo20?.heightsByAge, weightTo20?.weightsByAge)
+  console.log(BMI_data)
 
   return (
     <>
@@ -207,8 +212,9 @@ function Content() {
 
       {dataResponse && (
         <div className="bg-white p-4 rounded-xl">
-          <div className="mb-4">
-            <h2 className="text-2xl font-semibold uppercase mb-2">1. Thông tin khách hàng:</h2>
+          <h1 className="text-[#2563eb] uppercase text-4xl mb-4 text-center font-bold">Đánh giá hiện trạng và giải pháp phát triển chiều cao vượt trội</h1>
+          <div className="mb-4 bg-insight-item rounded-2xl p-4">
+            <h2 className="text-xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
             <ul className="list-disc pl-6">
               <li><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
               <li><strong>Tuổi:</strong> {currentAge} tuổi</li>
@@ -217,28 +223,28 @@ function Content() {
             </ul>
           </div>
           <div className="mb-4">
-            <h2 className="text-2xl font-semibold uppercase mb-2">2. Đánh giá chỉ số:</h2>
-            <ul className="list-disc pl-6">
-              <li>
-                <p><strong>Chỉ số BMI (Body Mass Index): </strong> {BMI.toFixed(1)} kg/m2</p>
+            <h2 className="text-xl font-semibold uppercase mb-2 text-[#2563eb]">Đánh giá chỉ số:</h2>
+            <div className="flex">
+              <div className="py-4 px-8 bg-[#2563eb] rounded-l-2xl text-white text-center flex items-center flex-col justify-center">
+                <p className="font-semibold whitespace-nowrap">Chỉ số BMI (Body Mass Index):</p>
+                <p className="font-semibold">{BMI.toFixed(1)} kg/m2</p>
+              </div>
+              <div className="w-full p-4 border-r-2xl bg-insight-item">
                 <p>{ketLuanBMI()}</p>
-              </li>
-              <li>
                 <p><strong>So sánh chiều cao với chuẩn WHO:</strong></p>
-                <p>Chiều cao trung bình của bé {gender && optionsGender[gender]} {currentAge} tuổi: <strong>{gender && data_height[gender][Number(currentAge)] - 1.5} cm - {gender && data_height[gender][Number(currentAge)] + 1.5} cm</strong></p>
-                <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}</p>
-              </li>
-            </ul>
+                <p>Chiều cao trung bình của bé {gender && optionsGender[gender]} {currentAge} tuổi: <strong>{gender && data_height[gender][Number(currentAge)] - 1.5} cm - {gender && data_height[gender][Number(currentAge)] + 1.5} cm</strong>. <strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}</p>
+              </div>
+            </div>
           </div>
           <div>
             <div className="mb-4">
-              <h2 className="text-2xl font-semibold uppercase mb-2">3. KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
+              <h2 className="text-xl font-semibold uppercase mb-2">KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
               {ketLuanDayThi()}
               <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}, {ketLuanCanNang()}</p>
               <p>Hiện trạng của con đang như vậy mà <strong>mẹ quan tâm tìm hiểu sữa bổ sung cho con giai đoạn này là rất phù hợp và kịp thời.</strong></p>
             </div>
             <div className="mb-4">
-              <h2 className="text-2xl mb-2 font-semibold">{dataResponse.title}</h2>
+              <h2 className="text-xl mb-2 font-semibold">{dataResponse.title}</h2>
               <div className="">
                 {dataResponse.content}
               </div>
