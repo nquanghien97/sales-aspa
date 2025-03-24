@@ -3,13 +3,15 @@
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import React, { JSX, useEffect, useState } from 'react'
+import React, { JSX, ReactNode, useEffect, useState } from 'react'
 import { data_height, data_weight } from '@/constants/data'
 import { data_config, Gender } from './data_config'
 import withAuth from '@/hocs/withAuth'
 import { heightCalculator } from '@/utils/heightCalculator'
 import { weightCalculator } from '@/utils/weightCalculator'
 import { BMICalculator } from '@/utils/BMICalculator'
+import LineChart from './LineChart'
+import Image from 'next/image'
 
 const optionsGender = {
   BOY: 'Nam',
@@ -20,7 +22,7 @@ function Content() {
   const [currentWeight, setCurrentWeight] = useState('');
   const [gender, setGender] = useState<Gender>();
   const [currentAge, setCurrentAge] = useState('');
-  const [dataResponse, setDataResponse] = useState<{ title?: string, content?: JSX.Element }>();
+  const [dataResponse, setDataResponse] = useState<{ title?: ReactNode, content?: JSX.Element }>();
   const [puberty, setPuberty] = useState<'puberty' | 'no-puberty' | undefined>()
   const [errorMessage, setErrorMessage] = useState<{ currentHeight?: string, currentWeight?: string, gender?: string, currentAge?: string, puberty?: string }>({
     currentHeight: '',
@@ -168,8 +170,7 @@ function Content() {
 
   const heightTo20 = heightCalculator(Number(currentHeight), Number(currentAge), gender as Gender);
   const weightTo20 = weightCalculator(Number(currentWeight), Number(currentAge), gender as Gender);
-  const BMI_data = (heightTo20 && weightTo20) && BMICalculator(heightTo20?.heightsByAge, weightTo20?.weightsByAge)
-  console.log(BMI_data)
+  const BMI_data = BMICalculator(heightTo20?.heightsByAge, weightTo20?.weightsByAge)
 
   return (
     <>
@@ -215,11 +216,11 @@ function Content() {
           <h1 className="text-[#2563eb] uppercase text-4xl mb-4 text-center font-bold">Đánh giá hiện trạng và giải pháp phát triển chiều cao vượt trội</h1>
           <div className="mb-4 bg-insight-item rounded-2xl p-4">
             <h2 className="text-xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
-            <ul className="list-disc pl-6">
-              <li><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
-              <li><strong>Tuổi:</strong> {currentAge} tuổi</li>
-              <li><strong>Chiều cao:</strong> {currentHeight} cm</li>
-              <li><strong>Cân nặng:</strong> {currentWeight} kg</li>
+            <ul className="list-disc pl-6 flex flex-wrap">
+              <li className="w-1/2 py-1"><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
+              <li className="w-1/2 py-1"><strong>Chiều cao:</strong> {currentHeight} cm</li>
+              <li className="w-1/2 py-1"><strong>Tuổi:</strong> {currentAge} tuổi</li>
+              <li className="w-1/2 py-1"><strong>Cân nặng:</strong> {currentWeight} kg</li>
             </ul>
           </div>
           <div className="mb-4">
@@ -236,38 +237,76 @@ function Content() {
               </div>
             </div>
           </div>
-          <div>
-            <div className="mb-4">
-              <h2 className="text-xl font-semibold uppercase mb-2">KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
-              {ketLuanDayThi()}
-              <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}, {ketLuanCanNang()}</p>
-              <p>Hiện trạng của con đang như vậy mà <strong>mẹ quan tâm tìm hiểu sữa bổ sung cho con giai đoạn này là rất phù hợp và kịp thời.</strong></p>
+          <div className="flex gap-8">
+            <div className="w-1/3 full mb-4">
+              {gender && <LineChart dataLine={BMI_data!} currentAge={currentAge} gender={gender} BMI={Number(BMI.toFixed(1))} />}
             </div>
-            <div className="mb-4">
-              <h2 className="text-xl mb-2 font-semibold">{dataResponse.title}</h2>
-              <div className="">
-                {dataResponse.content}
+            <div className="w-2/3 py-3">
+              <div className="mb-4">
+                <h2 className="text-xl text-[#2563eb] font-semibold uppercase mb-2">KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
+                {ketLuanDayThi()}
+                <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}, {ketLuanCanNang()}</p>
+                <p>Hiện trạng của con đang như vậy mà <strong>mẹ quan tâm tìm hiểu sữa bổ sung cho con giai đoạn này là rất phù hợp và kịp thời.</strong></p>
+              </div>
+              <div className="mb-4">
+                <h2 className="text-xl mb-2 font-semibold">{dataResponse.title}</h2>
+                <div className="">
+                  {dataResponse.content}
+                </div>
+              </div>
+              <div className="mb-4 w-full p-4 border-2xl bg-insight-item rounded-2xl">
+                <p className="text-xl"><strong>{currentAge} tuổi là giai đoạn vàng để bứt phá chiều cao</strong>, cần bổ sung dưỡng chất đầy đủ để tối ưu hóa tiềm năng phát triển.</p>
+                {ketLuanGiaiDoan()}
+              </div>
+              <div className="mb-4">
+                <h3 className="text-xl text-[#2563eb] font-semibold uppercase mb-2">Giải pháp dinh dưỡng:</h3>
+                <div className="w-full p-4 border-r-2xl bg-insight-item rounded-2xl flex">
+                  <div className="w-1/3">
+                    <Image src="/lon.png" alt="lon" width={1341} height={989} />
+                  </div>
+                  <div className="">
+                    <p className="text-xl text-[#2563eb] font-bold pl-6 pb-2 border-b-2 border-[#f4d798] mb-2">Dinh dưỡng phát triển chiều cao vượt trội</p>
+                    <ul className="list-disc pl-6 py-4">
+                      <li className="flex gap-2 py-2">
+                        <div className="flex items-start">
+                          <Image src="/bt.png" alt="bt" width={28} height={28} />
+                        </div>
+                        <p>
+                          Bổ sung <span className="text-[#2563eb] font-bold">CBP</span> để xây dựng khung xương, tăng hấp thu Canxi vào xương
+                        </p>
+                      </li>
+                      <li className="flex gap-2 py-2">
+                        <div className="flex items-start">
+                          <Image src="/bt.png" alt="bt" width={28} height={28} />
+                        </div>
+                        <p>
+                          Bổ sung <span className="text-[#2563eb] font-bold">Canxi, vitamin D3, K</span> giúp xương chắc khỏe và dài ra nhanh chóng
+                        </p>
+                      </li>
+                      <li className="flex gap-2 py-2">
+                        <div className="flex items-start">
+                          <Image src="/bt.png" alt="bt" width={28} height={28} />
+                        </div>
+                        <p>
+                          <span className="text-[#2563eb] font-bold">2 ly Wowtop</span> mỗi ngày để bổ sung đầy đủ dưỡng chất giúp con phát triển chiều cao vượt trội
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {/* <div>
+                <h3 className="text-xl font-semibold uppercase mb-2">Giải pháp vận động:</h3>
+                <ul className="list-disc pl-6">
+                  <li>Khuyến khích <strong>bơi lội, nhảy dây, đạp xe, chơi bóng rổ</strong> để kích thích xương phát triển.</li>
+                  <li>Ngủ sớm trước 22h để tăng hormone tăng trưởng tự nhiên.</li>
+                </ul>
+              </div>
+              <p><strong>Dự đoán tiềm năng:</strong> Nếu duy trì chế độ dinh dưỡng và vận động hợp lý, bé có thể đạt chiều cao trên <strong>{heightTo20?.predictedHeightAt20} cm</strong> khi trưởng thành, và có thể cao thêm 5-15 cm so với dự đoán.</p> */}
+              <div>
+                <p className="py-2 px-4 bg-[#2563eb] rounded-2xl text-white text-center">Nếu duy trì chế độ dinh dưỡng và vận động hợp lý bé <strong>có thể cao thêm 5-15 cm so với chế độ dinh dưỡng thông thường</strong></p>
               </div>
             </div>
-            <div className="mb-4">
-              <p className="text-xl"><strong>{currentAge} tuổi là giai đoạn vàng để bứt phá chiều cao</strong>, cần bổ sung dưỡng chất đầy đủ để tối ưu hóa tiềm năng phát triển.</p>
-              {ketLuanGiaiDoan()}
-            </div>
-            <div className="mb-4">
-              <h3 className="text-xl font-semibold uppercase mb-2">Giải pháp dinh dưỡng:</h3>
-              <ul className="list-disc pl-6">
-                <li><strong>Dùng sữa Wowtop:</strong> 2 ly/ngày để bổ sung <strong>CBP, canxi, vitamin D3, K</strong> giúp xương chắc khỏe, dài ra nhanh chóng.</li>
-                <li><strong>Chế độ ăn khoa học:</strong> Bổ sung nhiều protein (thịt, cá, trứng, sữa), rau xanh, hạn chế đồ ngọt và nước có ga.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold uppercase mb-2">Giải pháp vận động:</h3>
-              <ul className="list-disc pl-6">
-                <li>Khuyến khích <strong>bơi lội, nhảy dây, đạp xe, chơi bóng rổ</strong> để kích thích xương phát triển.</li>
-                <li>Ngủ sớm trước 22h để tăng hormone tăng trưởng tự nhiên.</li>
-              </ul>
-            </div>
-            <p><strong>Dự đoán tiềm năng:</strong> Nếu duy trì chế độ dinh dưỡng và vận động hợp lý, bé có thể đạt chiều cao trên <strong>{heightTo20?.predictedHeightAt20} cm</strong> khi trưởng thành, và có thể cao thêm 5-15 cm so với dự đoán.</p>
           </div>
         </div>
       )}

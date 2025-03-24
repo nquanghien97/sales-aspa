@@ -16,6 +16,8 @@ export function heightCalculator(
     BOY:  [0, 11.4, 9.0, 7.2, 6.7, 6.0, 5.7, 5.6, 5.3, 5.2, 5.3, 6.0, 6.9, 7.2, 5.8, 3.9, 2.3, 0.9, 0, 0, 0]
   };
 
+  if (!currentHeight || !currentYear) return
+
   // Ensure the age is within the supported range
   if (currentYear < 0 || currentYear > 20) {
     return null; // Invalid year or month

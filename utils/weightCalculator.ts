@@ -14,6 +14,7 @@ export function weightCalculator(
     [Gender.BOY]:  [3.3, 6.3, 2.6, 2.1, 2.0, 2.0, 2.2, 2.4, 2.5, 2.7, 3.1, 3.8, 3.0, 5.0, 6.5, 6.0, 5.0, 4.0, 2.5, 2.0, 1.4]
   };
 
+  if (!currentWeight || !currentYear) return
   // Kiểm tra giá trị hợp lệ của currentYear (tuổi hiện tại)
   if (currentYear < 0 || currentYear >= 20) {
     return null; // Giá trị không hợp lệ
