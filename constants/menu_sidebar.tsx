@@ -19,16 +19,28 @@ export const menu_sidebar = [
     allowRole: ['ADMIN', 'USER']
   },
   {
+    title: 'Giới thiệu giải pháp',
+    url: '/gioi-thieu-giai-phap',
+    icon: <WomenIcon width={20} height={20} />,
+    allowRole: ['ADMIN', 'USER']
+  },
+  {
+    title: 'Chốt',
+    url: '/chot',
+    icon: <WomenIcon width={20} height={20} />,
+    allowRole: ['ADMIN', 'USER']
+  },
+  {
+    title: 'Giải đáp khách hàng',
+    url: '/giai-dap-khach-hang',
+    icon: <BanIcon width={20} height={20} />,
+    allowRole: ['ADMIN', 'USER']
+  },
+  {
     title: 'Quản lý người dùng',
     url: '/quan-ly-nguoi-dung',
     icon: <UsersIcon width={20} height={20} />,
     allowRole: ['ADMIN']
-  },
-  {
-    title: 'Xử lý từ chối',
-    url: '/xu-ly-tu-choi',
-    icon: <BanIcon width={20} height={20} />,
-    allowRole: ['ADMIN', 'USER']
   },
   {
     title: 'Quản lý tư liệu',

@@ -7,11 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ImageCategory {
-  salesPolicy
-  products
-  productDocuments
-  feedbacks
+enum FileCategory {
+  SALESPOLICY
+  PRODUCTS
+  PRODUCTDOCUMENTS
+  FEEDBACKS
 }
 
 enum TypeFile {
@@ -23,7 +23,7 @@ enum TypeFile {
 model files {
   id        Int           @id @default(autoincrement())
   url       String
-  category  ImageCategory
+  category  FileCategory
   type      TypeFile?
   imageName String
   authorId  Int

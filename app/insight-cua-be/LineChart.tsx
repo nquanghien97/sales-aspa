@@ -46,95 +46,65 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
         pointRadius: 4,
         pointHoverRadius: 6,
         datalabels: {
-          color: '#006cd8', // Màu chữ của dữ liệu
-          anchor: 'end', // Vị trí của nhãn dữ liệu
-          align: 'top', // Căn chỉnh nhãn dữ liệu
-          borderColor: '#006cd8',
-          font: {
-            weight: 'bold',
-          },
+          display: false 
         },
       },
       {
-        label: 'Suy dinh dưỡng nặng',
-        data: (data_bmi[gender]['-3SD']),
-        fill: true,
-        borderColor: '#a082e8',
+        label: 'Thiếu cân',
+        data: (data_bmi[gender]['5th']),
+        fill: '-1',
+        borderColor: 'white',
         tension: 0.1,
         pointRadius: 0,
-        backgroundColor: 'rgba(160, 130, 232, .5)',
+        backgroundColor: 'rgba(255, 255, 255, .5)',
         datalabels: {
           display: false
         }
       },
       {
-        label: 'Thiếu cân (Suy dinh dưỡng)',
-        data: (data_bmi[gender]['-2SD']),
+        label: 'Sức khỏe dinh dưỡng tốt',
+        data: (data_bmi[gender]['50th']),
         fill: '-1',
-        borderColor: '#ee2820',
+        borderColor: '#ccc',
         tension: 0.1,
         pointRadius: 0,
-        backgroundColor: 'rgba(238, 40, 32, .5)',
+        backgroundColor: 'rgba(208, 252, 201, .5)',
         datalabels: {
           display: false
         }
       },
       {
-        label: 'Dưới mức trung bình',
-        data: (data_bmi[gender]['-1SD']),
+        label: 'Sức khỏe dinh dưỡng tốt',
+        data: (data_bmi[gender]['85th']),
         fill: '-1',
-        borderColor: '#b20400',
+        borderColor: 'transparent',
         tension: 0.1,
         pointRadius: 0,
-        backgroundColor: 'rgba(178, 4, 0, .5)',
+        backgroundColor: 'rgba(208, 252, 201, .5)',
         datalabels: {
           display: false
         }
       },
       {
-        label: 'Bình thường (Cân đối)',
-        data: (data_bmi[gender]['Normal']),
+        label: 'Nguy cơ béo phì',
+        data: (data_bmi[gender]['95th']),
         fill: '-1',
-        borderColor: '#ab6702',
+        borderColor: 'transparent',
         tension: 0.1,
         pointRadius: 0,
-        backgroundColor: 'rgba(171, 103, 2, .5)',
-        datalabels: {
-          display: false
-        }
-      },
-      {
-        label: 'Trên mức trung bình (Thừa cân nhẹ)',
-        data: (data_bmi[gender]['+1SD']),
-        fill: '-1',
-        borderColor: '#ffd655',
-        tension: 0.1,
-        pointRadius: 0,
-        backgroundColor: 'rgba(255, 214, 85, .5)',
-        datalabels: {
-          display: false
-        },
-      },
-      {
-        label: 'Thừa cân',
-        data: (data_bmi[gender]['+2SD']),
-        fill: '-1',
-        borderColor: '#beea53',
-        tension: 0.1,
-        pointRadius: 0,
-        backgroundColor: 'rgba(190, 234, 83, .5)',
+        backgroundColor: 'rgba(251, 254, 167, .5)',
         datalabels: {
           display: false
         }
       },
       {
         label: 'Béo phì',
-        data: (data_bmi[gender]['+3SD']),
+        data: Array(labels.length).fill(35), // Điểm cao nhất để lấp đầy phía trên
         fill: '-1',
-        borderColor: '#4a9e2b',
+        borderColor: 'transparent', // Ẩn đường kẻ
         tension: 0.1,
         pointRadius: 0,
-        backgroundColor: 'rgba(74, 158, 43, .5)',
+        backgroundColor: 'rgba(249, 100, 106, .5)', // Màu đỏ
         datalabels: {
           display: false
         }
@@ -164,8 +134,8 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
       tooltip: {
         callbacks: {
           label: (context: unknown) => {
-            const age = (context as { raw: { x: number }}).raw.x; // Giá trị trục x (Tuổi)
-            const bmi = (context as { raw: { y: number }}).raw.y; // Giá trị trục y (BMI)
+            const age = (context as { raw: { x: number } }).raw.x; // Giá trị trục x (Tuổi)
+            const bmi = (context as { raw: { y: number } }).raw.y; // Giá trị trục y (BMI)
             return `Tuổi: ${age}, BMI: ${bmi}`;
           },
         },

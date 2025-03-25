@@ -12,6 +12,7 @@ import { weightCalculator } from '@/utils/weightCalculator'
 import { BMICalculator } from '@/utils/BMICalculator'
 import LineChart from './LineChart'
 import Image from 'next/image'
+import { data_bmi } from './data_bmi'
 
 const optionsGender = {
   BOY: 'Nam',
@@ -139,32 +140,44 @@ function Content() {
 
   const BMI = (Number(currentWeight)) / ((Number(currentHeight) / 100) * (Number(currentHeight) / 100))
   const ketLuanBMI = () => {
-    if (BMI < 18.5) {
+    if (BMI < data_bmi[gender!]['5th'][Number(currentAge)]) {
       return <strong>Bé nằm trong cân nặng: Thiếu cân</strong>
     }
-    if (BMI >= 18.5 && BMI < 24.9) {
-      return <strong>Bé nằm trong cân nặng: Trung Bình</strong>
+    if (BMI >= data_bmi[gender!]['5th'][Number(currentAge)] && BMI < data_bmi[gender!]['85th'][Number(currentAge)]) {
+      return <strong>Bé nằm trong cân nặng: Sức khỏe dinh dưỡng tốt</strong>
     }
-    if (BMI >= 25 && BMI < 29.9) {
-      return <strong>Bé nằm trong cân nặng: Thừa cân</strong>
+    if (BMI >= data_bmi[gender!]['85th'][Number(currentAge)] && BMI <= data_bmi[gender!]['95th'][Number(currentAge)]) {
+      return <strong>Bé nằm trong cân nặng: Nguy cơ béo phì</strong>
     }
-    if (BMI >= 30 && BMI < 34.9) {
+    if (BMI >= data_bmi[gender!]['95th'][Number(currentAge)]) {
       return <strong>Bé nằm trong cân nặng: Béo phì</strong>
-    }
-    if (BMI >= 50) {
-      return <strong>Bé nằm trong cân nặng: Cực kỳ béo phì</strong>
     }
   }
 
   const ketLuanGiaiDoan = () => {
-    if (0 < Number(currentAge) && Number(currentAge) <= 2) {
-      return <p><strong>Giai đoạn 1000 ngày đầu đời (0-2 tuổi): </strong>Giai đoạn quyết định 60% tiềm năng chiều cao tương lai, cần tập trung vào dinh dưỡng và phát triển xương nền tảng.</p>
+    if (0 < Number(currentAge) && Number(currentAge) < 3) {
+      return <p className="text-xl"><strong>Bé đang trong giai đoạn 1000 ngày đầu đời:</strong> Giai đoạn quyết định 50% tiềm năng chiều cao tương lai, cần tập trung vào dinh dưỡng và phát triển xương nền tảng.</p>
     }
-    if (Number(currentAge) > 3 && Number(currentAge) <= 12) {
-      return <p><strong>Giai đoạn vàng (3-12 tuổi): </strong>Trẻ phát triển đều đặn, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
+
+    if (3 <= Number(currentAge) && Number(currentAge) < 10 && gender === Gender.GIRL && puberty === 'no-puberty') {
+      return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
     }
-    if (Number(currentAge) > 12 && Number(currentAge) <= 18) {
-      return <p><strong>Giai đoạn bứt phá (12-18 tuổi): </strong>Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn.</p>
+    if (3 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.BOY && puberty === 'no-puberty') {
+      return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
+    }
+
+    if (10 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.GIRL && puberty === 'puberty') {
+      return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
+    }
+    if (12 <= Number(currentAge) && Number(currentAge) < 15 && gender === Gender.BOY && puberty === 'puberty') {
+      return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
+    }
+
+    if (12 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.GIRL && puberty === 'puberty') {
+      return <p className="text-xl"><strong>Giai đoạn sau dậy thì là giai đoạn cuối cùng để tăng chiều cao:</strong> Mỗi năm con sẽ cao thêm 1-2cm, nếu mẹ không nên bỏ lỡ cơ hội cuối cùng này của con.</p>
+    }
+    if (15 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.BOY && puberty === 'puberty') {
+      return <p className="text-xl"><strong>Giai đoạn sau dậy thì là giai đoạn cuối cùng để tăng chiều cao:</strong> Mỗi năm con sẽ cao thêm 1-2cm, nếu mẹ không nên bỏ lỡ cơ hội cuối cùng này của con.</p>
     }
   }
 
@@ -255,7 +268,6 @@ function Content() {
                 </div>
               </div>
               <div className="mb-4 w-full p-4 border-2xl bg-insight-item rounded-2xl">
-                <p className="text-xl"><strong>{currentAge} tuổi là giai đoạn vàng để bứt phá chiều cao</strong>, cần bổ sung dưỡng chất đầy đủ để tối ưu hóa tiềm năng phát triển.</p>
                 {ketLuanGiaiDoan()}
               </div>
               <div className="mb-4">
