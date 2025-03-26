@@ -33,7 +33,7 @@ function CreateFiles(props: CreateFilesProps) {
       });
       
       await createFiles({
-        category: 'salesPolicy',
+        category: 'SALES_POLICY',
         data: formData
       })
       toast.success('Tạo tư liệu thành công')
