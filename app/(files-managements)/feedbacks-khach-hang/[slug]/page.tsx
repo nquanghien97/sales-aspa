@@ -18,6 +18,8 @@ import { useFileCategories } from '@/zustand/file-categories';
 import { useParams } from 'next/navigation';
 import CreateFiles from './(actions)/CreateFiles';
 import DeleteFile from './(actions)/DeleteFile';
+import EditIcon from '@/assets/icons/EditIcon';
+import UpdateFileCategory from './(actions)/UpdateFileCategory';
 
 function FeedbacksSlug() {
   const [files, setFiles] = useState<FilesEntity[]>([]);
@@ -28,9 +30,11 @@ function FeedbacksSlug() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [isOpenCreateFiles, setIsOpenCreateFiles] = useState(false);
-  const [isOpenDeleteFiles, setIsOpenDelete] = useState(false);
+  const [isOpenDeleteFiles, setIsOpenDeleteFiles] = useState(false);
+  const [isOpenEditFiles, setIsOpenEditFiles] = useState(false);
   const [refreshKey, setRefreshKey] = useState(false);
   const [fileId, setFileId] = useState<number>();
+  const [file, setFile] = useState<FilesEntity>()
 
   const params = useParams();
 
@@ -78,7 +82,8 @@ function FeedbacksSlug() {
   return (
     <div>
       <CreateFiles open={isOpenCreateFiles} onClose={() => setIsOpenCreateFiles(false)} setRefreshKey={setRefreshKey} />
-      {fileId && <DeleteFile open={isOpenDeleteFiles} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} id={fileId} />}
+      {file && <UpdateFileCategory open={isOpenEditFiles} onClose={() => setIsOpenEditFiles(false)} setRefreshKey={setRefreshKey} file={file} />}
+      {fileId && <DeleteFile open={isOpenDeleteFiles} onClose={() => setIsOpenDeleteFiles(false)} setRefreshKey={setRefreshKey} id={fileId} />}
       <h1 className="text-center text-4xl font-bold mb-4 py-4">Feedback Khách hàng</h1>
       {me?.role === 'ADMIN' && (
         <div className="mb-4 flex gap-2">
@@ -121,10 +126,22 @@ function FeedbacksSlug() {
                       </Button>
                       {me?.role === 'ADMIN' && (
                         <Button
+                          variant='primary'
+                          className="w-full"
+                          onClick={() => {
+                            setIsOpenEditFiles(true)
+                            setFile(file)
+                          }}
+                        >
+                          <EditIcon title='Cập nhật danh mục' />
+                        </Button>
+                      )}
+                      {me?.role === 'ADMIN' && (
+                        <Button
                           variant='danger'
                           className="w-full"
                           onClick={() => {
-                            setIsOpenDelete(true)
+                            setIsOpenDeleteFiles(true)
                             setFileId(file.id)
                           }}>
                           <DeleteIcon title='Xóa' />
@@ -156,10 +173,22 @@ function FeedbacksSlug() {
                       </Button>
                       {me?.role === 'ADMIN' && (
                         <Button
+                          variant='primary'
+                          className="w-full"
+                          onClick={() => {
+                            setIsOpenEditFiles(true)
+                            setFileId(file.id)
+                          }}
+                        >
+                          <EditIcon title='Cập nhật danh mục' />
+                        </Button>
+                      )}
+                      {me?.role === 'ADMIN' && (
+                        <Button
                           variant='danger'
                           className="w-full"
                           onClick={() => {
-                            setIsOpenDelete(true)
+                            setIsOpenDeleteFiles(true)
                             setFileId(file.id)
                           }}>
                           <DeleteIcon title='Xóa' />
@@ -184,10 +213,22 @@ function FeedbacksSlug() {
                       </Button>
                       {me?.role === 'ADMIN' && (
                         <Button
+                          variant='primary'
+                          className="w-full"
+                          onClick={() => {
+                            setIsOpenEditFiles(true)
+                            setFileId(file.id)
+                          }}
+                        >
+                          <EditIcon title='Cập nhật danh mục' />
+                        </Button>
+                      )}
+                      {me?.role === 'ADMIN' && (
+                        <Button
                           variant='danger'
                           className="w-full"
                           onClick={() => {
-                            setIsOpenDelete(true)
+                            setIsOpenDeleteFiles(true)
                             setFileId(file.id)
                           }}>
                           <DeleteIcon title='Xóa' />

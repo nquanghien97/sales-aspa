@@ -18,7 +18,6 @@ function CreateFiles(props: CreateFilesProps) {
   const [loading, setLoading] = useState(false);
 
   const params = useParams()
-  console.log(params)
 
   const [form] = Form.useForm();
 

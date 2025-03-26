@@ -25,9 +25,9 @@ model files {
   url              String          @db.LongText
   type             FILE_TYPE
   fileName         String?
-  fileCategorySlug String
+  fileCategorySlug String?
   category         FILE_CATEGORY
-  fileCategory     file_categories @relation(fields: [fileCategorySlug], references: [slug], onDelete: Cascade)
+  fileCategory     file_categories? @relation(fields: [fileCategorySlug], references: [slug], onDelete: Cascade)
   authorId         Int
   author           user            @relation(fields: [authorId], references: [id])
   createdAt        DateTime        @default(now())

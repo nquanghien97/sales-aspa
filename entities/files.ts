@@ -7,6 +7,7 @@ export interface FilesEntity {
   insightMotherId: number;
   authorId: number;
   url: string;
+  fileCategorySlug: string;
   type: 'image' | 'video'
   fileName: string;
   author: UserEntity

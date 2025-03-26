@@ -26,3 +26,13 @@ export function deleteFile({ id } : { id: number }) {
     method: 'DELETE',
   })
 }
+
+export function updateFileCategory({ id, fileCategorySlug }: { id: number, fileCategorySlug: string }) {
+  return api(`/api/update-file-category/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ fileCategorySlug }),
+  })
+}
