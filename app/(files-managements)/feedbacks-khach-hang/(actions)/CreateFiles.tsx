@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/Button';
 import LoadingIcon from '@/components/ui/LoadingIcon';
-import Modal from '@/components/ui/Modal';
 import { createFiles } from '@/services/files';
-import { Form, Upload, Image, UploadFile } from 'antd';
+import { useFileCategories } from '@/zustand/file-categories';
+import { Form, Upload, Image, UploadFile, Select, Modal } from 'antd';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 
@@ -18,22 +18,23 @@ function CreateFiles(props: CreateFilesProps) {
   const [loading, setLoading] = useState(false);
 
   const [form] = Form.useForm();
+  const { fileCategories } = useFileCategories()
 
   const handleClose = () => {
     onClose();
     setFeedbacks([])
   }
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: { slug: string }) => {
     setLoading(true);
     try {
       const formData = new FormData();
       feedbacks.forEach((file) => {
-        formData.append("feedbacks", file as unknown as File); // Không có [] trong key
+        formData.append("FEEDBACKS", file as unknown as File); // Không có [] trong key
       });
-
+      formData.append('slug', data.slug)
       await createFiles({
-        category: 'feedbacks',
+        category: 'FEEDBACKS',
         data: formData
       })
       toast.success('Tạo tư liệu thành công')
@@ -50,13 +51,18 @@ function CreateFiles(props: CreateFilesProps) {
   }
 
   return (
-    <Modal open={open} onClose={onClose} className="w-1/2">
+    <Modal
+      open={open}
+      onClose={onClose}
+      className="!w-1/2"
+      footer={false}
+    >
       <h1 className="mb-4 text-2xl font-bold text-center">Thêm mới nội dung</h1>
       <div>
         <Form form={form} onFinish={onSubmit}>
           <div className="flex items-center flex-col py-4 border-b mb-4">
-            <div className="flex items-center w-full h-full">
-              <p className="w-[150px] text-left text-[#2563eb]">Chính sách bán hàng</p>
+            <div className="flex items-center w-full h-full mb-4">
+              <p className="w-[106px] text-left text-[#2563eb]">Chọn file</p>
               <div className="flex items-center flex-1">
                 <Form.Item name="feedbacks" className="!m-0">
                   <Upload
@@ -103,6 +109,21 @@ function CreateFiles(props: CreateFilesProps) {
                   </div>
                 )}
               </div>
+            </div>
+            <div className="flex items-center h-[48px] w-full mb-6">
+              <p className="w-[106px] text-left text-[#2563eb]">Danh mục</p>
+              <Form.Item
+                className="!mb-0 w-full flex-1"
+                name="slug"
+                rules={[
+                  {
+                    required: true,
+                    message: "Trường này là bắt buộc"
+                  },
+                ]}
+              >
+                <Select options={fileCategories?.map(item => ({ label: item.title, value: item.slug }))} placeholder="Chọn danh mục" />
+              </Form.Item>
             </div>
           </div>
           <div className="flex justify-center gap-4">

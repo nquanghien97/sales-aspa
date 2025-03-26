@@ -15,7 +15,7 @@ export async function uploadFile(files: File[], folderPath: string) {
     return {
       filename: `/files/${folderPath}/${filename}`,
       type,
-      imageName: file.name
+      fileName: file.name
     }
   });
 

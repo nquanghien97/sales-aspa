@@ -12,12 +12,14 @@ import { getFiles } from '@/services/files';
 import { useAuthStore } from '@/zustand/auth.store';
 import { Image } from 'antd';
 import React, { useEffect, useState } from 'react'
-import CreateFiles from './actions/CreateFiles';
 import DeleteIcon from '@/assets/icons/DeleteIcon';
-import DeleteFile from './actions/DeleteFile';
 import withAuth from '@/hocs/withAuth';
+import { useFileCategories } from '@/zustand/file-categories';
+import { useParams } from 'next/navigation';
+import CreateFiles from './(actions)/CreateFiles';
+import DeleteFile from './(actions)/DeleteFile';
 
-function Products() {
+function FeedbacksSlug() {
   const [files, setFiles] = useState<FilesEntity[]>([]);
   const [searchParams, setSearchParams] = useState({});
   const [page, setPage] = useState(1);
@@ -30,10 +32,13 @@ function Products() {
   const [refreshKey, setRefreshKey] = useState(false);
   const [fileId, setFileId] = useState<number>();
 
-  const { me } = useAuthStore()
+  const params = useParams();
+
+  const { me } = useAuthStore();
+  const { getFileCategories } = useFileCategories();
 
   useEffect(() => {
-    document.title = 'Sản phẩm'
+    document.title = 'Feedback Khách hàng'
   }, [])
 
   const onSearch = () => {
@@ -45,13 +50,20 @@ function Products() {
 
   useEffect(() => {
     (async () => {
+      await getFileCategories();
+    })()
+  }, [getFileCategories, refreshKey])
+
+  useEffect(() => {
+    (async () => {
       setLoading(true);
       try {
         const res = await getFiles({
           ...searchParams,
           page,
           pageSize,
-          category: 'PRODUCTS',
+          category: 'FEEDBACKS',
+          slug: params.slug as string,
         })
         setFiles(res.files);
         setTotal(res.total);
@@ -61,17 +73,18 @@ function Products() {
         setLoading(false);
       }
     })()
-  }, [page, pageSize, searchParams, refreshKey])
+  }, [page, pageSize, searchParams, refreshKey, params.slug])
 
   return (
-    <div className="px-4">
+    <div>
       <CreateFiles open={isOpenCreateFiles} onClose={() => setIsOpenCreateFiles(false)} setRefreshKey={setRefreshKey} />
       {fileId && <DeleteFile open={isOpenDeleteFiles} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} id={fileId} />}
-      <h1 className="text-center text-4xl font-bold mb-4 py-4">Sản phẩm</h1>
+      <h1 className="text-center text-4xl font-bold mb-4 py-4">Feedback Khách hàng</h1>
       {me?.role === 'ADMIN' && (
-        <div className="mb-4">
+        <div className="mb-4 flex gap-2">
           <Button variant='primary' onClick={() => setIsOpenCreateFiles(true)}>Thêm tư liệu</Button>
         </div>
+        
       )}
       <div className="mb-2">
         <div className="flex items-center gap-2 w-full">
@@ -98,7 +111,7 @@ function Products() {
                       <Image className="border-2 m-auto cursor-pointer" width={180} height={180} src={`/api${file.url}`} alt="preview avatar" />
                     </Image.PreviewGroup>
                     <div className="flex justify-center max-w-[180px] flex-1">
-                      <span className="break-words">{file.imageName}</span>
+                      <span className="break-words">{file.fileName}</span>
                     </div>
                     <div className="flex w-full">
                       <Button variant='primary' className="w-full">
@@ -126,14 +139,14 @@ function Products() {
                   <div key={index} className="flex flex-col gap-2">
                     <video
                       controls
-                      width={300}
-                      height={300}
+                      width={180}
+                      height={180}
                       className='h-[180px] w-full'
                     >
                       <source className="border-2 m-auto cursor-pointer" width={100} height={100} src={`/api${file.url}`} />
                     </video>
                     <div className="flex justify-center flex-1">
-                      <span className="break-words">{file.imageName}</span>
+                      <span className="break-words">{file.fileName}</span>
                     </div>
                     <div className="flex w-full">
                       <Button variant='primary' className="w-full">
@@ -161,7 +174,7 @@ function Products() {
                   <div key={index} className="flex flex-col gap-2">
                     <Image src="/pdf-image.png" alt="pdf-image" width={180} height={180} />
                     <div className="flex justify-center flex-1 max-w-[180px]">
-                      <span className="w-[180px] break-words">{file.imageName}</span>
+                      <span className="w-[180px] break-words">{file.fileName}</span>
                     </div>
                     <div className="flex w-full">
                       <Button variant='primary' className="w-full">
@@ -226,6 +239,6 @@ function Products() {
   )
 }
 
-const ProductsWithAuth = withAuth(Products)
+const FeedbackWithAuth = withAuth(FeedbacksSlug)
 
-export default ProductsWithAuth
+export default FeedbackWithAuth

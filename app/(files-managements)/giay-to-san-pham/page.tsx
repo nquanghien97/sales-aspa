@@ -51,7 +51,7 @@ function ProductDocuments() {
           ...searchParams,
           page,
           pageSize,
-          category: 'productDocuments',
+          category: 'PRODUCT_DOCUMENTS',
         })
         setFiles(res.files);
         setTotal(res.total);

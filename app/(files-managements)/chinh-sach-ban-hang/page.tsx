@@ -51,7 +51,7 @@ function SalesPolicy() {
           ...searchParams,
           page,
           pageSize,
-          category: 'salesPolicy',
+          category: 'SALES_POLICY',
         })
         setFiles(res.files);
         setTotal(res.total);

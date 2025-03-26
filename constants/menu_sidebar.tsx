@@ -1,71 +1,94 @@
 import BanIcon from "@/assets/icons/BanIcon";
 import ChildrenIcon from "@/assets/icons/ChildrenIcon";
+import DocumentIcon from "@/assets/icons/DocumentIcon";
+import FeedbackIcon from "@/assets/icons/FeedbackIcon";
 import FilesIcon from "@/assets/icons/FilesIcon";
+import PolicyIcon from "@/assets/icons/PolicyIcon";
+import ProductIcon from "@/assets/icons/ProductIcon";
 import ProposalIcon from "@/assets/icons/Proposal";
 import UsersIcon from "@/assets/icons/UsersIcon";
 import WomenIcon from "@/assets/icons/WomenIcon";
+import { FILE_CATEGORY } from "@prisma/client";
+import { JSX } from "react";
 
-export const menu_sidebar = [
+export interface MenuType {
+  title: string;
+  url: string;
+  icon?: JSX.Element;
+  allowRole?: string[];
+  children?: MenuType[];
+  category?: FILE_CATEGORY
+}
+
+export const menu_sidebar: MenuType[] = [
   {
     title: 'INSIGHT CỦA BÉ',
     url: '/insight-cua-be',
-    icon: <ChildrenIcon width={20} height={20} />,
+    icon: <ChildrenIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },
   {
     title: 'INSIGHT CỦA MẸ',
     url: '/insight-cua-me',
-    icon: <WomenIcon width={20} height={20} />,
+    icon: <WomenIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },
   {
     title: 'Giới thiệu giải pháp',
     url: '/gioi-thieu-giai-phap',
-    icon: <WomenIcon width={20} height={20} />,
+    icon: <WomenIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },
   {
     title: 'Chốt',
     url: '/chot',
-    icon: <WomenIcon width={20} height={20} />,
+    icon: <WomenIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },
   {
     title: 'Giải đáp khách hàng',
     url: '/giai-dap-khach-hang',
-    icon: <BanIcon width={20} height={20} />,
+    icon: <BanIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },
   {
     title: 'Quản lý người dùng',
     url: '/quan-ly-nguoi-dung',
-    icon: <UsersIcon width={20} height={20} />,
+    icon: <UsersIcon width={16} height={16} />,
     allowRole: ['ADMIN']
   },
   {
     title: 'Quản lý tư liệu',
     url: '#',
-    icon: <FilesIcon width={20} height={20} />,
+    icon: <FilesIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER'],
     children: [
       {
         title: 'Chính sách bán hàng',
         url: '/chinh-sach-ban-hang',
-        allowRole: ['ADMIN', 'USER']
+        icon: <PolicyIcon width={16} height={16} />,
+        category: 'SALES_POLICY',
+        allowRole: ['ADMIN', 'USER'],
       },
       {
         title: 'Sản phẩm',
         url: '/san-pham',
+        icon: <ProductIcon width={16} height={16} />,
+        category: 'PRODUCTS',
         allowRole: ['ADMIN', 'USER']
       },
       {
         title: 'Giấy tờ sản phẩm',
         url: '/giay-to-san-pham',
+        icon: <DocumentIcon width={16} height={16} />,
+        category: 'PRODUCT_DOCUMENTS',
         allowRole: ['ADMIN', 'USER']
       },
       {
         title: 'Feedback KH',
         url: '/feedbacks-khach-hang',
+        icon: <FeedbackIcon width={16} height={16} />,
+        category: 'FEEDBACKS',
         allowRole: ['ADMIN', 'USER']
       }
     ]
@@ -73,7 +96,7 @@ export const menu_sidebar = [
   {
     title: 'Đề xuất',
     url: '/de-xuat',
-    icon: <ProposalIcon width={20} height={20} />,
+    icon: <ProposalIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   }
 ]

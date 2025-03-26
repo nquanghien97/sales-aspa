@@ -1,23 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/token';
-import { ImageCategory } from '@prisma/client';
+import { FILE_CATEGORY } from '@prisma/client';
 import { uploadFile } from '@/utils/fileUpload';
 import prisma from '@/lib/db';
 
-const folderName: Record<ImageCategory, string> = {
-  salesPolicy: 'sales-policy',
-  products: 'products',
-  productDocuments: 'product-documents',
-  feedbacks: 'feedbacks',
+const folderName: Record<FILE_CATEGORY, string> = {
+  SALES_POLICY: 'sales-policy',
+  PRODUCTS: 'products',
+  PRODUCT_DOCUMENTS: 'product-documents',
+  FEEDBACKS: 'feedbacks',
 }
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ category: string }> }
 ) {
   try {
-    const { category } = await params as unknown as { category: ImageCategory };
+    const { category } = await params as unknown as { category: FILE_CATEGORY };
     const formData = await req.formData();
     const data = formData.getAll(category) as File[];
+    const slug = formData.get('slug') as string
 
     const authorization = req.headers.get('authorization');
     const token = authorization?.split(' ')[1];
@@ -48,7 +49,8 @@ export async function POST(
         url: filename.filename,
         type: filename.type,
         category,
-        imageName: filename.imageName,
+        fileName: filename.fileName,
+        fileCategorySlug: slug,
         authorId: Number(user.user_id)
       }))
     }
@@ -56,6 +58,7 @@ export async function POST(
     if (dataFiles().length > 0) {
       await prisma.files.createMany({ data: dataFiles() })
     }
+
     return NextResponse.json({
       success: true,
       message: "Tạo data thành công",

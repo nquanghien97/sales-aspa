@@ -1,15 +1,12 @@
 'use client';
 
+import { MenuType } from '@/constants/menu_sidebar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { JSX } from 'react'
+import React from 'react'
 
 interface SidebarItemProps {
-  menu: {
-    title: string;
-    url: string;
-    icon?: JSX.Element
-  }
+  menu: MenuType
 }
 
 function SidebarItem(props: SidebarItemProps) {
@@ -19,7 +16,7 @@ function SidebarItem(props: SidebarItemProps) {
   const isPathActive = pathname === menu.url
 
   return (
-    <Link className={`flex items-center gap-1 p-2 mb-2 hover:text-[#716aca] font-bold duration-300 uppercase ${isPathActive ? 'text-[#716aca]' : ''}`} href={menu.url}>
+    <Link className={`flex items-center gap-1 p-2 hover:text-[#716aca] font-bold duration-300 uppercase ${isPathActive ? 'text-[#716aca]' : ''}`} href={menu.url}>
       {menu.icon}
       {menu.title}
     </Link>

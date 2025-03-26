@@ -1,13 +1,13 @@
-import { ImageCategory } from "@prisma/client";
+import { FILE_CATEGORY } from "@prisma/client";
 import { UserEntity } from "./user";
 
 export interface FilesEntity {
   id: number;
-  category: ImageCategory;
+  category: FILE_CATEGORY;
   insightMotherId: number;
   authorId: number;
   url: string;
   type: 'image' | 'video'
-  imageName: string;
+  fileName: string;
   author: UserEntity
 }

@@ -7,28 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum FileCategory {
-  SALESPOLICY
+enum FILE_CATEGORY {
+  SALES_POLICY
   PRODUCTS
-  PRODUCTDOCUMENTS
+  PRODUCT_DOCUMENTS
   FEEDBACKS
 }
 
-enum TypeFile {
+enum FILE_TYPE {
   image
   video
   pdf
 }
 
 model files {
-  id        Int           @id @default(autoincrement())
-  url       String
-  category  FileCategory
-  type      TypeFile?
-  imageName String
-  authorId  Int
-  author    user          @relation(fields: [authorId], references: [id])
-  createdAt DateTime      @default(now())
+  id               Int             @id @default(autoincrement())
+  url              String          @db.LongText
+  type             FILE_TYPE
+  fileName         String?
+  fileCategorySlug String
+  category         FILE_CATEGORY
+  fileCategory     file_categories @relation(fields: [fileCategorySlug], references: [slug], onDelete: Cascade)
+  authorId         Int
+  author           user            @relation(fields: [authorId], references: [id])
+  createdAt        DateTime        @default(now())
 }
 
 model user {
@@ -66,6 +68,17 @@ model category {
   category  CATEGORY
 
   proposal proposal[]
+}
+
+model file_categories {
+  id        Int           @id @default(autoincrement())
+  title     String
+  slug      String        @unique
+  category  FILE_CATEGORY
+  order     Int           @default(0)
+  createdAt DateTime      @default(now())
+
+  files files[]
 }
 
 enum PROPOSAL_STATUS {
