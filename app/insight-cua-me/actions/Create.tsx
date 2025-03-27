@@ -6,7 +6,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Form } from "antd";
-import { createCategory } from '@/services/category'
+import { createInsightMother } from '@/services/insight-mother'
 
 interface CreateUserProps {
   open: boolean
@@ -22,13 +22,15 @@ function CreateUser(props: CreateUserProps) {
   const { open, onClose, setRefreshKey } = props;
 
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState('')
+  const [explain, setExplain] = useState('');
+  const [solution, setSolution] = useState('')
 
   const [form] = Form.useForm();
 
   const handleClose = () => {
     onClose();
-    setContent('')
+    setExplain('')
+    setSolution('')
     form.setFieldsValue({
       keyword: '',
     })
@@ -38,10 +40,10 @@ function CreateUser(props: CreateUserProps) {
     setLoading(true);
     try {
       
-      await createCategory({
+      await createInsightMother({
         keyword: data.keyword,
-        content,
-        category: 'INSIGHT_MOTHER'
+        explain,
+        solution,
       })
       
       setRefreshKey(pre => !pre);
@@ -66,7 +68,7 @@ function CreateUser(props: CreateUserProps) {
       <div>
         <Form form={form} onFinish={onSubmit} initialValues={{ keyword: '' }}>
           <div className="flex items-center h-[40px] mb-6">
-            <p className="w-[106px] text-left text-[#2563eb]">Từ khóa</p>
+            <p className="w-[106px] text-left text-[#2563eb]">Trường hợp</p>
             <Form.Item
               className="!mb-0 w-full flex-1"
               name="keyword"
@@ -82,11 +84,36 @@ function CreateUser(props: CreateUserProps) {
           </div>
           <div className="mb-4">
             <div className="flex items-center mb-2">
-              <p className="w-[106px] text-left text-[#2563eb]">Nội dung</p>
+              <p className="w-[106px] text-left text-[#2563eb]">Giải thích nguyên nhân</p>
               <Editor
                 apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
-                value={content}
-                onEditorChange={(newContent) => setContent(newContent)}
+                value={explain}
+                onEditorChange={(newContent) => setExplain(newContent)}
+                init={{
+                  height: 300,
+                  flex: 1,
+                  menubar: false,
+                  extended_valid_elements: "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
+                  valid_elements: '*[*]',
+                  plugins: [
+                    'table',
+                    'media',
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | ' +
+                    'alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | table | forecolor | removeformat | media'
+                }}
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <div className="flex items-center mb-2">
+              <p className="w-[106px] text-left text-[#2563eb]">Giải pháp</p>
+              <Editor
+                apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
+                value={solution}
+                onEditorChange={(newContent) => setSolution(newContent)}
                 init={{
                   height: 300,
                   flex: 1,

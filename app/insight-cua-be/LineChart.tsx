@@ -53,7 +53,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
         label: 'Thiếu cân',
         data: (data_bmi[gender]['5th']),
         fill: '-1',
-        borderColor: 'white',
+        borderColor: '#ccc',
         tension: 0.1,
         pointRadius: 0,
         backgroundColor: 'rgba(255, 255, 255, .5)',
@@ -61,23 +61,23 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
           display: false
         }
       },
-      {
-        label: 'Sức khỏe dinh dưỡng tốt',
-        data: (data_bmi[gender]['50th']),
-        fill: '-1',
-        borderColor: '#ccc',
-        tension: 0.1,
-        pointRadius: 0,
-        backgroundColor: 'rgba(208, 252, 201, .5)',
-        datalabels: {
-          display: false
-        }
-      },
+      // {
+      //   label: 'Sức khỏe dinh dưỡng tốt',
+      //   data: (data_bmi[gender]['50th']),
+      //   fill: '-1',
+      //   borderColor: '#ccc',
+      //   tension: 0.1,
+      //   pointRadius: 0,
+      //   backgroundColor: 'rgba(208, 252, 201, .5)',
+      //   datalabels: {
+      //     display: false
+      //   }
+      // },
       {
         label: 'Sức khỏe dinh dưỡng tốt',
         data: (data_bmi[gender]['85th']),
         fill: '-1',
-        borderColor: 'transparent',
+        borderColor: '#ccc',
         tension: 0.1,
         pointRadius: 0,
         backgroundColor: 'rgba(208, 252, 201, .5)',

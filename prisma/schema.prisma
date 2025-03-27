@@ -21,16 +21,16 @@ enum FILE_TYPE {
 }
 
 model files {
-  id               Int             @id @default(autoincrement())
-  url              String          @db.LongText
+  id               Int              @id @default(autoincrement())
+  url              String           @db.LongText
   type             FILE_TYPE
   fileName         String?
   fileCategorySlug String?
   category         FILE_CATEGORY
   fileCategory     file_categories? @relation(fields: [fileCategorySlug], references: [slug], onDelete: Cascade)
   authorId         Int
-  author           user            @relation(fields: [authorId], references: [id])
-  createdAt        DateTime        @default(now())
+  author           user             @relation(fields: [authorId], references: [id])
+  createdAt        DateTime         @default(now())
 }
 
 model user {
@@ -53,9 +53,19 @@ enum user_role {
   ADMIN
 }
 
+model insight_mother {
+  id        Int      @id @default(autoincrement())
+  keyword   String
+  explain   String   @db.LongText
+  solution  String   @db.LongText
+  createdAt DateTime @default(now())
+}
+
 enum CATEGORY {
   INSIGHT_MOTHER
   HANDLE_REJECTION
+  INTRODUCE_SOLUTION
+  CONFIRM
 }
 
 model category {

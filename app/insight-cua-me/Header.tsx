@@ -1,27 +1,33 @@
 'use client'
 
-import SearchIcon from '@/assets/icons/SearchIcon'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
 import React, { useState } from 'react'
 import Create from './actions/Create'
-import { UserParams } from '@/dto/user'
+import { Button, Form, Select } from 'antd'
+import { data_milk } from './data_milk'
+import { options_keyword } from './options_keyword'
 
 interface HeaderProps {
-  setSearchParams: React.Dispatch<React.SetStateAction<UserParams>>
+  setSearchParams: React.Dispatch<React.SetStateAction<{
+    page?: number;
+    pageSize?: string;
+    search?: string;
+  }>>
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
+  setMilkId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
 function Header(props: HeaderProps) {
-  const { setSearchParams, setRefreshKey } = props;
-  const [inputValue, setInputValue] = useState('');
+  const { setSearchParams, setRefreshKey, setMilkId } = props;
   const [isOpenCreate, setIsOpenCreate] = useState(false);
 
-  const onSearch = () => {
+  const [form] = Form.useForm();
+
+  const onSubmit = (data: { keyword: string, milkId: number }) => {
     setSearchParams(pre => ({
       ...pre,
-      search: inputValue
+      search: data.keyword
     }))
+    setMilkId(data.milkId)
     setRefreshKey(pre => !pre)
   }
   return (
@@ -29,18 +35,43 @@ function Header(props: HeaderProps) {
       {<Create open={isOpenCreate} onClose={() => setIsOpenCreate(false)} setRefreshKey={setRefreshKey} />}
       <div className="mb-2">
         <div className="mb-2">
-          <Button variant='primary' onClick={() => setIsOpenCreate(true)}>Thêm mới</Button>
+          <Button type='primary' onClick={() => setIsOpenCreate(true)}>Thêm mới</Button>
         </div>
-        <div className="flex items-center gap-2 w-full">
-          <Input
-            placeholder='Tìm kiếm từ khóa'
-            icon={<SearchIcon />}
-            className="w-1/2"
-            onChange={(e) => setInputValue(e.target.value)}
-            value={inputValue}
-          />
-          <Button variant='primary' onClick={onSearch}>Tìm kiếm</Button>
-        </div>
+        <Form form={form} onFinish={onSubmit} className="flex gap-2 items-start py-4">
+          <div className="flex items-center w-full">
+            <Form.Item
+              className="!mb-0 w-full flex-1"
+              name="milkId"
+              rules={[
+                {
+                  required: true,
+                  message: "Trường này là bắt buộc"
+                },
+              ]}
+            >
+              <Select options={data_milk.map(milk => ({ label: milk.name, value: milk.id }))} placeholder="Loại sữa đang dùng" />
+            </Form.Item>
+          </div>
+          <div className="flex items-center w-full">
+            <Form.Item
+              className="!mb-0 w-full flex-1"
+              name="keyword"
+              rules={[
+                {
+                  required: true,
+                  message: "Trường này là bắt buộc"
+                },
+              ]}
+            >
+              <Select className="flex-1" options={options_keyword} placeholder="Trường hợp" />
+            </Form.Item>
+          </div>
+          <div className="flex items-center justify-center">
+            <Button htmlType="submit" type='primary'>
+              Tìm kiếm
+            </Button>
+          </div>
+        </Form>
       </div>
     </>
   )

@@ -43,7 +43,7 @@ export default function RootLayout({
         ) : (
           <div className="flex">
             <Sidebar menuSidebar={menuSidebar}  />
-            <main className="p-2 bg-[#faf2de] w-[calc(100%-240px)] h-screen">
+            <main className="bg-[#faf2de] w-[calc(100%-240px)] h-screen">
               {children}
             </main>
           </div>

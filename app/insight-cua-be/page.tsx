@@ -24,7 +24,7 @@ function Content() {
   const [gender, setGender] = useState<Gender>();
   const [currentAge, setCurrentAge] = useState('');
   const [dataResponse, setDataResponse] = useState<{ title?: ReactNode, content?: JSX.Element }>();
-  const [puberty, setPuberty] = useState<'puberty' | 'no-puberty' | undefined>()
+  const [puberty, setPuberty] = useState<'pre-puberty' | 'puberty' | 'post-puberty' | undefined>()
   const [errorMessage, setErrorMessage] = useState<{ currentHeight?: string, currentWeight?: string, gender?: string, currentAge?: string, puberty?: string }>({
     currentHeight: '',
     currentWeight: '',
@@ -71,7 +71,7 @@ function Content() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleCheckboxChange = (value: 'puberty' | 'no-puberty') => {
+  const handleCheckboxChange = (value: 'pre-puberty' | 'puberty' | 'post-puberty') => {
     if (puberty === value) {
       setPuberty(undefined);
     } else {
@@ -106,51 +106,51 @@ function Content() {
     })
   }
 
-  const ketLuanDayThi = () => {
-    if (gender === 'BOY') {
-      if (+currentAge >= 8 && +currentAge <= 11) {
-        return <p>Hiện bé nhà mình đang trong giai đoạn <strong>tiền dậy thì nha mẹ</strong></p>
-      }
-      if (puberty === 'puberty') {
-        return <p>Hiện bé nhà mình đang trong giai đoạn <strong>dậy thì nha mẹ</strong></p>
-      }
-      return <p>Hiện bé nhà mình đang trong giai đoạn <strong>vàng để phát triền chiều cao và cân nặng nha mẹ</strong></p>
-    }
-  }
+  // const ketLuanDayThi = () => {
+  //   if (gender === 'BOY') {
+  //     if (+currentAge >= 8 && +currentAge <= 11) {
+  //       return <p>Hiện bé nhà mình đang trong giai đoạn <strong>tiền dậy thì nha mẹ</strong></p>
+  //     }
+  //     if (puberty === 'puberty') {
+  //       return <p>Hiện bé nhà mình đang trong giai đoạn <strong>dậy thì nha mẹ</strong></p>
+  //     }
+  //     return <p>Hiện bé nhà mình đang trong giai đoạn <strong>vàng để phát triền chiều cao và cân nặng nha mẹ</strong></p>
+  //   }
+  // }
 
   const ketLuanChieuCao = () => {
     if (+currentHeight < heightBelowStandard) {
-      return <strong>thấp hơn {(data_height?.[gender!]?.[+currentAge] - +currentHeight).toFixed(2)} cm so với tiêu chuẩn</strong>
+      return <span>thấp hơn <strong>{(data_height?.[gender!]?.[+currentAge] - +currentHeight).toFixed(2)} cm</strong> so với tiêu chuẩn</span>
     }
     if (+currentHeight > heightAboveStandard) {
-      return <strong>cao hơn {(+currentHeight - data_height?.[gender!]?.[+currentAge]).toFixed(2)} cm so với tiêu chuẩn</strong>
+      return <span>cao hơn <strong>{(+currentHeight - data_height?.[gender!]?.[+currentAge]).toFixed(2)} cm</strong> so với tiêu chuẩn</span>
     }
-    return <strong>đạt chiều cao tiêu chuẩn</strong>
+    return <span>đạt chiều cao tiêu chuẩn</span>
   }
 
-  const ketLuanCanNang = () => {
-    if (+currentWeight < weightBelowStandard) {
-      return <strong>nhẹ hơn {(data_weight?.[gender!]?.[+currentAge] - +currentWeight).toFixed(2)} kg so với tiêu chuẩn</strong>
-    }
-    if (+currentWeight > weightAboveStandard) {
-      return <strong>nặng hơn {(+currentWeight - data_weight?.[gender!]?.[+currentAge]).toFixed(2)} kg so với tiêu chuẩn</strong>
-    }
-    return <strong>đạt cân nặng tiêu chuẩn</strong>
-  }
+  // const ketLuanCanNang = () => {
+  //   if (+currentWeight < weightBelowStandard) {
+  //     return <strong>nhẹ hơn {(data_weight?.[gender!]?.[+currentAge] - +currentWeight).toFixed(2)} kg so với tiêu chuẩn</strong>
+  //   }
+  //   if (+currentWeight > weightAboveStandard) {
+  //     return <strong>nặng hơn {(+currentWeight - data_weight?.[gender!]?.[+currentAge]).toFixed(2)} kg so với tiêu chuẩn</strong>
+  //   }
+  //   return <strong>đạt cân nặng tiêu chuẩn</strong>
+  // }
 
   const BMI = (Number(currentWeight)) / ((Number(currentHeight) / 100) * (Number(currentHeight) / 100))
   const ketLuanBMI = () => {
     if (BMI < data_bmi[gender!]['5th'][Number(currentAge)]) {
-      return <strong>Bé nằm trong cân nặng: Thiếu cân</strong>
+      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, bé nằm trong tình trạng thiếu cân</strong>
     }
     if (BMI >= data_bmi[gender!]['5th'][Number(currentAge)] && BMI < data_bmi[gender!]['85th'][Number(currentAge)]) {
-      return <strong>Bé nằm trong cân nặng: Sức khỏe dinh dưỡng tốt</strong>
+      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có sức khỏe dinh dưỡng tốt</strong>
     }
     if (BMI >= data_bmi[gender!]['85th'][Number(currentAge)] && BMI <= data_bmi[gender!]['95th'][Number(currentAge)]) {
-      return <strong>Bé nằm trong cân nặng: Nguy cơ béo phì</strong>
+      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có nguy cơ béo phì</strong>
     }
     if (BMI >= data_bmi[gender!]['95th'][Number(currentAge)]) {
-      return <strong>Bé nằm trong cân nặng: Béo phì</strong>
+      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có nguy cơ béo phì</strong>
     }
   }
 
@@ -159,24 +159,24 @@ function Content() {
       return <p className="text-xl"><strong>Bé đang trong giai đoạn 1000 ngày đầu đời:</strong> Giai đoạn quyết định 50% tiềm năng chiều cao tương lai, cần tập trung vào dinh dưỡng và phát triển xương nền tảng.</p>
     }
 
-    if (3 <= Number(currentAge) && Number(currentAge) < 10 && gender === Gender.GIRL && puberty === 'no-puberty') {
+    if (3 <= Number(currentAge) && Number(currentAge) < 10 && gender === Gender.GIRL) {
       return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
     }
-    if (3 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.BOY && puberty === 'no-puberty') {
+    if (3 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.BOY) {
       return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
     }
 
-    if (10 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.GIRL && puberty === 'puberty') {
+    if (10 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.GIRL) {
       return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
     }
-    if (12 <= Number(currentAge) && Number(currentAge) < 15 && gender === Gender.BOY && puberty === 'puberty') {
+    if (12 <= Number(currentAge) && Number(currentAge) < 15 && gender === Gender.BOY) {
       return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
     }
 
-    if (12 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.GIRL && puberty === 'puberty') {
+    if (12 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.GIRL) {
       return <p className="text-xl"><strong>Giai đoạn sau dậy thì là giai đoạn cuối cùng để tăng chiều cao:</strong> Mỗi năm con sẽ cao thêm 1-2cm, nếu mẹ không nên bỏ lỡ cơ hội cuối cùng này của con.</p>
     }
-    if (15 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.BOY && puberty === 'puberty') {
+    if (15 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.BOY) {
       return <p className="text-xl"><strong>Giai đoạn sau dậy thì là giai đoạn cuối cùng để tăng chiều cao:</strong> Mỗi năm con sẽ cao thêm 1-2cm, nếu mẹ không nên bỏ lỡ cơ hội cuối cùng này của con.</p>
     }
   }
@@ -190,32 +190,42 @@ function Content() {
       <h1 className="text-center text-4xl font-bold mb-4 py-4">INSIGHT CỦA BÉ</h1>
       <div className="bg-[#f4d798] shadow-xl p-4 rounded-xl mb-4">
         <h2 className="mb-4 text-xl">Nhập thông tin khách hàng</h2>
-        <div className="flex gap-4">
-          <div className="flex flex-col w-1/6 justify-start">
+        <div className="flex gap-4 items-center">
+          <div className="flex flex-col w-1/6">
             <Input label='Chiều cao (cm)' onChange={(e) => setCurrentHeight(e.target.value)} />
             <p className="text-[red] text-sm">{errorMessage?.currentHeight}</p>
           </div>
-          <div className="flex flex-col w-1/6 justify-start">
+          <div className="flex flex-col w-1/6">
             <Input label='Cân nặng (kg)' onChange={(e) => setCurrentWeight(e.target.value)} />
             <p className="text-[red] text-sm">{errorMessage?.currentWeight}</p>
           </div>
-          <div className="flex flex-col w-1/6 justify-start">
+          <div className="flex flex-col w-1/6">
             <Select options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]} label='Giới tính' placeholder='Giới tính' onChange={(e) => setGender(e as Gender)} />
             <p className="text-[red] text-sm">{errorMessage?.gender}</p>
           </div>
-          <div className="flex flex-col w-1/6 justify-start">
+          <div className="flex flex-col w-1/6">
             <Input label='Số tuổi' onChange={(e) => setCurrentAge(e.target.value)} />
             <p className="text-[red] text-sm">{errorMessage?.currentAge}</p>
           </div>
           <div className="flex w-1/6 flex-col">
-            <div className="flex gap-4 items-start">
-              <div className="flex gap-2 h-[40px] items-center">
-                <label htmlFor="puberty" className="text-[#2563eb]">Đã dậy thì</label>
-                <input type='checkbox' id="puberty" onChange={() => handleCheckboxChange('puberty')} checked={puberty === 'puberty'} />
-              </div>
-              <div className="flex gap-2 h-[40px] items-center">
+            <div className="flex flex-col">
+              <div className="flex gap-2 w-[140px] items-center">
                 <label htmlFor="no-puberty" className="text-[#2563eb]">Chưa dậy thì</label>
-                <input id="no-puberty" type='checkbox' onChange={() => handleCheckboxChange('no-puberty')} checked={puberty === 'no-puberty'} />
+                <div className="flex justify-end w-full flex-1">
+                  <input id="no-puberty" type='checkbox' onChange={() => handleCheckboxChange('pre-puberty')} checked={puberty === 'pre-puberty'} />
+                </div>
+              </div>
+              <div className="flex gap-2 w-[140px] items-center">
+                <label htmlFor="puberty" className="text-[#2563eb]">Đang dậy thì</label>
+                <div className="flex justify-end w-full flex-1">
+                  <input type='checkbox' id="puberty" onChange={() => handleCheckboxChange('puberty')} checked={puberty === 'puberty'} />
+                </div>
+              </div>
+              <div className="flex gap-2 w-[140px] items-center">
+                <label htmlFor="puberty" className="text-[#2563eb]">Đã dậy thì</label>
+                <div className="flex justify-end w-full flex-1">
+                  <input type='checkbox' id="puberty" onChange={() => handleCheckboxChange('post-puberty')} checked={puberty === 'post-puberty'} />
+                </div>
               </div>
             </div>
             <p className="text-[red] text-sm">{errorMessage?.puberty}</p>
@@ -228,7 +238,7 @@ function Content() {
         <div className="bg-white p-4 rounded-xl">
           <h1 className="text-[#2563eb] uppercase text-4xl mb-4 text-center font-bold">Đánh giá hiện trạng và giải pháp phát triển chiều cao vượt trội</h1>
           <div className="mb-4 bg-insight-item rounded-2xl p-4">
-            <h2 className="text-xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
+            <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
             <ul className="list-disc pl-6 flex flex-wrap">
               <li className="w-1/2 py-1"><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
               <li className="w-1/2 py-1"><strong>Chiều cao:</strong> {currentHeight} cm</li>
@@ -237,16 +247,15 @@ function Content() {
             </ul>
           </div>
           <div className="mb-4">
-            <h2 className="text-xl font-semibold uppercase mb-2 text-[#2563eb]">Đánh giá chỉ số:</h2>
+            <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Đánh giá chỉ số:</h2>
             <div className="flex">
               <div className="py-4 px-8 bg-[#2563eb] rounded-l-2xl text-white text-center flex items-center flex-col justify-center">
                 <p className="font-semibold whitespace-nowrap">Chỉ số BMI (Body Mass Index):</p>
                 <p className="font-semibold">{BMI.toFixed(1)} kg/m2</p>
               </div>
               <div className="w-full p-4 border-r-2xl bg-insight-item">
+                <p>So với chuẩn WHO chiều cao bé nhà mình {ketLuanChieuCao()}. Chiều cao trung bình của bé {gender && optionsGender[gender]} {currentAge} tuổi: <strong>{gender && data_height[gender][Number(currentAge)] - 1.5} cm - {gender && data_height[gender][Number(currentAge)] + 1.5} cm</strong></p>
                 <p>{ketLuanBMI()}</p>
-                <p><strong>So sánh chiều cao với chuẩn WHO:</strong></p>
-                <p>Chiều cao trung bình của bé {gender && optionsGender[gender]} {currentAge} tuổi: <strong>{gender && data_height[gender][Number(currentAge)] - 1.5} cm - {gender && data_height[gender][Number(currentAge)] + 1.5} cm</strong>. <strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}</p>
               </div>
             </div>
           </div>
@@ -256,10 +265,8 @@ function Content() {
             </div>
             <div className="w-2/3 py-3">
               <div className="mb-4">
-                <h2 className="text-xl text-[#2563eb] font-semibold uppercase mb-2">KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
-                {ketLuanDayThi()}
-                <p><strong>Theo chuẩn WHO</strong> chiều cao bé nhà mình {ketLuanChieuCao()}, {ketLuanCanNang()}</p>
-                <p>Hiện trạng của con đang như vậy mà <strong>mẹ quan tâm tìm hiểu sữa bổ sung cho con giai đoạn này là rất phù hợp và kịp thời.</strong></p>
+                <h2 className="text-2xl text-[#2563eb] font-semibold uppercase mb-2">KẾT LUẬN & GIẢI PHÁP TĂNG CHIỀU CAO VƯỢT TRỘI</h2>
+                {ketLuanGiaiDoan()}
               </div>
               <div className="mb-4">
                 <h2 className="text-xl mb-2 font-semibold">{dataResponse.title}</h2>
@@ -267,11 +274,11 @@ function Content() {
                   {dataResponse.content}
                 </div>
               </div>
-              <div className="mb-4 w-full p-4 border-2xl bg-insight-item rounded-2xl">
+              {/* <div className="mb-4 w-full p-4 border-2xl bg-insight-item rounded-2xl">
                 {ketLuanGiaiDoan()}
-              </div>
+              </div> */}
               <div className="mb-4">
-                <h3 className="text-xl text-[#2563eb] font-semibold uppercase mb-2">Giải pháp dinh dưỡng:</h3>
+                <h3 className="text-2xl text-[#2563eb] font-semibold uppercase mb-2">Giải pháp dinh dưỡng:</h3>
                 <div className="w-full p-4 border-r-2xl bg-insight-item rounded-2xl flex">
                   <div className="w-1/3">
                     <Image src="/lon.png" alt="lon" width={1341} height={989} />
@@ -307,14 +314,6 @@ function Content() {
                   </div>
                 </div>
               </div>
-              {/* <div>
-                <h3 className="text-xl font-semibold uppercase mb-2">Giải pháp vận động:</h3>
-                <ul className="list-disc pl-6">
-                  <li>Khuyến khích <strong>bơi lội, nhảy dây, đạp xe, chơi bóng rổ</strong> để kích thích xương phát triển.</li>
-                  <li>Ngủ sớm trước 22h để tăng hormone tăng trưởng tự nhiên.</li>
-                </ul>
-              </div>
-              <p><strong>Dự đoán tiềm năng:</strong> Nếu duy trì chế độ dinh dưỡng và vận động hợp lý, bé có thể đạt chiều cao trên <strong>{heightTo20?.predictedHeightAt20} cm</strong> khi trưởng thành, và có thể cao thêm 5-15 cm so với dự đoán.</p> */}
               <div>
                 <p className="py-2 px-4 bg-[#2563eb] rounded-2xl text-white text-center">Nếu duy trì chế độ dinh dưỡng và vận động hợp lý bé <strong>có thể cao thêm 5-15 cm so với chế độ dinh dưỡng thông thường</strong></p>
               </div>
