@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import LoadingIcon from '@/components/ui/LoadingIcon';
 import { createBulkCustomers } from '@/services/customers';
-import { Form, Modal, Table, TableColumnsType } from 'antd';
+import { ConfigProvider, Empty, Form, Modal, Table, TableColumnsType } from 'antd';
 import React, { ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify';
 import * as XLSX from "xlsx";
@@ -17,8 +17,6 @@ interface DataRow {
 }
 
 interface CreateBulkCustomersProps {
-  open: boolean;
-  onClose: () => void;
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -61,26 +59,26 @@ const columns: TableColumnsType = [
 ]
 
 function CreateBulkCustomers(props: CreateBulkCustomersProps) {
-  const { open, onClose, setRefreshKey } = props;
+  const { setRefreshKey } = props;
 
   const [dataImport, setDataImport] = useState<DataRow[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const handleFileUpload = (e : ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if(file) {
+    if (file) {
       const reader = new FileReader();
-  
+
       reader.onload = (event) => {
         const workbook = XLSX.read(event.target?.result, { type: 'binary' });
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
-        const sheetData: DataRow[] = XLSX.utils.sheet_to_json(sheet, { raw: false, dateNF: 'yyy-mm-dd'});
-  
+        const sheetData: DataRow[] = XLSX.utils.sheet_to_json(sheet, { raw: false, dateNF: 'yyy-mm-dd' });
+
         setDataImport(sheetData);
       };
-  
+
       reader.readAsArrayBuffer(file);
     }
     e.target.value = '';
@@ -97,12 +95,13 @@ function CreateBulkCustomers(props: CreateBulkCustomersProps) {
       ward: item['Phường/Xã'],
       address: item['Địa chỉ chi tiết'],
     }));
-    if(!dataSubmit) {
+    if (!dataSubmit) {
       toast.warning('Bạn cần import dữ liệu')
       return;
     }
     try {
       await createBulkCustomers(dataSubmit)
+      setDataImport(null)
       toast.success('Thêm khách hàng thành công')
       setRefreshKey(pre => !pre)
     } catch (err) {
@@ -112,29 +111,49 @@ function CreateBulkCustomers(props: CreateBulkCustomersProps) {
     }
   }
 
+
   return (
     <>
-      <label htmlFor="input">
-        <div className="flex justify-center">
-          <Button variant='primary'>Thêm mới hàng loạt</Button>
-        </div>
-        <input type="file" onChange={handleFileUpload} id="input" className="!hidden" />
-      </label>
-      <Modal open={open} onCancel={onClose} onClose={onClose} footer={false} className="!w-1/2">
-        <Form form={form} onFinish={onFinish}>
+      <div className="flex">
+        <label htmlFor="input">
+          <div className="flex justify-center">
+            <p className="py-2 px-4 bg-blue-600 hover:bg-blue-500 duration-300 cursor-pointer text-white rounded-md">Thêm mới hàng loạt</p>
+          </div>
+          <input type="file" onChange={handleFileUpload} id="input" className="!hidden" />
+        </label>
+      </div>
+      <Modal open={!!dataImport} closable={false} onCancel={() => setDataImport(null)} onClose={() => setDataImport(null)} footer={false} className="!w-3/4 !top-8">
         {dataImport && (
-          <>
-            <Table dataSource={dataImport} columns={columns} rowKey={(record) => record['Số điện thoại']} pagination={false} />
-            <div className="flex justify-evenly py-4">
-              <Button variant="danger" onClick={onClose}>Hủy</Button>
-              <Button variant="primary" type="submit">
-                Xác nhận
-                {loading && <LoadingIcon />}
-              </Button>
-            </div>
-          </>
+          <Form form={form} onFinish={onFinish}>
+            <>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: 'red',
+                    colorBorder: "#eb9d4d",
+                  },
+                  components: {
+                    Table: {
+                      borderColor: "#007bb5", // Màu viền bảng
+                      headerColor: 'black',
+                    }
+                  }
+                }}
+                renderEmpty={() => <Empty description="Không có dữ liệu" />}
+              >
+
+                <Table bordered dataSource={dataImport} columns={columns} rowKey={(record) => record['Số điện thoại']} pagination={false} scroll={{ x: 600, y: 520 }} />
+              </ConfigProvider>
+              <div className="flex justify-evenly py-4">
+                <Button variant="danger" onClick={() => setDataImport(null)}>Hủy</Button>
+                <Button variant="primary" type="submit">
+                  Xác nhận
+                  {loading && <LoadingIcon />}
+                </Button>
+              </div>
+            </>
+          </Form>
         )}
-        </Form>
       </Modal>
     </>
   )

@@ -17,7 +17,6 @@ function Header(props: HeaderProps) {
   const { setSearchParams, setRefreshKey } = props;
   const [inputValue, setInputValue] = useState('');
   const [isOpenCreateUser, setIsOpenCreateUser] = useState(false);
-  const [isOpenCreateBulkUsers, setIsOpenCreateBulkUsers] = useState(false);
 
   const onSearch = () => {
     setSearchParams(pre => ({
@@ -30,9 +29,9 @@ function Header(props: HeaderProps) {
     <>
       <CreateCustomer open={isOpenCreateUser} onClose={() => setIsOpenCreateUser(false)} setRefreshKey={setRefreshKey} />
       <div className="mb-2">
-        <div className="mb-2">
+        <div className="mb-2 flex gap-2">
           <Button variant='primary' onClick={() => setIsOpenCreateUser(true)}>Thêm mới</Button>
-          <CreateBulkCustomers open={isOpenCreateBulkUsers} onClose={() => setIsOpenCreateBulkUsers(false)} setRefreshKey={setRefreshKey} />
+          <CreateBulkCustomers setRefreshKey={setRefreshKey} />
         </div>
         <div className="flex items-center gap-2 w-full">
           <Input
