@@ -104,6 +104,18 @@ model proposal {
   status       PROPOSAL_STATUS @default(PENDING)
   categoryType CATEGORY
   categoryId   Int?
-  category     category?       @relation(fields: [categoryId], references: [id])
+  category     category?       @relation(fields: [categoryId], references : [id])
   createdAt    DateTime        @default(now())
+}
+
+model customers {
+  id          Int      @id @default(autoincrement())
+  province    String
+  district    String?
+  ward        String?
+  address     String?
+  fullName    String
+  phoneNumber String?
+  job         String?
+  createdAt   DateTime @default(now())
 }

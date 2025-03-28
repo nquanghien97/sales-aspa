@@ -5,7 +5,7 @@ import FeedbackIcon from "@/assets/icons/FeedbackIcon";
 import FilesIcon from "@/assets/icons/FilesIcon";
 import PolicyIcon from "@/assets/icons/PolicyIcon";
 import ProductIcon from "@/assets/icons/ProductIcon";
-import ProposalIcon from "@/assets/icons/Proposal";
+// import ProposalIcon from "@/assets/icons/Proposal";
 import UsersIcon from "@/assets/icons/UsersIcon";
 import WomenIcon from "@/assets/icons/WomenIcon";
 import { FILE_CATEGORY } from "@prisma/client";
@@ -58,6 +58,12 @@ export const menu_sidebar: MenuType[] = [
     allowRole: ['ADMIN']
   },
   {
+    title: 'Quản lý khách hàng',
+    url: '/quan-ly-khach-hang',
+    icon: <UsersIcon width={16} height={16} />,
+    allowRole: ['ADMIN']
+  },
+  {
     title: 'Quản lý tư liệu',
     url: '#',
     icon: <FilesIcon width={16} height={16} />,
@@ -93,10 +99,10 @@ export const menu_sidebar: MenuType[] = [
       }
     ]
   },
-  {
-    title: 'Đề xuất',
-    url: '/de-xuat',
-    icon: <ProposalIcon width={16} height={16} />,
-    allowRole: ['ADMIN', 'USER']
-  }
+  // {
+  //   title: 'Đề xuất',
+  //   url: '/de-xuat',
+  //   icon: <ProposalIcon width={16} height={16} />,
+  //   allowRole: ['ADMIN', 'USER']
+  // }
 ]
