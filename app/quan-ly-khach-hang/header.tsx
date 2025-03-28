@@ -35,7 +35,7 @@ function Header(props: HeaderProps) {
         </div>
         <div className="flex items-center gap-2 w-full">
           <Input
-            placeholder='Tìm kiếm tài khoản, tên'
+            placeholder='Tìm kiếm họ tên, tỉnh/thành phố'
             icon={<SearchIcon />}
             className="w-1/2"
             onChange={(e) => setInputValue(e.target.value)}

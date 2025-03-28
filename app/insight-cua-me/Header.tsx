@@ -34,9 +34,9 @@ function Header(props: HeaderProps) {
     <>
       {<Create open={isOpenCreate} onClose={() => setIsOpenCreate(false)} setRefreshKey={setRefreshKey} />}
       <div className="mb-2">
-        <div className="mb-2">
+        {/* <div className="mb-2">
           <Button type='primary' onClick={() => setIsOpenCreate(true)}>Thêm mới</Button>
-        </div>
+        </div> */}
         <Form form={form} onFinish={onSubmit} className="flex gap-2 items-start py-4">
           <div className="flex items-center w-full">
             <Form.Item

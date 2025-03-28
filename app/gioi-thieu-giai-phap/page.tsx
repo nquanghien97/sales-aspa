@@ -1,7 +1,7 @@
 export default function page() {
 
   return (
-    <div className="mx-auto px-4">
+    <div className="mx-auto p-4">
       <h1 className="text-center text-4xl font-bold mb-4 py-4">GIỚI THIỆU GIẢI PHÁP</h1>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">

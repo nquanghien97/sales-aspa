@@ -32,7 +32,7 @@ function HandleRejection() {
   const { me } = useAuthStore();
 
   useEffect(() => {
-    document.title = "Xử lý từ chối"
+    document.title = "GIẢI ĐÁP KHÁCH HÀNG"
   }, []);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ function HandleRejection() {
       {data && (<Update data={data} open={isOpenUpdate} onClose={() => setIsOpenUpdate(false)} setRefreshKey={setRefreshKey} />)}
       {data && (<Delete data={data} open={isOpenDelete} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} />)}
       <div>
-        <h1 className="text-center text-4xl font-bold mb-4 py-4">XỬ LÝ TỪ CHỐI</h1>
+        <h1 className="text-center text-4xl font-bold mb-4 py-4">GIẢI ĐÁP KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl rounded-xl p-4">
           <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} />
           <table className="w-full border-collapse">

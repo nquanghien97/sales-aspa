@@ -1,12 +1,12 @@
 export const data_milk = [
-  {
-    id: 1,
-    name: 'WOWTOP (New Zealand)',
-    price: '800.000 VNĐ - 965.000 VNĐ',
-    level: 'Cao cấp',
-    canxi: '1.475',
-    function: 'CBP tăng sinh nguyên bào xương, tăng chiều cao vượt trội, tiêu hóa, miễn dịch, trí não'
-  },
+  // {
+  //   id: 1,
+  //   name: 'WOWTOP (New Zealand)',
+  //   price: '800.000 VNĐ - 965.000 VNĐ',
+  //   level: 'Cao cấp',
+  //   canxi: '1.475',
+  //   function: 'CBP tăng sinh nguyên bào xương, tăng chiều cao vượt trội, tiêu hóa, miễn dịch, trí não'
+  // },
   {
     id: 2,
     name: 'Pediasure (Abbott)',
