@@ -26,8 +26,6 @@ function ListCustomers() {
     }
   }
 
-  console.log(customers)
-
   return (
     <div className="w-full">
       <Form form={form} onFinish={onSubmit} className="w-full">

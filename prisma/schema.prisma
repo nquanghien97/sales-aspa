@@ -64,8 +64,6 @@ model insight_mother {
 enum CATEGORY {
   INSIGHT_MOTHER
   HANDLE_REJECTION
-  INTRODUCE_SOLUTION
-  CONFIRM
 }
 
 model category {
