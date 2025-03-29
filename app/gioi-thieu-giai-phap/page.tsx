@@ -32,7 +32,7 @@ export default function page() {
               </td>
             </tr>
             <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium" rowSpan={2}>
+              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase" rowSpan={2}>
                 CBP đánh vào cơ chế 1
               </td>
               <td className="border border-gray-400 p-2 text-justify">
@@ -59,7 +59,7 @@ export default function page() {
               </td>
             </tr>
             <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium">CƠ CHẾ CÂN NẶNG-BÉO</td>
+              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">CƠ CHẾ CÂN NẶNG-BÉO</td>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>
                   Ngoài ra, bé nhà mình đang ăn dặm, sữa bé đang dùng 100% đường Lactose, có chất xơ hòa tan FOS/GOS giúp
@@ -70,7 +70,7 @@ export default function page() {
               </td>
             </tr>
             <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium">CƠ CHẾ CÂN NẶNG- GẦY</td>
+              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">CƠ CHẾ CÂN NẶNG- GẦY</td>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>Sữa cải thiện cân nặng cho bé rất tốt chị.</p>
                 <p>
@@ -86,7 +86,7 @@ export default function page() {
               </td>
             </tr>
             <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium">Đánh vào nguyên liệu</td>
+              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">Đánh vào nguyên liệu</td>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>
                   Và ngoài ra sữa bên em là sữa đạt tiêu chuẩn quốc tế có chứng nhận non GMO là nguyên liệu sạch không gây đột biến gen. Nguyên liệu tự nhiên và bò được chăn thả tự nhiên nên là ở Việt Nam ngoài Pediasure ra thì có Wowtop bên em chị ạ. Còn các sữa khác thì chưa có sữa nào có.
@@ -94,7 +94,7 @@ export default function page() {
               </td>
             </tr>
             <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium">
+              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">
                 Đánh vào chức năng thêm: Trí não, miễn dịch, tăng sức đề kháng
               </td>
               <td className="border border-gray-400 p-2 text-justify">
@@ -104,7 +104,7 @@ export default function page() {
               </td>
             </tr>
             <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium">Đánh vào vị sữa</td>
+              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">Đánh vào vị sữa</td>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>
                   Vâng, sữa thì có chị vị ngọt thanh ngọt mát thôi, nó sẽ giống cái vị sữa tươi chị ạ, sữa tươi của TH ấy, nó có cái độ mịn của dòng sữa cao cấp mà Việt Nam mình chưa có sữa nào có cái dòng độ mịn đấy đa phần ở Việt Nam là sẽ cái sữa vón cục và khó tan thì cái sữa này nó rất là dễ tan và nó sẽ giống như cái vị sữa tươi chị nhé, rất là dễ uống.

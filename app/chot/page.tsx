@@ -16,7 +16,7 @@ function page() {
             </thead>
             <tbody>
               <tr>
-                <td className="border border-gray-400 border-y-black border-l-black bg-[#d8e4bc] p-2 align-top font-medium" rowSpan={2}>Nhấn vào điểm 10 tin vào chính mình: có nhiều khách hàng giống bạn</td>
+                <td className="border border-gray-400 border-y-black border-l-black bg-[#d8e4bc] p-2 align-top font-medium uppercase" rowSpan={2}>Nhấn vào điểm 10 tin vào chính mình: có nhiều khách hàng giống bạn</td>
                 <td className="border border-gray-400 p-2 text-justify border-r-black">
                   <p>Không biết mẹ A đang sinh sống và làm việc ở đâu</p>
                 </td>

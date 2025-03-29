@@ -159,24 +159,24 @@ function Content() {
       return <p className="text-xl"><strong>Bé đang trong giai đoạn 1000 ngày đầu đời:</strong> Giai đoạn quyết định 50% tiềm năng chiều cao tương lai, cần tập trung vào dinh dưỡng và phát triển xương nền tảng.</p>
     }
 
-    if (3 <= Number(currentAge) && Number(currentAge) < 10 && gender === Gender.GIRL) {
-      return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
+    if (puberty === 'pre-puberty' && gender === Gender.GIRL) {
+      return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý. Nếu dinh dưỡng không đầy đủ 1 năm con thấp hơn bạn bè 5-6cm sau này sẽ rất khó để cao bằng bạn bè trang lứa.</p>
     }
-    if (3 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.BOY) {
-      return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý.</p>
-    }
-
-    if (10 <= Number(currentAge) && Number(currentAge) < 12 && gender === Gender.GIRL) {
-      return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
-    }
-    if (12 <= Number(currentAge) && Number(currentAge) < 15 && gender === Gender.BOY) {
-      return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
+    if (puberty === 'pre-puberty' && gender === Gender.BOY) {
+      return <p className="text-xl"><strong>Bé đang trong giai đoạn vàng:</strong> Trẻ phát triển đều đặn mỗi năm tăng 5-6cm, cần đảm bảo bổ sung vi chất và duy trì vận động hợp lý. Nếu dinh dưỡng không đầy đủ 1 năm con thấp hơn bạn bè 5-6cm sau này sẽ rất khó để cao bằng bạn bè trang lứa.</p>
     }
 
-    if (12 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.GIRL) {
+    if (puberty === 'puberty' && gender === Gender.GIRL) {
+      return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
+    }
+    if (puberty === 'puberty' && gender === Gender.BOY) {
+      return <p className="text-xl"><strong>Giai đoạn dậy thì là giai đoạn bứt phá:</strong> Đây là thời điểm tăng trưởng mạnh nhất trước khi xương đóng sụn. Mỗi năm con có thể cao từ 8-12cm năm.</p>
+    }
+
+    if (puberty === 'post-puberty' && gender === Gender.GIRL) {
       return <p className="text-xl"><strong>Giai đoạn sau dậy thì là giai đoạn cuối cùng để tăng chiều cao:</strong> Mỗi năm con sẽ cao thêm 1-2cm, nếu mẹ không nên bỏ lỡ cơ hội cuối cùng này của con.</p>
     }
-    if (15 <= Number(currentAge) && Number(currentAge) <= 18 && gender === Gender.BOY) {
+    if (puberty === 'post-puberty' && gender === Gender.BOY) {
       return <p className="text-xl"><strong>Giai đoạn sau dậy thì là giai đoạn cuối cùng để tăng chiều cao:</strong> Mỗi năm con sẽ cao thêm 1-2cm, nếu mẹ không nên bỏ lỡ cơ hội cuối cùng này của con.</p>
     }
   }

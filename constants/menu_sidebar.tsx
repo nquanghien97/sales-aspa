@@ -99,6 +99,12 @@ export const menu_sidebar: MenuType[] = [
       }
     ]
   },
+  {
+    title: 'HƯỚNG DẪN SỬ DỤNG SỮA',
+    url: '/huong-dan-su-dung-sua',
+    icon: <DocumentIcon width={16} height={16} />,
+    allowRole: ['ADMIN', 'USER']
+  }
   // {
   //   title: 'Đề xuất',
   //   url: '/de-xuat',

@@ -99,7 +99,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
       },
       {
         label: 'Béo phì',
-        data: Array(labels.length).fill(35), // Điểm cao nhất để lấp đầy phía trên
+        data: Array(labels.length).fill((data_bmi[gender]['95th'][data_bmi[gender]['95th'].length - 1]) * 100 / 98), // Điểm cao nhất để lấp đầy phía trên
         fill: '-1',
         borderColor: 'transparent', // Ẩn đường kẻ
         tension: 0.1,
@@ -153,6 +153,11 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
           display: true,
           text: 'BMI',
         },
+        max: Math.max(
+          ...data_bmi[gender]['95th'], // Lấy giá trị lớn nhất từ dữ liệu BMI
+          BMI, // So sánh với BMI hiện tại của con
+          (data_bmi[gender]['95th'][data_bmi[gender]['95th'].length - 1]) * 100 / 98
+        ),
       },
     },
     maintainAspectRatio: false,

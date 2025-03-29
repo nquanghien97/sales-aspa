@@ -40,7 +40,7 @@ function Feedbacks() {
   }
 
   return (
-    <div>
+    <div className="p-4">
       {<CreateCategory open={isOpenCreate} onClose={() => setIsOpenCreate(false)} setRefreshKey={setRefreshKey} />}
       {data && <DeleteCategory open={isOpenDelete} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} data={data} />}
       {data && <UpdateCategory open={isOpenUpdate} onClose={() => setIsOpenUpdate(false)} setRefreshKey={setRefreshKey} data={data} />}
