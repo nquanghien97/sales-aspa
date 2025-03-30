@@ -141,16 +141,28 @@ function Content() {
   const BMI = (Number(currentWeight)) / ((Number(currentHeight) / 100) * (Number(currentHeight) / 100))
   const ketLuanBMI = () => {
     if (BMI < data_bmi[gender!]['5th'][Number(currentAge)]) {
-      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, bé nằm trong tình trạng thiếu cân</strong>
+      return {
+        danh_gia_chi_so: <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, bé nằm trong tình trạng thiếu cân</strong>,
+        ket_luan: 'Cân nặng dưới trung bình'
+      }
     }
     if (BMI >= data_bmi[gender!]['5th'][Number(currentAge)] && BMI < data_bmi[gender!]['85th'][Number(currentAge)]) {
-      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có sức khỏe dinh dưỡng tốt</strong>
+      return {
+        danh_gia_chi_so: <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có sức khỏe dinh dưỡng tốt</strong>,
+        ket_luan: 'Cân nặng trung bình'
+      }
     }
     if (BMI >= data_bmi[gender!]['85th'][Number(currentAge)] && BMI <= data_bmi[gender!]['95th'][Number(currentAge)]) {
-      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có nguy cơ béo phì</strong>
+      return {
+        danh_gia_chi_so: <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có nguy cơ béo phì</strong>,
+        ket_luan: 'Cân nặng trên trung bình'
+      }
     }
     if (BMI >= data_bmi[gender!]['95th'][Number(currentAge)]) {
-      return <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có nguy cơ béo phì</strong>
+      return {
+        danh_gia_chi_so: <strong>Còn về chỉ số cân nặng so với chiều cao của bé, thì chỉ số BMI là {BMI.toFixed(1)} kg/m2, Bé có nguy cơ béo phì</strong>,
+        ket_luan: 'Cân nặng trên trung bình'
+      }
     }
   }
 
@@ -255,7 +267,7 @@ function Content() {
               </div>
               <div className="w-full p-4 border-r-2xl bg-insight-item">
                 <p>So với chuẩn WHO chiều cao bé nhà mình {ketLuanChieuCao()}. Chiều cao trung bình của bé {gender && optionsGender[gender]} {currentAge} tuổi: <strong>{gender && data_height[gender][Number(currentAge)] - 1.5} cm - {gender && data_height[gender][Number(currentAge)] + 1.5} cm</strong></p>
-                <p>{ketLuanBMI()}</p>
+                <p>{ketLuanBMI()?.danh_gia_chi_so}</p>
               </div>
             </div>
           </div>
@@ -269,7 +281,7 @@ function Content() {
                 {ketLuanGiaiDoan()}
               </div>
               <div className="mb-4">
-                <h2 className="text-xl mb-2 font-semibold">{dataResponse.title}</h2>
+                <h2 className="text-xl flex justify-center mb-2 font-semibold py-2 px-4 bg-[#2563eb] rounded-2xl text-white text-center">{dataResponse.title} <span className="mx-2">-</span> {ketLuanBMI()?.ket_luan}</h2>
                 <div className="">
                   {dataResponse.content}
                 </div>
