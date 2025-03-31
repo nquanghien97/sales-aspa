@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function PUT(req: Request, { params }: { params: Promise<{ id: number }> }) {
   try {
     const { id } = await params;
-    const { province, district, ward, address, fullName, phoneNumber, job } = await req.json()
+    const { province, district, ward, address, fullName, job } = await req.json()
     if (!id) return NextResponse.json({
       success: false,
       message: "Missing id"
@@ -38,7 +38,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
       where: {
         id: +id
       },
-      data: { province, district, ward, address, fullName, phoneNumber, job }
+      data: { province, district, ward, address, fullName, job }
     })
     return NextResponse.json({
       success: true,

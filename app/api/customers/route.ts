@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "@/lib/token";
 
 export async function POST(req: NextRequest) {
-  const { province, district, ward, address, fullName, phoneNumber, job } = await req.json();
+  const { province, district, ward, address, fullName, job } = await req.json();
   if (!province || !fullName || !job) {
     return NextResponse.json({
       success: false,
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     await prisma.customers.create({
       data: {
-        province, district, ward, address, fullName, phoneNumber, job
+        province, district, ward, address, fullName, job
       }
     })
 

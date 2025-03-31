@@ -70,7 +70,6 @@ function CustomersManagement() {
         <tr key={customer.id}>
           <th className="px-4 py-2 text-left font-medium border border-black">{(index + 1) + pageSize * (page - 1)}</th>
           <th className="px-4 py-2 text-left font-medium border border-black">{customer.fullName}</th>
-          <th className="px-4 py-2 text-left font-medium border border-black">{customer.phoneNumber}</th>
           <th className="px-4 py-2 text-left font-medium border border-black">{customer.job}</th>
           <th className="px-4 py-2 text-left font-medium border border-black">{customer.address} - {customer.ward} - {customer.district} - {customer.province}</th>
           {/* <th className="px-4 py-2 text-left font-medium border border-black">{formatDate(customer.createdAt)}</th> */}
@@ -113,7 +112,6 @@ function CustomersManagement() {
               <tr>
                 <th className="px-4 py-2 text-left border border-black">STT</th>
                 <th className="px-4 py-2 text-left border border-black">Họ tên</th>
-                <th className="px-4 py-2 text-left border border-black">Số điện thoại</th>
                 <th className="px-4 py-2 text-left border border-black">Nghề nghiệp</th>
                 <th className="px-4 py-2 text-left border border-black">Địa chỉ</th>
                 <th className="px-4 py-2 text-left border border-black">Chức năng</th>
