@@ -42,3 +42,8 @@ export function weightCalculator(
     weightsByAge
   };
 }
+
+export function dataCurrentWeight(listWeight: number[], currentAge: number) {
+  const finalWeight = listWeight[currentAge]
+  return Number(finalWeight.toFixed(1));
+}

@@ -110,19 +110,5 @@ export const menu_sidebar: MenuType[] = [
     url: '/ho-so-khach-hang',
     icon: <FilesIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER'],
-    children: [
-      {
-        title: 'dự đoán chiều cao',
-        url: '/ho-so-khach-hang/du-doan-chieu-cao',
-        icon: <ProductIcon width={16} height={16} />,
-        allowRole: ['ADMIN', 'USER']
-      },
-      {
-        title: 'Quá trình trưởng thành',
-        url: '/ho-so-khach-hang/qua-trinh-truong-thanh',
-        icon: <DocumentIcon width={16} height={16} />,
-        allowRole: ['ADMIN', 'USER']
-      },
-    ]
   },
 ]
