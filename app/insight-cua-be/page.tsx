@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import React, { JSX, ReactNode, useEffect, useState } from 'react'
+import React, { JSX, ReactNode, useEffect, useRef, useState } from 'react'
 import { data_height } from '@/constants/data'
 import { data_config_weight, data_config_height, Gender } from './data_config'
 import withAuth from '@/hocs/withAuth'
@@ -13,8 +13,9 @@ import { BMICalculator } from '@/utils/BMICalculator'
 import LineChart from './LineChart'
 import Image from 'next/image'
 import { data_bmi } from './data_bmi'
-import { usePDF } from 'react-to-pdf'
+// import { usePDF } from 'react-to-pdf'
 import { toast } from 'react-toastify'
+import html2canvas from 'html2canvas';
 
 const optionsGender = {
   BOY: 'Nam',
@@ -36,7 +37,9 @@ function Content() {
     puberty: ''
   });
 
-  const { toPDF, targetRef } = usePDF({ filename: 'insight-be.pdf' });
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  // const { toPDF, targetRef } = usePDF({ filename: 'insight-be.pdf' });
 
   useEffect(() => {
     document.title = "Kịch bản tư vấn"
@@ -198,20 +201,37 @@ function Content() {
 
   const heightTo20 = heightCalculator(Number(currentHeight), Number(currentAge), gender as Gender);
   const weightTo20 = weightCalculator(Number(currentWeight), Number(currentAge), gender as Gender);
-  const BMI_data = BMICalculator(heightTo20?.heightsByAge, weightTo20?.weightsByAge)
+  const BMI_data = BMICalculator(heightTo20?.heightsByAge, weightTo20?.weightsByAge);
+
+  const downloadImage = () => {
+    if (!elementRef.current) {
+      toast.warning('Bạn phải điền đủ thông tin')
+      return;
+    }
+    html2canvas(elementRef.current).then((canvas) => {
+      const dataUrl = canvas.toDataURL(`image/png`, 1.0);
+      const link = document.createElement('a');
+      link.download = 'insight của bé';
+      link.href = dataUrl;
+      link.click();
+    }).catch((error) => {
+      console.error('Could not generate image:', error);
+    });
+  };
 
   return (
-    <>
+    <div className="p-4">
       <h1 className="text-center text-4xl font-bold mb-4 py-4">INSIGHT CỦA BÉ</h1>
       <Button
         variant='primary'
-        onClick={() => {
-          if (!targetRef.current) {
-            toast.warning('Bạn phải điền đủ thông tin')
-            return;
-          }
-          toPDF()
-        }}
+        // onClick={() => {
+        //   if (!targetRef.current) {
+        //     toast.warning('Bạn phải điền đủ thông tin')
+        //     return;
+        //   }
+        //   toPDF()
+        // }}
+        onClick={downloadImage}
         className="fixed top-6 right-6">
         Xuất PDF
       </Button>
@@ -237,9 +257,9 @@ function Content() {
           <div className="flex w-1/6 flex-col">
             <div className="flex flex-col">
               <div className="flex gap-2 w-[140px] items-center">
-                <label htmlFor="no-puberty" className="text-[#2563eb]">0 - 2 tuổi</label>
+                <label htmlFor="infant" className="text-[#2563eb]">0 - 2 tuổi</label>
                 <div className="flex justify-end w-full flex-1">
-                  <input id="no-puberty" type='checkbox' onChange={() => handleCheckboxChange('infant')} checked={puberty === 'infant'} />
+                  <input id="infant" type='checkbox' onChange={() => handleCheckboxChange('infant')} checked={puberty === 'infant'} />
                 </div>
               </div>
               <div className="flex gap-2 w-[140px] items-center">
@@ -268,7 +288,7 @@ function Content() {
       </div>
 
       {(dataResponseHeight && dataResponseWeight) && (
-        <div className="bg-white p-4 rounded-xl" ref={targetRef}>
+        <div className="bg-white p-4 rounded-xl" ref={elementRef}>
           <h1 className="text-[#2563eb] uppercase text-4xl mb-4 text-center font-bold">Đánh giá hiện trạng và giải pháp phát triển chiều cao vượt trội</h1>
           <div className="mb-4 bg-insight-item rounded-2xl p-4">
             <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
@@ -293,7 +313,7 @@ function Content() {
             </div>
           </div>
           <div className="flex gap-8">
-            <div className="w-1/3 full mb-4">
+            <div className="w-1/3 mb-4">
               {gender && <LineChart dataLine={BMI_data!} currentAge={currentAge} gender={gender} BMI={Number(BMI.toFixed(1))} />}
             </div>
             <div className="w-2/3 py-3">
@@ -313,33 +333,33 @@ function Content() {
               <div className="mb-4">
                 <h3 className="text-2xl text-[#2563eb] font-semibold uppercase mb-2">Giải pháp dinh dưỡng:</h3>
                 <div className="w-full p-4 border-r-2xl bg-insight-item rounded-2xl flex">
-                  <div className="w-1/3">
-                    <Image src="/lon.png" alt="lon" width={1341} height={989} />
+                  <div className="w-1/3 flex items-center">
+                    <Image unoptimized src="/lon.png" alt="lon" width={1341} height={989} />
                   </div>
                   <div className="">
                     <p className="text-xl text-[#2563eb] font-bold pl-6 pb-2 border-b-2 border-[#f4d798] mb-2">Dinh dưỡng phát triển chiều cao vượt trội</p>
                     <ul className="list-disc pl-6 py-4">
                       <li className="flex gap-2 py-2">
-                        <div className="flex items-start">
-                          <Image src="/bt.png" alt="bt" width={28} height={28} />
+                        <div className="flex items-start w-7 h-7 justify-center">
+                          <Image unoptimized src="/bt.png" alt="bt" width={28} height={28} className="w-full" />
                         </div>
-                        <p>
+                        <p className="flex-1">
                           Bổ sung <span className="text-[#2563eb] font-bold">CBP</span> để xây dựng khung xương, tăng hấp thu Canxi vào xương
                         </p>
                       </li>
                       <li className="flex gap-2 py-2">
-                        <div className="flex items-start">
-                          <Image src="/bt.png" alt="bt" width={28} height={28} />
+                        <div className="flex items-start w-7 h-7 justify-center">
+                          <Image unoptimized src="/bt.png" alt="bt" width={28} height={28} className="w-full" />
                         </div>
-                        <p>
+                        <p className="flex-1">
                           Bổ sung <span className="text-[#2563eb] font-bold">Canxi, vitamin D3, K</span> giúp xương chắc khỏe và dài ra nhanh chóng
                         </p>
                       </li>
                       <li className="flex gap-2 py-2">
-                        <div className="flex items-start">
-                          <Image src="/bt.png" alt="bt" width={28} height={28} />
+                        <div className="flex items-start w-7 h-7 justify-center">
+                          <Image unoptimized src="/bt.png" alt="bt" width={28} height={28} className="w-full" />
                         </div>
-                        <p>
+                        <p className="flex-1">
                           <span className="text-[#2563eb] font-bold">2 ly Wowtop</span> mỗi ngày để bổ sung đầy đủ dưỡng chất giúp con phát triển chiều cao vượt trội
                         </p>
                       </li>
@@ -354,7 +374,7 @@ function Content() {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

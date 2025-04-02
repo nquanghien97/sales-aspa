@@ -52,8 +52,8 @@ export default function page() {
                 <p className="italic font-semibold">
                   Trong trường hợp bé cao hơn chuẩn:
                   <br />
-                  Sữa bên em có hàm lượng canxi chỉ 1 tỉ lẻ trưởng, 1475mg canxi trên 100g sữa, ngoài ra có thành phần CBP
-                  và GOS là vàng róng của sữa non giúp tăng hấp thu canxi để nuôi xương. Điều này sẽ giúp cung cấp đủ lý
+                  Sữa bên em có hàm lượng canxi chỉ 1 tỉ lệ trưởng, 1475mg canxi trên 100g sữa, ngoài ra có thành phần CBP
+                  và GOS là vàng ròng của sữa non giúp tăng hấp thu canxi để nuôi xương. Điều này sẽ giúp cung cấp đủ lý
                   do đường cho xương cho bạn nhỏ mình, giúp cứng chắc xương đó nhỉ mẹ.
                 </p>
               </td>
@@ -62,10 +62,7 @@ export default function page() {
               <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">CƠ CHẾ CÂN NẶNG-BÉO</td>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>
-                  Ngoài ra, bé nhà mình đang ăn dặm, sữa bé đang dùng 100% đường Lactose, có chất xơ hòa tan FOS/GOS giúp
-                  hấp thu chất béo. Đặc biệt sữa có chứng nhận Non GMO không sử dụng chất biến đổi gen, gắn ngay cờ thì
-                  lại tốt. Ở Việt Nam chỉ có 2 dòng sữa đang có chứng nhận này mà mẹ của Pleasure và Wowfop. Mẹ nên luôn
-                  yên tâm ngay cơ bản đây thì đảm thống sức được nhé.
+                  Ngoài ra, bé nhà mình đang dự cân, sữa sửa dụng 100% đường Lactose, có chất xơ hoà tan FOS/GOS giảm hấp thu chất béo. Đặc biệt sữa có chứng nhận Non GMO không sử dụng chất biến đổi Gen giảm nguy cơ dậy thì sớm. Ở Việt Nam chỉ có 2 dòng sữa đang có chứng nhận này mẹ nhé của Peadisure và Wowtop. Mẹ hoàn toàn yên tâm nguy cơ con dậy thì sớm không cao được nữa.
                 </p>
               </td>
             </tr>

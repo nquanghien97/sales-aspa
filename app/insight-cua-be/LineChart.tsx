@@ -46,7 +46,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
         pointRadius: 4,
         pointHoverRadius: 6,
         datalabels: {
-          display: false 
+          display: false
         },
       },
       {
@@ -118,6 +118,11 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
     plugins: {
       legend: {
         position: "bottom" as const,
+        align: 'start' as "start" | "end" | "center" | undefined,
+        labels: {
+          boxWidth: 40,
+          padding: 20,
+        },
       },
       title: {
         display: true,
@@ -147,6 +152,12 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
           display: true,
           text: 'Tuổi',
         },
+        ticks: {
+          rotation: 0, // Đặt góc xoay của nhãn trục x là 0 độ để luôn giữ thẳng
+          autoSkip: true, // Tự động bỏ qua một số nhãn nếu không đủ không gian
+          maxRotation: 0, // Đảm bảo không bao giờ xoay vượt quá 0 độ
+          minRotation: 0, // Đảm bảo không bao giờ xoay dưới 0 độ
+        }
       },
       y: {
         title: {
@@ -160,7 +171,8 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
         ),
       },
     },
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+    aspectRatio: 2/3,
   };
 
   return <Line data={data} options={options} />;
