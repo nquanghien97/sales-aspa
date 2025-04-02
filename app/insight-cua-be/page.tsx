@@ -233,7 +233,7 @@ function Content() {
         // }}
         onClick={downloadImage}
         className="fixed top-6 right-6">
-        Xuất PDF
+        Xuất File
       </Button>
       <div className="bg-[#f4d798] shadow-xl p-4 rounded-xl mb-4">
         <h2 className="mb-4 text-xl">Nhập thông tin khách hàng</h2>

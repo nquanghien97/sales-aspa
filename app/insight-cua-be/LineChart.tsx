@@ -172,7 +172,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
       },
     },
     maintainAspectRatio: true,
-    aspectRatio: 2/3,
+    aspectRatio: 3/5,
   };
 
   return <Line data={data} options={options} />;
