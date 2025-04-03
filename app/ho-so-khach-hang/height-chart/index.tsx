@@ -123,7 +123,7 @@ function HeightChart(props: DeleteProductProps) {
       >
         <div className="py-4" ref={elementRef1}>
           <div className="flex justify-center">
-            <Image src="/logo-ngang.png" alt='logo' width={400} height={150} />
+            <Image src="/logo-ngang.png" unoptimized alt='logo' width={400} height={150} />
           </div>
           <h1 className="text-center text-5xl text-[#143cad] font-semibold mb-8">
             Phác đồ dự đoán chiều cao của

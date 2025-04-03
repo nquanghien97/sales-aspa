@@ -14,7 +14,7 @@ import { data_milk } from './data_milk'
 function HandleRejection() {
   const [datas, setDatas] = useState<InsightMotherEntity[]>([]);
   const [searchParams, setSearchParams] = useState<{ page?: number, pageSize?: string, search?: string }>({});
-  const [milkId, setMilkId] = useState<number>()
+  const [milk, setMilk] = useState<string>()
   const [refreshKey, setRefreshKey] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -25,10 +25,10 @@ function HandleRejection() {
     document.title = "Insight của mẹ"
   }, []);
 
-  const matchedMilk = data_milk.find(milk => milk.id === milkId)
+  const matchedMilk = data_milk.find(data => data.name === milk)
 
   useEffect(() => {
-    if(!milkId || !searchParams.search) return
+    if(!milk || !searchParams.search) return
     (async () => {
       try {
         setLoading(true)
@@ -45,7 +45,7 @@ function HandleRejection() {
         setLoading(false)
       }
     })()
-  }, [page, pageSize, searchParams, refreshKey, milkId])
+  }, [page, pageSize, searchParams, refreshKey, milk])
 
   const renderBody = () => {
     if (loading) return (
@@ -80,7 +80,7 @@ function HandleRejection() {
         <div className="flex">
           <div className="w-3/5 px-4">
             <h1 className="text-center text-4xl font-bold mb-4 py-4">INSIGHT CỦA MẸ</h1>
-            <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} setMilkId={setMilkId} />
+            <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} setMilk={setMilk} />
             <div className="w-full">
               <table className="w-full border-collapse">
                 <thead className="bg-[#f0c568]">

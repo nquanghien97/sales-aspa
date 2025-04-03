@@ -27,20 +27,24 @@ export const options_keyword = [
     label: 'Bé ko hợp tác',
     value: 'Bé ko hợp tác'
   },
-  {
-    label: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)',
-    value: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)'
-  },
-  {
-    label: 'Bé dùng sữa tươi',
-    value: 'Bé dùng sữa tươi'
-  },
-  {
-    label: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả',
-    value: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả'
-  },
-  {
-    label: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả',
-    value: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả'
-  }
+  // {
+  //   label: '--Khác--',
+  //   value: 'Khác'
+  // }
+  // {
+  //   label: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)',
+  //   value: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)'
+  // },
+  // {
+  //   label: 'Bé dùng sữa tươi',
+  //   value: 'Bé dùng sữa tươi'
+  // },
+  // {
+  //   label: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả',
+  //   value: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả'
+  // },
+  // {
+  //   label: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả',
+  //   value: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả'
+  // }
 ]

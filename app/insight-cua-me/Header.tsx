@@ -13,35 +13,59 @@ interface HeaderProps {
     search?: string;
   }>>
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
-  setMilkId: React.Dispatch<React.SetStateAction<number | undefined>>
+  setMilk: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
+const excludeCases = [
+  'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)',
+  'Bé dùng sữa tươi',
+  'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả',
+  'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả'
+]
+
 function Header(props: HeaderProps) {
-  const { setSearchParams, setRefreshKey, setMilkId } = props;
+  const { setSearchParams, setRefreshKey, setMilk } = props;
   const [isOpenCreate, setIsOpenCreate] = useState(false);
+  const [isRequired, setIsRequired] = useState(false);
 
   const [form] = Form.useForm();
 
-  const onSubmit = (data: { keyword: string, milkId: number }) => {
-    setSearchParams(pre => ({
-      ...pre,
-      search: data.keyword
-    }))
-    setMilkId(data.milkId)
+  const onSubmit = (data: { keyword: string, milk: string }) => {
+    if (excludeCases.includes(data.milk)) {
+      setSearchParams(pre => ({
+        ...pre,
+        search: data.milk
+      }))
+    } else {
+      setSearchParams(pre => ({
+        ...pre,
+        search: data.keyword
+      }))
+    }
+
+    setMilk(data.milk)
     setRefreshKey(pre => !pre)
   }
+
+  const handleValuesChange = (_: string, allValues: { milk?: string }) => {
+    setIsRequired(!excludeCases.includes(allValues.milk || ''))
+    form.validateFields(['keyword'])
+  }
+
   return (
     <>
       {<Create open={isOpenCreate} onClose={() => setIsOpenCreate(false)} setRefreshKey={setRefreshKey} />}
       <div className="mb-2">
-        {/* <div className="mb-2">
-          <Button type='primary' onClick={() => setIsOpenCreate(true)}>Thêm mới</Button>
-        </div> */}
-        <Form form={form} onFinish={onSubmit} className="flex gap-2 items-start py-4">
+        <Form
+          form={form}
+          onFinish={onSubmit}
+          onValuesChange={handleValuesChange}
+          className="flex gap-2 items-start py-4"
+        >
           <div className="flex items-center w-full">
             <Form.Item
               className="!mb-0 w-full flex-1"
-              name="milkId"
+              name="milk"
               rules={[
                 {
                   required: true,
@@ -49,7 +73,13 @@ function Header(props: HeaderProps) {
                 },
               ]}
             >
-              <Select options={data_milk.map(milk => ({ label: milk.name, value: milk.id }))} placeholder="Loại sữa đang dùng" />
+              <Select
+                showSearch
+                optionFilterProp="label"
+                options={data_milk.map(milk => ({ label: milk.name, value: milk.name }))}
+                onChange={() => form.setFieldsValue({ keyword: null })}
+                placeholder="Loại sữa đang dùng"
+              />
             </Form.Item>
           </div>
           <div className="flex items-center w-full">
@@ -58,12 +88,18 @@ function Header(props: HeaderProps) {
               name="keyword"
               rules={[
                 {
-                  required: true,
-                  message: "Trường này là bắt buộc"
+                  required: isRequired,
+                  message: "Sản phẩm sữa này cần chọn loại trường hợp"
                 },
               ]}
             >
-              <Select className="flex-1" options={options_keyword} placeholder="Trường hợp" />
+              <Select
+                showSearch
+                optionFilterProp="label"
+                className="flex-1"
+                options={options_keyword}
+                placeholder="Trường hợp"
+              />
             </Form.Item>
           </div>
           <div className="flex items-center justify-center">

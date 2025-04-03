@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/Button';
 import { Checkbox, Form, Input, Select } from 'antd';
 import React, { useState } from 'react'
 import HeightChart from './height-chart';
+import { toast } from 'react-toastify';
+import Insight from './insight';
+import MaturationProcess from './maturation-process';
 
 enum Gender {
   BOY = "BOY",
@@ -30,6 +33,8 @@ function CustomerProfile() {
   const [isShowResults, setIsShowResults] = useState(false);
 
   const [isOpenHeightChart, setIsOpenHeightChart] = useState(false);
+  const [isOpenInsight, setIsOpenInsight] = useState(false);
+  const [isOpenMaturationProcess, setIsOpenMaturationProcess] = useState(false);
 
   const [form] = Form.useForm();
 
@@ -56,11 +61,25 @@ function CustomerProfile() {
           currentAge: Number(currentAge)
         }}
       />
+      <Insight
+        open={isOpenInsight}
+        onClose={() => setIsOpenInsight(false)}
+        currentHeight={currentHeight}
+        currentWeight={currentWeight}
+        gender={gender}
+        currentAge={currentAge}
+        puberty={puberty}
+      />
+      <MaturationProcess
+        open={isOpenMaturationProcess}
+        onClose={() => setIsOpenMaturationProcess(false)}
+        currentAge={Number(currentAge)}
+      />
       <div className="p-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">HỒ SƠ KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl p-4 rounded-xl mb-4">
           <h2 className="mb-4 text-xl">Nhập thông tin khách hàng</h2>
-          <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center">
+          <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center" onChange={() => setIsShowResults(false)}>
             <div className="flex flex-wrap">
               <Form.Item
                 label={<p className="min-w-[120px]">Chiều cao bé (cm)</p>}
@@ -82,12 +101,6 @@ function CustomerProfile() {
                 label={<p className="min-w-[120px]">Chiều cao bố (cm)</p>}
                 className="flex flex-col w-1/3 px-2"
                 name="currentFatherHeight"
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này là bắt buộc"
-                  },
-                ]}
               >
                 <Input
                   placeholder='Chiều cao bố (cm)'
@@ -98,12 +111,6 @@ function CustomerProfile() {
                 label={<p className="min-w-[120px]">Chiều cao mẹ (cm)</p>}
                 className="flex flex-col w-1/3 px-2"
                 name="currentMotherHeight"
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này là bắt buộc"
-                  },
-                ]}
               >
                 <Input
                   placeholder='Chiều cao mẹ (cm)'
@@ -206,10 +213,23 @@ function CustomerProfile() {
         {isShowResults && (
           <div className="flex gap-4">
             <div>
-              <Button variant='primary' onClick={() => setIsOpenHeightChart(true)}>Xem phác đồ dự đoán chiều cao</Button>
+              <Button variant='primary' onClick={() => setIsOpenInsight(true)}>Xem Insight của bé</Button>
             </div>
             <div>
-              <Button variant='primary'>Xem quá trình trưởng thành của bé</Button>
+              <Button
+                variant='primary'
+                onClick={() => {
+                  if (!currentFatherHeight || !currentMotherHeight) {
+                    toast.warning('Vui lòng nhập chiều cao bố và chiều cao mẹ để xem phác đồ dự đoán chiều cao')
+                    return;
+                  }
+                  setIsOpenHeightChart(true)
+                }}
+              >Xem phác đồ dự đoán chiều cao
+              </Button>
+            </div>
+            <div>
+              <Button variant='primary' onClick={() => setIsOpenMaturationProcess(true)}>Xem quá trình trưởng thành của bé</Button>
             </div>
           </div>
         )}

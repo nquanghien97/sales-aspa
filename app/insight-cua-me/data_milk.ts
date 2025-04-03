@@ -118,5 +118,53 @@ export const data_milk = [
     level: 'Cao cấp',
     canxi: '~500',
     function: 'Dòng organic cao cấp, tiêu hóa tốt, không chuyên biệt tăng chiều cao'
-  }
+  },
+  {
+    id: 16,
+    name: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)',
+    price: '',
+    level: '',
+    canxi: '',
+    function: ''
+  },
+  {
+    id: 17,
+    name: 'Bé dùng sữa tươi',
+    price: '',
+    level: '',
+    canxi: '',
+    function: ''
+  },
+  {
+    id: 18,
+    name: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả',
+    price: '',
+    level: '',
+    canxi: '',
+    function: ''
+  },
+  {
+    id: 19,
+    name: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả',
+    price: '',
+    level: '',
+    canxi: '',
+    function: ''
+  },
+  // {
+  //   label: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)',
+  //   value: 'Viên GH của Nhật (GH Creation EX, Tall Plus,...) – Phân khúc cao cấp (~1,2 - 1,8 triệu/lọ)'
+  // },
+  // {
+  //   label: 'Bé dùng sữa tươi',
+  //   value: 'Bé dùng sữa tươi'
+  // },
+  // {
+  //   label: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả',
+  //   value: 'Bé đang ko dùng sản phẩm nào để tăng chiều cao cả'
+  // },
+  // {
+  //   label: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả',
+  //   value: 'Bé đã dùng nhiều sản phẩm nhưng chưa hiệu quả'
+  // }
 ];
