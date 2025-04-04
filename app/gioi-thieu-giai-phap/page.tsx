@@ -37,24 +37,20 @@ export default function page() {
               </td>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>
-                  Đấy, Thì với bé nhà mình thì em cũng chia sẻ là sữa của bên em thì đang là dòng sữa nhập khẩu nguyên tử
-                  từ bên New Zealand và đang là dòng top 1 về tăng chiều cao
+                  Đấy. Thì với bé nhà mình thì em cũng chia sẻ là sữa của bên em thì đang là dòng sữa nhập khẩu nguyên lon từ bên New Zealand về cũng đang là dòng top 1 về tăng chiều cao
                 </p>
               </td>
             </tr>
             <tr>
               <td className="border border-gray-400 p-2 text-justify">
                 <p>
-                  Sữa là sữa đầu tiên tại Việt Nam có chứa thành phần CBP là vàng róng của sữa tăng chiều cao giúp con
-                  tăng sinh nguyên bào xương, phát triển khung xương dài hơn mà ở Việt Nam mình chưa có.
+                  Sữa là sữa đầu tiên tại Việt Nam có chứa thành phần CBP là vàng ròng của sữa tăng chiều cao, giúp con tăng sinh nguyên bào xương, phát triển khung xương dài hơn mà ở Việt Nam chưa có một sữa nào có.
                 </p>
                 <br />
                 <p className="italic font-semibold">
                   Trong trường hợp bé cao hơn chuẩn:
                   <br />
-                  Sữa bên em có hàm lượng canxi chỉ 1 tỉ lệ trưởng, 1475mg canxi trên 100g sữa, ngoài ra có thành phần CBP
-                  và GOS là vàng ròng của sữa non giúp tăng hấp thu canxi để nuôi xương. Điều này sẽ giúp cung cấp đủ lý
-                  do đường cho xương cho bạn nhỏ mình, giúp cứng chắc xương đó nhỉ mẹ.
+                  Sữa bên em có hàm lượng canxi số 1 thị trường, 1475mg canxi trên 100g sữa, ngoài ra có thành phần CBP và CPP là vàng ròng của sữa non giúp tăng hấp thu canxi tại ruột và xương. Điều này hỗ trợ giúp cung cấp đầy đủ dinh dưỡng cho xương cho bạn nhà mình, giúp có một mật độ xương tốt nhất cho bé
                 </p>
               </td>
             </tr>
@@ -71,7 +67,7 @@ export default function page() {
               <td className="border border-gray-400 p-2 text-justify">
                 <p>Sữa cải thiện cân nặng cho bé rất tốt chị.</p>
                 <p>
-                  <strong>Trong hợp bé biếng ăn:</strong>
+                  <strong>Trường hợp bé biếng ăn:</strong>
                   <br />
                   Thường bé biếng ăn do thiếu các vi chất kẽm, sắt, Selen, Vitamin A, khiến bé không có cảm giác thèm ăn, nên khi ăn sẽ không thấy ngon miệng. Sữa WOWTOP đầy đủ 4 vi chất trên giúp kích thích vị giác ăn uống của bé. Ngoài ra, Sữa Wowtop cung cấp đủ dinh dưỡng cho bé đủ 6 nhóm chất với hơn 30 loại Vitamin và khoáng chất, ngoài ra sữa còn cải thiện hệ tiêu hoá giúp hấp thu tốt dưỡng chất nhờ công thức cải tiến tỷ lệ đạm whey gần nhất sữa mẹ, có chất béo OPO, cùng hơn 390 triệu lợi khuẩn và chất xơ hoà tan FOS/GOS.
                 </p>
