@@ -108,3 +108,33 @@ p, li {
 .bg-liner {
   background: linear-gradient(to right, #0D2D95, #0C63C6);
 }
+
+.shadow-xl-custom {
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+.blink-shadow {
+  box-shadow: rgba(255, 0, 0, 0.733) 0px 0px 5.83236px 3px;
+  animation: blinkShadow-469aa15d 1.5s infinite alternate;
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition-duration: 300ms;
+}
+
+@keyframes blinkShadow-469aa15d {
+  0% {
+    box-shadow: 0 0 5px 3px rgba(255, 0, 0, .8);
+  }
+  50% {
+    box-shadow: 0 0 10px 3px rgba(255, 0, 0, .4);
+  }
+  100% {
+    box-shadow: 0 0 5px 3px rgba(255, 0, 0, .8);
+}
+}
+
+.bg-modal {
+  background: linear-gradient(to right, #ebc9824d, #fbf8d04d, #e1b7544d, #f3c86d4d)
+}
+
+

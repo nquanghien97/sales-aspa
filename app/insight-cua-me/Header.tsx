@@ -48,9 +48,10 @@ function Header(props: HeaderProps) {
   }
 
   const handleValuesChange = (_: string, allValues: { milk?: string }) => {
-    setIsRequired(!excludeCases.includes(allValues.milk || ''))
-    form.validateFields(['keyword'])
-  }
+    const required = !excludeCases.includes(allValues.milk || '');
+    setIsRequired(required);
+    setTimeout(() => form.validateFields(['keyword']), 0); // Delay để đảm bảo state đã cập nhật
+  };
 
   return (
     <>

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/Button';
 import { Checkbox, Form, Input, Select } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeightChart from './height-chart';
 import { toast } from 'react-toastify';
 import Insight from './insight';
@@ -35,6 +35,8 @@ function CustomerProfile() {
   const [isOpenHeightChart, setIsOpenHeightChart] = useState(false);
   const [isOpenInsight, setIsOpenInsight] = useState(false);
   const [isOpenMaturationProcess, setIsOpenMaturationProcess] = useState(false);
+  const [isRequiredFatherHeight, setIsRequiredFatherHeight] = useState(false);
+  const [isRequiredMotherHeight, setIsRequiredMotherHeight] = useState(false);
 
   const [form] = Form.useForm();
 
@@ -42,8 +44,20 @@ function CustomerProfile() {
     setPuberty(value);
   }
 
-  const handleSubmit = (data: DataSubmit) => {
-    console.log(data);
+  useEffect(() => {
+    if(isRequiredMotherHeight) {
+      setTimeout(() => {
+        setIsRequiredMotherHeight(false)
+      }, 5000)
+    }
+    if(isRequiredFatherHeight) {
+      setTimeout(() => {
+        setIsRequiredFatherHeight(false)
+      }, 5000)
+    }
+  }, [isRequiredFatherHeight, isRequiredMotherHeight])
+
+  const handleSubmit = () => {
     setIsShowResults(true)
   }
 
@@ -78,12 +92,12 @@ function CustomerProfile() {
       <div className="p-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">HỒ SƠ KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl p-4 rounded-xl mb-4">
-          <h2 className="mb-4 text-xl">Nhập thông tin khách hàng</h2>
+          <h2 className="text-xl">Nhập thông tin khách hàng</h2>
           <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center" onChange={() => setIsShowResults(false)}>
-            <div className="flex flex-wrap">
+            <div className="flex gap-4 flex-wrap">
               <Form.Item
                 label={<p className="min-w-[120px]">Chiều cao bé (cm)</p>}
-                className="flex flex-col w-1/3 px-2"
+                className="flex flex-col px-2 w-[30%] !mb-0"
                 name="currentHeight"
                 rules={[
                   {
@@ -99,7 +113,7 @@ function CustomerProfile() {
               </Form.Item>
               <Form.Item
                 label={<p className="min-w-[120px]">Chiều cao bố (cm)</p>}
-                className="flex flex-col w-1/3 px-2"
+                className={`flex flex-col px-2 w-[30%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
                 name="currentFatherHeight"
               >
                 <Input
@@ -109,7 +123,7 @@ function CustomerProfile() {
               </Form.Item>
               <Form.Item
                 label={<p className="min-w-[120px]">Chiều cao mẹ (cm)</p>}
-                className="flex flex-col w-1/3 px-2"
+                className={`flex flex-col px-2 w-[30%] !mb-0 ${isRequiredMotherHeight && 'blink-shadow'}`}
                 name="currentMotherHeight"
               >
                 <Input
@@ -119,7 +133,7 @@ function CustomerProfile() {
               </Form.Item>
               <Form.Item
                 label={<p className="min-w-[120px]">Cân nặng (kg)</p>}
-                className="flex flex-col w-1/3 px-2"
+                className="flex flex-col px-2 w-[30%] !mb-0"
                 name="currentWeight"
                 rules={[
                   {
@@ -135,7 +149,7 @@ function CustomerProfile() {
               </Form.Item>
               <Form.Item
                 label={<p className="min-w-[120px]">Giới tính</p>}
-                className="flex flex-col w-1/3 px-2"
+                className="flex flex-col px-2 w-[30%] !mb-0"
                 name="gender"
                 rules={[
                   {
@@ -152,7 +166,7 @@ function CustomerProfile() {
               </Form.Item>
               <Form.Item
                 label={<p className="min-w-[120px]">Số tuổi</p>}
-                className="flex flex-col w-1/3 px-2"
+                className="flex flex-col px-2 w-[30%] !mb-0"
                 name="currentAge"
                 rules={[
                   {
@@ -176,7 +190,7 @@ function CustomerProfile() {
                 },
               ]}
             >
-              <div className="flex flex-col gap-2 w-1/3">
+              <div className="flex flex-col gap-2">
                 <div className="flex gap-2 w-[140px] items-center">
                   <p className="text-[#2563eb] w-full">0 - 2 tuổi</p>
                   <Checkbox
@@ -219,10 +233,23 @@ function CustomerProfile() {
               <Button
                 variant='primary'
                 onClick={() => {
-                  if (!currentFatherHeight || !currentMotherHeight) {
+                  if (!currentFatherHeight && !currentMotherHeight) {
+                    setIsRequiredFatherHeight(true);
+                    setIsRequiredMotherHeight(true);
                     toast.warning('Vui lòng nhập chiều cao bố và chiều cao mẹ để xem phác đồ dự đoán chiều cao')
                     return;
                   }
+                  if (!currentMotherHeight) {
+                    setIsRequiredMotherHeight(true);
+                    toast.warning('Vui lòng nhậpchiều cao mẹ để xem phác đồ dự đoán chiều cao')
+                    return;
+                  }
+                  if (!currentFatherHeight) {
+                    setIsRequiredFatherHeight(true);
+                    toast.warning('Vui lòng nhậpchiều cao bố để xem phác đồ dự đoán chiều cao')
+                    return;
+                  }
+
                   setIsOpenHeightChart(true)
                 }}
               >Xem phác đồ dự đoán chiều cao

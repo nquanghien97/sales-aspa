@@ -126,7 +126,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
       },
       title: {
         display: true,
-        text: 'BẢNG DỰ ĐOÁN CHIỀU CAO ĐẾN TUỔI TRƯỞNG THÀNH',
+        text: 'BIỂU ĐỒ BMI TRẺ EM TỪ 0-20 TUỔI',
         font: {
           size: 20,
         },

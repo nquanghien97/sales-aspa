@@ -15,6 +15,7 @@ import { data_bmi } from '@/app/insight-cua-be/data_bmi';
 import { data_height, data_weight } from '@/constants/data';
 import { dataCurrentWeight } from '@/utils/weightCalculator';
 import Link from 'next/link';
+import { useOutsideClick } from '@/hooks/useOutSideClick';
 
 enum Gender {
   BOY = "BOY",
@@ -46,7 +47,6 @@ function HeightChart(props: DeleteProductProps) {
   const elementRef3 = useRef<HTMLDivElement | null>(null);
   const { toPDF, targetRef } = usePDF({ filename: 'phác đồ.pdf' });
   // const [loading, setLoading] = useState(false)
-  if (!data) return;
   const downloadImage = (elementRef: React.RefObject<HTMLDivElement | null>, fileName: string, formatImage: string) => {
     if (elementRef.current) {
       html2canvas(elementRef.current).then((canvas) => {
@@ -60,6 +60,10 @@ function HeightChart(props: DeleteProductProps) {
       });
     }
   };
+
+  const outsideRef = useOutsideClick(() => {
+    setShowOptionsDownload(false)
+  })
 
   const BMI = (Number(data.currentWeight)) / ((Number(data.currentHeight) / 100) * (Number(data.currentHeight) / 100))
 
@@ -105,6 +109,7 @@ function HeightChart(props: DeleteProductProps) {
     })
   }
 
+
   return (
     <Modal
       open={open}
@@ -113,9 +118,40 @@ function HeightChart(props: DeleteProductProps) {
       footer={false}
       wrapClassName='!p-0'
     >
-      <div className="w-full text-center p-3 h-[60px] leading-[36px] bg-[#84571B] rounded-t-lg uppercase font-bold text-white">Thông tin chi tiết dự đoán chiều cao</div>
+      <div className="w-full text-center p-3 h-[60px] leading-[36px] bg-[#84571B] rounded-t-lg uppercase font-bold text-white flex items-center">
+        <div className="flex-1 w-full">
+          <h2 className=''>Thông tin chi tiết dự đoán chiều cao</h2>
+        </div>
+        <div className="flex justify-end relative">
+          <div className="flex flex-col justify-center items-center mr-16">
+            <button
+              className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] uppercase font-bold text-xl hover:opacity-85 duration-300 flex justify-center items-center min-w-[170px]"
+              onClick={() => setShowOptionsDownload(pre => !pre)}
+            >
+              Tải về
+              <ArrowRight width={24} height={24} className={showOptionsDownload ? 'rotate-90 duration-300' : 'duration-300'} />
+            </button>
+            {showOptionsDownload && (
+              <div className="flex flex-col gap-2 p-2 bg-[#ccc] rounded-md absolute top-[120%]" ref={outsideRef}>
+                <button onClick={() => toPDF()} className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] font-bold hover:opacity-85 duration-300 flex justify-center items-center">
+                  <span className="mr-2">Tải về PDF</span>
+                  <DownloadIcon width={16} height={16} />
+                </button>
+                <button onClick={() => handleDownloadAll('png')} className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] font-bold hover:opacity-85 duration-300 flex justify-center items-center">
+                  <span className="mr-2">Tải về ảnh png</span>
+                  <DownloadIcon width={16} height={16} />
+                </button>
+                <button onClick={() => handleDownloadAll('jpeg')} className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] font-bold hover:opacity-85 duration-300 flex justify-center items-center">
+                  <span className="mr-2">Tải về ảnh jpg</span>
+                  <DownloadIcon width={16} height={16} />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
       <div
-        className="pb-8 px-4 bg-[length:100%_100%]"
+        className="pb-8 bg-modal"
         ref={(el) => {
           targetRef.current = el; // gán cho targetRef để tải PDF
           // elementRef.current = el;
@@ -356,33 +392,6 @@ function HeightChart(props: DeleteProductProps) {
               </table>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="flex justify-end relative">
-        <div className="flex flex-col justify-end mr-8 pb-4">
-          <button
-            className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] uppercase font-bold text-xl hover:opacity-85 duration-300 flex justify-center items-center mb-2 min-w-[170px]"
-            onClick={() => setShowOptionsDownload(pre => !pre)}
-          >
-            Tải về
-            <ArrowRight width={24} height={24} className={showOptionsDownload ? 'rotate-90 duration-300' : 'duration-300'} />
-          </button>
-          {showOptionsDownload && (
-            <div className="flex flex-col gap-2 p-2 bg-[#ccc] rounded-md">
-              <button onClick={() => toPDF()} className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] font-bold hover:opacity-85 duration-300 flex justify-center items-center">
-                <span className="mr-2">Tải về PDF</span>
-                <DownloadIcon width={16} height={16} />
-              </button>
-              <button onClick={() => handleDownloadAll('png')} className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] font-bold hover:opacity-85 duration-300 flex justify-center items-center">
-                <span className="mr-2">Tải về ảnh png</span>
-                <DownloadIcon width={16} height={16} />
-              </button>
-              <button onClick={() => handleDownloadAll('jpeg')} className="px-4 py-2 custom-bg rounded-md text-[#0D2D95] font-bold hover:opacity-85 duration-300 flex justify-center items-center">
-                <span className="mr-2">Tải về ảnh jpg</span>
-                <DownloadIcon width={16} height={16} />
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </Modal>

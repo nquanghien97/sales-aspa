@@ -40,7 +40,7 @@ function MaturationProcess(props: MaturationProcessProps) {
       footer={false}
       wrapClassName='!p-0'
     >
-      <div className="fixed top-4 right-[16%] z-[100]">
+      <div className="absolute top-2 right-16 z-[100]">
         <Button
           variant='primary'
           onClick={downloadImage}
@@ -48,45 +48,57 @@ function MaturationProcess(props: MaturationProcessProps) {
           Xuất File
         </Button>
       </div>
-      <div ref={elementRef}>
+      <div ref={elementRef} className="bg-[url('/bgr.png')] bg-[length:100%_100%]">
         <div className="p-4 flex justify-between">
           <Image src="/logo-ngang.png" unoptimized alt='logo' width={200} height={150} />
         </div>
         <h2
-          className="text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-md text-center"
+          className="text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-md text-center mb-4"
           style={{ textShadow: "2px 2px 0px rgba(255,255,255,0.8)" }}
         >
           3 Giai đoạn tăng chiều cao
         </h2>
         <div className="flex gap-6 mb-8 p-4 w-full">
-          {/* Box 1 */}
-          <div className="w-1/3 px-8 bg-amber-100 p-4 rounded-lg shadow-md border-2 border-white">
-            <ul className="text-blue-800 space-y-2">
-              <li>- Trẻ ăn ngon miệng hơn, ngủ sâu giấc, da hồng hào hơn.</li>
-              <li>- Tiêu hóa ổn định, giảm táo bón và đầy bụng.</li>
-              <li>- Chiều cao chưa thay đổi rõ, nhưng có thể bắt đầu thích nghi tốt với dinh dưỡng.</li>
-            </ul>
+          <div className="w-1/3 px-8 flex flex-col">
+            <div className="mb-2">
+              <Image src="/gd1.png" alt="gd1" width={829} height={327} />
+            </div>
+            <div className="flex-1 bg-amber-100 p-4 rounded-lg shadow-xl-custom border-2 border-white">
+              <ul className="text-blue-800 space-y-2">
+                <li>- Trẻ ăn ngon miệng hơn, ngủ sâu giấc, da hồng hào hơn.</li>
+                <li>- Tiêu hóa ổn định, giảm táo bón và đầy bụng.</li>
+                <li>- Chiều cao chưa thay đổi rõ, nhưng có thể bắt đầu thích nghi tốt với dinh dưỡng.</li>
+              </ul>
+            </div>
           </div>
 
-          {/* Box 2 */}
-          <div className="w-1/3 px-8 bg-amber-100 p-4 rounded-lg shadow-md border-2 border-white">
-            <ul className="text-blue-800 space-y-2">
-              <li>- Đáng con cao thẳng hơn, chân duỗi dài, vai mở rộng.</li>
-              <li>- Quần áo bắt đầu chật và thích vận động hơn trước.</li>
-              <li>- Chiều cao có dấu hiệu tăng đều đặn</li>
-            </ul>
+          <div className="w-1/3 px-8 flex flex-col">
+            <div className="mb-2">
+              <Image src="/gd2.png" alt="gd2" width={829} height={327} />
+            </div>
+            <div className="flex-1 bg-amber-100 p-4 rounded-lg shadow-xl-custom border-2 border-white">
+              <ul className="text-blue-800 space-y-2">
+                <li>- Đáng con cao thẳng hơn, chân duỗi dài, vai mở rộng.</li>
+                <li>- Quần áo bắt đầu chật và thích vận động hơn trước.</li>
+                <li>- Chiều cao có dấu hiệu tăng đều đặn</li>
+              </ul>
+            </div>
           </div>
 
-          {/* Box 3 */}
-          <div className="w-1/3 px-8 bg-amber-100 p-4 rounded-lg shadow-md border-2 border-white">
-            <ul className="text-blue-800 space-y-2">
-              <li>- Trẻ cao rõ rệt, thay đổ thấy áo cộc, quần ngắn nhanh chóng.</li>
-              <li>- Thần thái tự tin, năng động hơn, bắt đầu so chiều cao với bạn bè.</li>
-            </ul>
+          <div className="w-1/3 px-8 flex flex-col">
+            <div className="mb-2">
+              <Image src="/gd3.png" alt="gd3" width={829} height={327} />
+            </div>
+            <div className="flex-1 bg-amber-100 p-4 rounded-lg shadow-xl-custom border-2 border-white">
+              <ul className="text-blue-800 space-y-2">
+                <li>- Trẻ cao rõ rệt, thay đổ thấy áo cộc, quần ngắn nhanh chóng.</li>
+                <li>- Thần thái tự tin, năng động hơn, bắt đầu so chiều cao với bạn bè.</li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className="p-4">
-          <p className="text-3xl font-bold text-blue-600 uppercase mb-4 text-center">Hiệu quả tăng chiều cao</p>
+          <p className="text-3xl font-bold text-blue-600 uppercase mb-8 text-center">Hiệu quả tăng chiều cao</p>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse border border-amber-300">
               <thead>

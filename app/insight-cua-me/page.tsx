@@ -10,6 +10,8 @@ import CanxiRequirement from '@/components/CanxiRequirement'
 import { getInsightMother } from '@/services/insight-mother'
 import { InsightMotherEntity } from '@/entities/insight-mother'
 import { data_milk } from './data_milk'
+import Documents from './Documents'
+import { Button } from 'antd'
 
 function HandleRejection() {
   const [datas, setDatas] = useState<InsightMotherEntity[]>([]);
@@ -20,6 +22,7 @@ function HandleRejection() {
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isOpenDocument, setIsOpenDocument] = useState(false);
 
   useEffect(() => {
     document.title = "Insight của mẹ"
@@ -28,7 +31,7 @@ function HandleRejection() {
   const matchedMilk = data_milk.find(data => data.name === milk)
 
   useEffect(() => {
-    if(!milk || !searchParams.search) return
+    if (!milk || !searchParams.search) return
     (async () => {
       try {
         setLoading(true)
@@ -76,10 +79,18 @@ function HandleRejection() {
 
   return (
     <>
+      <Documents open={isOpenDocument} onClose={() => setIsOpenDocument(false)} />
       <div className="bg-[#f4d798] shadow-xl rounded-xl p-4">
         <div className="flex">
           <div className="w-3/5 px-4">
-            <h1 className="text-center text-4xl font-bold mb-4 py-4">INSIGHT CỦA MẸ</h1>
+            <div className="flex items-center mb-4">
+              <div>
+                <Button type='primary' onClick={() => setIsOpenDocument(true)}>Xem tài liệu</Button>
+              </div>
+              <div className="flex-1">
+                <h1 className="text-center text-4xl font-bold py-4">INSIGHT CỦA MẸ</h1>
+              </div>
+            </div>
             <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} setMilk={setMilk} />
             <div className="w-full">
               <table className="w-full border-collapse">
