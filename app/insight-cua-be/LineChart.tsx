@@ -49,7 +49,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
           display: true,
           align: 'top',
           anchor: 'end',
-          formatter: function(value: { x: string, y: number }) {
+          formatter: function (value: { x: string, y: number }) {
             return `BMI: ${value.y} kg/m2`;
           },
           color: '#006cd8',
@@ -119,6 +119,10 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
         labels: {
           boxWidth: 40,
           padding: 20,
+          usePointStyle: true, // Sử dụng point style thay vì box
+          font: {
+            size: 12 // Có thể điều chỉnh kích thước font nếu cần
+          }
         },
       },
       title: {
@@ -169,7 +173,7 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
       },
     },
     maintainAspectRatio: true,
-    aspectRatio: 3/5,
+    aspectRatio: 2 / 3,
   };
 
   return <Line data={data} options={options} />;

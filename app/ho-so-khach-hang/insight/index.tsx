@@ -68,24 +68,99 @@ function Insight(props: InsightProps) {
 
   const downloadImage = () => {
     if (!elementRef.current) {
-      toast.warning('Bạn phải điền đủ thông tin')
+      toast.warning('Bạn phải điền đủ thông tin');
       return;
     }
-    html2canvas(elementRef.current).then((canvas) => {
-      const dataUrl = canvas.toDataURL(`image/png`, 1.0);
-      const link = document.createElement('a');
-      link.download = 'insight của bé';
-      link.href = dataUrl;
-      link.click();
-    }).catch((error) => {
-      console.error('Could not generate image:', error);
+  
+    // 1. Chuẩn bị các biến cần thiết
+    const exportWidth = 2040;
+    const chartWidth = 1000; // Kích thước lớn hơn cho chart
+    const originalStyles = {
+      container: {
+        width: elementRef.current.style.width,
+        height: elementRef.current.style.height,
+      },
+      charts: [] as {width: string, height: string}[],
+    };
+  
+    // 2. Tìm tất cả các chart và lưu lại trạng thái ban đầu
+    const charts = elementRef.current.querySelectorAll('canvas');
+    originalStyles.charts = Array.from(charts).map(chart => ({
+      width: (chart as HTMLElement).style.width,
+      height: (chart as HTMLElement).style.height,
+    }));
+  
+    // 3. Áp dụng kích thước mới
+    elementRef.current.style.width = `${exportWidth}px`;
+    elementRef.current.style.height = 'auto';
+    
+    // 4. Đặc biệt xử lý các chart
+    Array.from(charts).forEach((chart) => {
+      const chartElement = chart as HTMLElement;
+      chartElement.style.width = `${chartWidth}px`;
+      chartElement.style.height = `${chartWidth * 0.6}px`; // Tỷ lệ 5:3
+      
+      // Quan trọng: Đặt lại thuộc tính cho canvas
+      chartElement.setAttribute('width', chartWidth.toString());
+      chartElement.setAttribute('height', (chartWidth * 0.6).toString());
+      
+      // Thêm style để đảm bảo hiển thị đúng
+      chartElement.style.maxWidth = '100%';
+      chartElement.style.objectFit = 'contain';
     });
+  
+    // 5. Thêm delay để đảm bảo DOM cập nhật
+    setTimeout(() => {
+      html2canvas(elementRef.current!, {
+        scale: 3, // Scale cao hơn cho chất lượng tốt
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: exportWidth,
+        width: exportWidth,
+        height: elementRef.current!.scrollHeight,
+      }).then((canvas) => {
+        // 6. Khôi phục lại tất cả style gốc
+        elementRef.current!.style.width = originalStyles.container.width;
+        elementRef.current!.style.height = originalStyles.container.height;
+        
+        Array.from(charts).forEach((chart, index) => {
+          const chartElement = chart as HTMLElement;
+          chartElement.style.width = originalStyles.charts[index].width;
+          chartElement.style.height = originalStyles.charts[index].height;
+          chartElement.setAttribute('width', '');
+          chartElement.setAttribute('height', '');
+        });
+  
+        // 7. Tạo và download ảnh
+        const dataUrl = canvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        link.download = `insight-cua-be-${new Date().toISOString().slice(0,10)}.png`;
+        link.href = dataUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+      }).catch((error) => {
+        console.error('Export error:', error);
+        // Đảm bảo luôn khôi phục style khi có lỗi
+        elementRef.current!.style.width = originalStyles.container.width;
+        elementRef.current!.style.height = originalStyles.container.height;
+        Array.from(charts).forEach((chart, index) => {
+          const chartElement = chart as HTMLElement;
+          chartElement.style.width = originalStyles.charts[index].width;
+          chartElement.style.height = originalStyles.charts[index].height;
+        });
+      });
+    }, 300); // Delay 300ms để đảm bảo render xong
   };
 
   return (
     <Modal
       open={open}
-      className="!p-0 !w-3/4 !h-screen !top-2"
+      className="!p-0 !w-full !h-screen !top-2"
       onCancel={onClose}
       footer={false}
       wrapClassName='!p-0'

@@ -130,11 +130,11 @@ function Body(props: BodyProps) {
         <h1 className="text-[#2563eb] uppercase text-4xl mb-4 text-center font-bold">Đánh giá hiện trạng và giải pháp phát triển chiều cao vượt trội</h1>
         <div className="mb-4 bg-insight-item rounded-2xl p-4">
           <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
-          <ul className="list-disc pl-6 flex flex-wrap text-lg">
-            <li className="w-1/2 py-1"><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
-            <li className="w-1/2 py-1"><strong>Chiều cao:</strong> {currentHeight} cm</li>
-            <li className="w-1/2 py-1"><strong>Tuổi:</strong> {currentAge} tuổi</li>
-            <li className="w-1/2 py-1"><strong>Cân nặng:</strong> {currentWeight} kg</li>
+          <ul className="flex flex-wrap text-lg">
+            <li className="w-1/2 py-1"><strong>- Giới tính:</strong> {gender && optionsGender[gender]}</li>
+            <li className="w-1/2 py-1"><strong>- Chiều cao:</strong> {currentHeight} cm</li>
+            <li className="w-1/2 py-1"><strong>- Tuổi:</strong> {currentAge} tuổi</li>
+            <li className="w-1/2 py-1"><strong>- Cân nặng:</strong> {currentWeight} kg</li>
           </ul>
         </div>
         <div className="mb-4">
@@ -151,7 +151,7 @@ function Body(props: BodyProps) {
           </div>
         </div>
         <div className="flex gap-8">
-          <div className="w-1/3 mb-4">
+          <div className="w-1/3 mb-4 chart-container">
             {gender && <LineChart dataLine={BMI_data!} currentAge={currentAge} gender={gender} BMI={Number(BMI.toFixed(1))} />}
           </div>
           <div className="w-2/3 py-3">

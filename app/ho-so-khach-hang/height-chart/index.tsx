@@ -69,16 +69,13 @@ function HeightChart(props: DeleteProductProps) {
 
 
   const handleDownloadAll = (formatImage: string) => {
-    downloadImage(elementRef1, 'image1', formatImage);
-    downloadImage(elementRef2, 'image2', formatImage);
-    downloadImage(elementRef3, 'image3', formatImage);
+    downloadImage(elementRef1, 'phac-do-du-doan-chieu-cao-1', formatImage);
+    downloadImage(elementRef2, 'phac-do-du-doan-chieu-cao-2', formatImage);
+    downloadImage(elementRef3, 'phac-do-du-doan-chieu-cao-3', formatImage);
   };
 
   const resultCalculator = heightCalculator(+data?.currentHeight, currentAge, gender, currentFatherHeight, currentMotherHeight)
-  // const genderConfig = {
-  //   BOY: "Nam",
-  //   GIRL: "Nữ"
-  // }
+
   //menu dinh dưỡng theo tuổi của bé
   const dinh_duong = menu_dinh_duong(data.currentAge).find(condition => condition.condition)
   const data_dinh_duong = BMI < data_bmi[gender!]['5th'][Number(currentAge)] ? dinh_duong?.dinh_duong['thieu_can'] : (BMI > data_bmi[gender!]['85th'][Number(currentAge)] ? dinh_duong?.dinh_duong['thua_can'] : dinh_duong?.dinh_duong['can_nang_chuan'])

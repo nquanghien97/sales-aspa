@@ -65,7 +65,7 @@ function MaturationProcess(props: MaturationProcessProps) {
           >
             3 Giai đoạn tăng chiều cao
           </h2>
-          <div className="flex gap-6 mb-8 p-4 w-full">
+          <div className="flex gap-6 mb-8 p-4 w-full text-base">
             <div className="w-1/3 px-8 flex flex-col">
               <div className="mb-2">
                 <Image src="/gd1.png" alt="gd1" width={829} height={327} />
@@ -107,7 +107,7 @@ function MaturationProcess(props: MaturationProcessProps) {
           <div className="p-4">
             <p className="text-3xl font-bold text-blue-600 uppercase mb-8 text-center">Hiệu quả tăng chiều cao</p>
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-amber-300">
+              <table className="w-full border-collapse border border-amber-300 text-base">
                 <thead>
                   <tr>
                     <th
