@@ -46,7 +46,16 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
         pointRadius: 4,
         pointHoverRadius: 6,
         datalabels: {
-          display: false
+          display: true,
+          align: 'top',
+          anchor: 'end',
+          formatter: function(value: { x: string, y: number }) {
+            return `BMI: ${value.y} kg/m2`;
+          },
+          color: '#006cd8',
+          font: {
+            weight: 'bold'
+          }
         },
       },
       {
@@ -61,18 +70,6 @@ const LineChart = (props: { dataLine: number[], currentAge: string, gender: Gend
           display: false
         }
       },
-      // {
-      //   label: 'Sức khỏe dinh dưỡng tốt',
-      //   data: (data_bmi[gender]['50th']),
-      //   fill: '-1',
-      //   borderColor: '#ccc',
-      //   tension: 0.1,
-      //   pointRadius: 0,
-      //   backgroundColor: 'rgba(208, 252, 201, .5)',
-      //   datalabels: {
-      //     display: false
-      //   }
-      // },
       {
         label: 'Sức khỏe dinh dưỡng tốt',
         data: (data_bmi[gender]['85th']),

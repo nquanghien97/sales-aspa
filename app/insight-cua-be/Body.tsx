@@ -130,7 +130,7 @@ function Body(props: BodyProps) {
         <h1 className="text-[#2563eb] uppercase text-4xl mb-4 text-center font-bold">Đánh giá hiện trạng và giải pháp phát triển chiều cao vượt trội</h1>
         <div className="mb-4 bg-insight-item rounded-2xl p-4">
           <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
-          <ul className="list-disc pl-6 flex flex-wrap">
+          <ul className="list-disc pl-6 flex flex-wrap text-lg">
             <li className="w-1/2 py-1"><strong>Giới tính:</strong> {gender && optionsGender[gender]}</li>
             <li className="w-1/2 py-1"><strong>Chiều cao:</strong> {currentHeight} cm</li>
             <li className="w-1/2 py-1"><strong>Tuổi:</strong> {currentAge} tuổi</li>
@@ -139,7 +139,7 @@ function Body(props: BodyProps) {
         </div>
         <div className="mb-4">
           <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Đánh giá chỉ số:</h2>
-          <div className="flex">
+          <div className="flex text-lg">
             <div className="py-4 px-8 bg-[#2563eb] rounded-l-2xl text-white text-center flex items-center flex-col justify-center">
               <p className="font-semibold whitespace-nowrap">Chỉ số BMI (Body Mass Index):</p>
               <p className="font-semibold">{BMI.toFixed(1)} kg/m2</p>
@@ -176,7 +176,7 @@ function Body(props: BodyProps) {
                 </div>
                 <div className="">
                   <p className="text-xl text-[#2563eb] font-bold pl-6 pb-2 border-b-2 border-[#f4d798] mb-2">Dinh dưỡng phát triển chiều cao vượt trội</p>
-                  <ul className="list-disc pl-6 py-4">
+                  <ul className="list-disc pl-6 py-4 text-lg">
                     <li className="flex gap-2 py-2">
                       <div className="flex items-start w-7 h-7 justify-center">
                         <Image unoptimized src="/bt.png" alt="bt" width={28} height={28} className="w-full" />
@@ -206,7 +206,7 @@ function Body(props: BodyProps) {
               </div>
             </div>
             <div>
-              <p className="py-2 px-4 bg-[#2563eb] rounded-2xl text-white text-center">Nếu duy trì chế độ dinh dưỡng và vận động hợp lý bé <strong>có thể cao thêm 5-15 cm so với chế độ dinh dưỡng thông thường</strong></p>
+              <p className="py-2 px-4 bg-[#2563eb] rounded-2xl text-white text-center text-base">Nếu duy trì chế độ dinh dưỡng và vận động hợp lý bé <strong>có thể cao thêm 5-15 cm so với chế độ dinh dưỡng thông thường</strong></p>
             </div>
           </div>
         </div>
