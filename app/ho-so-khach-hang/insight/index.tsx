@@ -17,6 +17,8 @@ interface InsightProps {
   currentAge: string
   currentWeight: string
   puberty: 'infant' | 'pre-puberty' | 'puberty' | 'post-puberty' | undefined;
+  phoneNumber?: string
+  fullName?: string
 }
 
 function Insight(props: InsightProps) {
@@ -28,6 +30,8 @@ function Insight(props: InsightProps) {
     currentAge,
     currentWeight,
     puberty,
+    phoneNumber,
+    fullName
   } = props;
 
   const [dataResponseHeight, setDataResponseHeight] = useState<{ title?: ReactNode, content?: JSX.Element }>();
@@ -185,6 +189,8 @@ function Insight(props: InsightProps) {
         currentWeight={currentWeight}
         puberty={puberty}
         elementRef={elementRef}
+        phoneNumber={phoneNumber}
+        fullName={fullName}
       />
     </Modal>
   )

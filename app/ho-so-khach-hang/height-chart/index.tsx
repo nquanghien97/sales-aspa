@@ -29,6 +29,8 @@ interface DataType {
   currentAge: number
   currentFatherHeight: number
   currentMotherHeight: number
+  phoneNumber?: string
+  fullName?: string
 }
 
 interface DeleteProductProps {
@@ -37,9 +39,14 @@ interface DeleteProductProps {
   data: DataType;
 }
 
+const optionsGender = {
+  BOY: 'Nam',
+  GIRL: 'Nữ'
+}
+
 function HeightChart(props: DeleteProductProps) {
   const { open, onCancel, data } = props
-  const { currentHeight, currentWeight, gender, currentAge, currentFatherHeight, currentMotherHeight } = data
+  const { currentHeight, currentWeight, gender, currentAge, currentFatherHeight, currentMotherHeight, phoneNumber, fullName } = data
   const [showOptionsDownload, setShowOptionsDownload] = useState(false)
 
   const elementRef1 = useRef<HTMLDivElement | null>(null);
@@ -162,6 +169,19 @@ function HeightChart(props: DeleteProductProps) {
             Phác đồ dự đoán chiều cao của
           </h1>
           <h2 className="uppercase text-5xl font-bold text-center text-[#143cad] mb-4">Kết quả</h2>
+          <div className="flex justify-around gap-4 max-w-5xl m-auto mb-4">
+            <div className="w-1/2 flex-1 custom-bg p-4 rounded-2xl">
+              <h3 className="uppercase text-2xl text-[#143cad] text-center mb-4 font-semibold">Thông tin của con</h3>
+              <ul className="flex flex-wrap text-lg">
+                <li className="w-1/2 py-1"><strong>- Tên khách hàng:</strong> {fullName}</li>
+                <li className="w-1/2 py-1"><strong>- Số điện thoại:</strong> {phoneNumber}</li>
+                <li className="w-1/2 py-1"><strong>- Giới tính:</strong> {gender && optionsGender[gender]}</li>
+                <li className="w-1/2 py-1"><strong>- Chiều cao:</strong> {currentHeight} cm</li>
+                <li className="w-1/2 py-1"><strong>- Tuổi:</strong> {currentAge} tuổi</li>
+                <li className="w-1/2 py-1"><strong>- Cân nặng:</strong> {currentWeight} kg</li>
+              </ul>
+            </div>
+          </div>
           <div className="max-w-4xl m-auto h-[560px] mb-4">
             <LineChart dataLine={resultCalculator?.heightsByAge as number[]} currentAge={currentAge} />
           </div>

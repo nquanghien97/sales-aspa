@@ -30,6 +30,8 @@ function CustomerProfile() {
   const [currentWeight, setCurrentWeight] = useState('');
   const [gender, setGender] = useState<Gender>(Gender.BOY);
   const [currentAge, setCurrentAge] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [fullName, setFullName] = useState('');
   const [isShowResults, setIsShowResults] = useState(false);
 
   const [isOpenHeightChart, setIsOpenHeightChart] = useState(false);
@@ -45,12 +47,12 @@ function CustomerProfile() {
   }
 
   useEffect(() => {
-    if(isRequiredMotherHeight) {
+    if (isRequiredMotherHeight) {
       setTimeout(() => {
         setIsRequiredMotherHeight(false)
       }, 5000)
     }
-    if(isRequiredFatherHeight) {
+    if (isRequiredFatherHeight) {
       setTimeout(() => {
         setIsRequiredFatherHeight(false)
       }, 5000)
@@ -72,7 +74,9 @@ function CustomerProfile() {
           currentMotherHeight: Number(currentMotherHeight),
           currentWeight: Number(currentWeight),
           gender,
-          currentAge: Number(currentAge)
+          currentAge: Number(currentAge),
+          phoneNumber,
+          fullName,
         }}
       />
       <Insight
@@ -83,6 +87,8 @@ function CustomerProfile() {
         gender={gender}
         currentAge={currentAge}
         puberty={puberty}
+        phoneNumber={phoneNumber}
+        fullName={fullName}
       />
       <MaturationProcess
         open={isOpenMaturationProcess}
@@ -92,136 +98,162 @@ function CustomerProfile() {
       <div className="p-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">HỒ SƠ KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl p-4 rounded-xl mb-4">
-          <h2 className="text-xl">Nhập thông tin khách hàng</h2>
+          <h2 className="text-xl mb-4">Nhập thông tin khách hàng</h2>
           <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center" onChange={() => setIsShowResults(false)}>
-            <div className="flex gap-4 flex-wrap">
-              <Form.Item
-                label={<p className="min-w-[120px]">Chiều cao bé (cm)</p>}
-                className="flex flex-col px-2 w-[30%] !mb-0"
-                name="currentHeight"
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này là bắt buộc"
-                  },
-                ]}
-              >
-                <Input
-                  placeholder='Chiều cao (cm)'
-                  onChange={(e) => setCurrentHeight(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                label={<p className="min-w-[120px]">Chiều cao bố (cm)</p>}
-                className={`flex flex-col px-2 w-[30%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
-                name="currentFatherHeight"
-              >
-                <Input
-                  placeholder='Chiều cao bố (cm)'
-                  onChange={(e) => setCurrentFatherHeight(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                label={<p className="min-w-[120px]">Chiều cao mẹ (cm)</p>}
-                className={`flex flex-col px-2 w-[30%] !mb-0 ${isRequiredMotherHeight && 'blink-shadow'}`}
-                name="currentMotherHeight"
-              >
-                <Input
-                  placeholder='Chiều cao mẹ (cm)'
-                  onChange={(e) => setCurrentMotherHeight(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                label={<p className="min-w-[120px]">Cân nặng (kg)</p>}
-                className="flex flex-col px-2 w-[30%] !mb-0"
-                name="currentWeight"
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này là bắt buộc"
-                  },
-                ]}
-              >
-                <Input
-                  placeholder='Cân nặng (kg)'
-                  onChange={(e) => setCurrentWeight(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                label={<p className="min-w-[120px]">Giới tính</p>}
-                className="flex flex-col px-2 w-[30%] !mb-0"
-                name="gender"
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này là bắt buộc"
-                  },
-                ]}
-              >
-                <Select
-                  options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]}
-                  placeholder='Giới tính'
-                  onChange={(e) => setGender(e as Gender)}
-                />
-              </Form.Item>
-              <Form.Item
-                label={<p className="min-w-[120px]">Số tuổi</p>}
-                className="flex flex-col px-2 w-[30%] !mb-0"
-                name="currentAge"
-                rules={[
-                  {
-                    required: true,
-                    message: "Trường này là bắt buộc"
-                  },
-                ]}
-              >
-                <Input
-                  placeholder='Số tuổi'
-                  onChange={(e) => setCurrentAge(e.target.value)}
-                />
-              </Form.Item>
-            </div>
-            <Form.Item
-              name="puberty"
-              rules={[
-                {
-                  required: true,
-                  message: "Trường này là bắt buộc"
-                },
-              ]}
-            >
-              <div className="flex flex-col gap-2">
-                <div className="flex gap-2 w-[140px] items-center">
-                  <p className="text-[#2563eb] w-full">0 - 2 tuổi</p>
-                  <Checkbox
-                    checked={puberty === 'infant'}
-                    onChange={() => handleCheckboxChange('infant')}
+            <div className="flex gap-8">
+              <div className="flex gap-4 flex-wrap justify-around">
+                <Form.Item
+                  label={<p className="min-w-[120px]">Chiều cao bé (cm)</p>}
+                  className="flex flex-col px-2 w-[40%] !mb-0"
+                  name="currentHeight"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Trường này là bắt buộc"
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder='Chiều cao (cm)'
+                    onChange={(e) => setCurrentHeight(e.target.value)}
                   />
-                </div>
-                <div className="flex gap-2 w-[140px] items-center">
-                  <p className="text-[#2563eb] w-full">Chưa dậy thì</p>
-                  <Checkbox
-                    checked={puberty === 'pre-puberty'}
-                    onChange={() => handleCheckboxChange('pre-puberty')}
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Cân nặng (kg)</p>}
+                  className="flex flex-col px-2 w-[40%] !mb-0"
+                  name="currentWeight"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Trường này là bắt buộc"
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder='Cân nặng (kg)'
+                    onChange={(e) => setCurrentWeight(e.target.value)}
                   />
-                </div>
-                <div className="flex gap-2 w-[140px] items-center">
-                  <p className="text-[#2563eb] w-full">Đang dậy thì</p>
-                  <Checkbox
-                    checked={puberty === 'puberty'}
-                    onChange={() => handleCheckboxChange('puberty')}
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Giới tính</p>}
+                  className="flex flex-col px-2 w-[40%] !mb-0"
+                  name="gender"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Trường này là bắt buộc"
+                    },
+                  ]}
+                >
+                  <Select
+                    options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]}
+                    placeholder='Giới tính'
+                    onChange={(e) => setGender(e as Gender)}
                   />
-                </div>
-                <div className="flex gap-2 w-[140px] items-center">
-                  <p className="text-[#2563eb] w-full">Đã dậy thì</p>
-                  <Checkbox
-                    checked={puberty === 'post-puberty'}
-                    onChange={() => handleCheckboxChange('post-puberty')}
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Số tuổi</p>}
+                  className="flex flex-col px-2 w-[40%] !mb-0"
+                  name="currentAge"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Trường này là bắt buộc"
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder='Số tuổi'
+                    onChange={(e) => setCurrentAge(e.target.value)}
                   />
-                </div>
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Chiều cao bố (cm)</p>}
+                  className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
+                  name="currentFatherHeight"
+                >
+                  <Input
+                    placeholder='Chiều cao bố (cm)'
+                    onChange={(e) => setCurrentFatherHeight(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Chiều cao mẹ (cm)</p>}
+                  className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredMotherHeight && 'blink-shadow'}`}
+                  name="currentMotherHeight"
+                >
+                  <Input
+                    placeholder='Chiều cao mẹ (cm)'
+                    onChange={(e) => setCurrentMotherHeight(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Số điện thoại</p>}
+                  className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
+                  name="phoneNumber"
+                >
+                  <Input
+                    placeholder='Số điện thoại'
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label={<p className="min-w-[120px]">Tên khách hàng</p>}
+                  className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
+                  name="fullName"
+                >
+                  <Input
+                    placeholder='Tên khách hàng'
+                    onChange={(e) => setFullName(e.target.value)}
+                  />
+                </Form.Item>
               </div>
-            </Form.Item>
-            <Button variant='primary' type='submit'>Xác nhận</Button>
+              <div className="w-1/2">
+                <Form.Item
+                  name="puberty"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Trường này là bắt buộc"
+                    },
+                  ]}
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-2 w-[140px] items-center">
+                      <p className="text-[#2563eb] w-full">0 - 2 tuổi</p>
+                      <Checkbox
+                        checked={puberty === 'infant'}
+                        onChange={() => handleCheckboxChange('infant')}
+                      />
+                    </div>
+                    <div className="flex gap-2 w-[140px] items-center">
+                      <p className="text-[#2563eb] w-full">Chưa dậy thì</p>
+                      <Checkbox
+                        checked={puberty === 'pre-puberty'}
+                        onChange={() => handleCheckboxChange('pre-puberty')}
+                      />
+                    </div>
+                    <div className="flex gap-2 w-[140px] items-center">
+                      <p className="text-[#2563eb] w-full">Đang dậy thì</p>
+                      <Checkbox
+                        checked={puberty === 'puberty'}
+                        onChange={() => handleCheckboxChange('puberty')}
+                      />
+                    </div>
+                    <div className="flex gap-2 w-[140px] items-center">
+                      <p className="text-[#2563eb] w-full">Đã dậy thì</p>
+                      <Checkbox
+                        checked={puberty === 'post-puberty'}
+                        onChange={() => handleCheckboxChange('post-puberty')}
+                      />
+                    </div>
+                  </div>
+                </Form.Item>
+              </div>
+            </div>
+            <div className="mx-8">
+              <Button variant='primary' type='submit'>Xác nhận</Button>
+            </div>
           </Form>
         </div>
         {isShowResults && (
