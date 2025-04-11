@@ -173,12 +173,12 @@ function HeightChart(props: DeleteProductProps) {
             <div className="w-1/2 flex-1 custom-bg p-4 rounded-2xl">
               <h3 className="uppercase text-2xl text-[#143cad] text-center mb-4 font-semibold">Thông tin của con</h3>
               <ul className="flex flex-wrap text-lg">
-                <li className="w-1/2 py-1"><strong>- Tên khách hàng:</strong> {fullName}</li>
+                <li className="w-1/2 py-1"><strong>- Tên Ba/Mẹ:</strong> {fullName}</li>
                 <li className="w-1/2 py-1"><strong>- Số điện thoại:</strong> {phoneNumber}</li>
-                <li className="w-1/2 py-1"><strong>- Giới tính:</strong> {gender && optionsGender[gender]}</li>
-                <li className="w-1/2 py-1"><strong>- Chiều cao:</strong> {currentHeight} cm</li>
-                <li className="w-1/2 py-1"><strong>- Tuổi:</strong> {currentAge} tuổi</li>
-                <li className="w-1/2 py-1"><strong>- Cân nặng:</strong> {currentWeight} kg</li>
+                <li className="w-1/2 py-1"><strong>- Giới tính con:</strong> {gender && optionsGender[gender]}</li>
+                <li className="w-1/2 py-1"><strong>- Chiều cao con:</strong> {currentHeight} cm</li>
+                <li className="w-1/2 py-1"><strong>- Tuổi con:</strong> {currentAge} tuổi</li>
+                <li className="w-1/2 py-1"><strong>- Cân nặng con:</strong> {currentWeight} kg</li>
               </ul>
             </div>
           </div>

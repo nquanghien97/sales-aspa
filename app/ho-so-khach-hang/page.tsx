@@ -103,7 +103,7 @@ function CustomerProfile() {
             <div className="flex gap-8">
               <div className="flex gap-4 flex-wrap justify-around">
                 <Form.Item
-                  label={<p className="min-w-[120px]">Chiều cao bé (cm)</p>}
+                  label={<p className="min-w-[120px]">Chiều cao con (cm)</p>}
                   className="flex flex-col px-2 w-[40%] !mb-0"
                   name="currentHeight"
                   rules={[
@@ -114,12 +114,12 @@ function CustomerProfile() {
                   ]}
                 >
                   <Input
-                    placeholder='Chiều cao (cm)'
+                    placeholder='Chiều cao con (cm)'
                     onChange={(e) => setCurrentHeight(e.target.value)}
                   />
                 </Form.Item>
                 <Form.Item
-                  label={<p className="min-w-[120px]">Cân nặng (kg)</p>}
+                  label={<p className="min-w-[120px]">Cân nặng con (kg)</p>}
                   className="flex flex-col px-2 w-[40%] !mb-0"
                   name="currentWeight"
                   rules={[
@@ -130,12 +130,12 @@ function CustomerProfile() {
                   ]}
                 >
                   <Input
-                    placeholder='Cân nặng (kg)'
+                    placeholder='Cân nặng con (kg)'
                     onChange={(e) => setCurrentWeight(e.target.value)}
                   />
                 </Form.Item>
                 <Form.Item
-                  label={<p className="min-w-[120px]">Giới tính</p>}
+                  label={<p className="min-w-[120px]">Giới tính con</p>}
                   className="flex flex-col px-2 w-[40%] !mb-0"
                   name="gender"
                   rules={[
@@ -147,12 +147,12 @@ function CustomerProfile() {
                 >
                   <Select
                     options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]}
-                    placeholder='Giới tính'
+                    placeholder='Giới tính con'
                     onChange={(e) => setGender(e as Gender)}
                   />
                 </Form.Item>
                 <Form.Item
-                  label={<p className="min-w-[120px]">Số tuổi</p>}
+                  label={<p className="min-w-[120px]">Tuổi con</p>}
                   className="flex flex-col px-2 w-[40%] !mb-0"
                   name="currentAge"
                   rules={[
@@ -163,7 +163,7 @@ function CustomerProfile() {
                   ]}
                 >
                   <Input
-                    placeholder='Số tuổi'
+                    placeholder='Tuổi con'
                     onChange={(e) => setCurrentAge(e.target.value)}
                   />
                 </Form.Item>
@@ -198,12 +198,12 @@ function CustomerProfile() {
                   />
                 </Form.Item>
                 <Form.Item
-                  label={<p className="min-w-[120px]">Tên khách hàng</p>}
+                  label={<p className="min-w-[120px]">Tên Ba/Mẹ</p>}
                   className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
                   name="fullName"
                 >
                   <Input
-                    placeholder='Tên khách hàng'
+                    placeholder='Tên Ba/Mẹ'
                     onChange={(e) => setFullName(e.target.value)}
                   />
                 </Form.Item>

@@ -81,7 +81,7 @@ function Header(props: HeaderProps) {
       <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center">
         <div className="flex flex-wrap">
           <Form.Item
-            label={<p className="min-w-[80px]">Chiều cao bé (cm)</p>}
+            label={<p className="min-w-[80px]">Chiều cao con (cm)</p>}
             className="flex flex-col w-1/4 px-2"
             name="currentHeight"
             rules={[
@@ -92,12 +92,12 @@ function Header(props: HeaderProps) {
             ]}
           >
             <Input
-              placeholder='Chiều cao (cm)'
+              placeholder='Chiều cao con (cm)'
               onChange={(e) => setCurrentHeight(e.target.value)}
             />
           </Form.Item>
           <Form.Item
-            label={<p className="min-w-[80px]">Cân nặng (kg)</p>}
+            label={<p className="min-w-[80px]">Cân nặng con (kg)</p>}
             className="flex flex-col w-1/4 px-2"
             name="currentWeight"
             rules={[
@@ -108,12 +108,12 @@ function Header(props: HeaderProps) {
             ]}
           >
             <Input
-              placeholder='Cân nặng (kg)'
+              placeholder='Cân nặng con (kg)'
               onChange={(e) => setCurrentWeight(e.target.value)}
             />
           </Form.Item>
           <Form.Item
-            label={<p className="min-w-[80px]">Giới tính</p>}
+            label={<p className="min-w-[80px]">Giới tính con</p>}
             className="flex flex-col w-1/4 px-2"
             name="gender"
             rules={[
@@ -125,12 +125,12 @@ function Header(props: HeaderProps) {
           >
             <Select
               options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]}
-              placeholder='Giới tính'
+              placeholder='Giới tính con'
               onChange={(e) => setGender(e as Gender)}
             />
           </Form.Item>
           <Form.Item
-            label={<p className="min-w-[80px]">Số tuổi</p>}
+            label={<p className="min-w-[80px]">Tuổi con</p>}
             className="flex flex-col w-1/4 px-2"
             name="currentAge"
             rules={[
@@ -141,7 +141,7 @@ function Header(props: HeaderProps) {
             ]}
           >
             <Input
-              placeholder='Số tuổi'
+              placeholder='Tuổi con'
               onChange={(e) => setCurrentAge(e.target.value)}
             />
           </Form.Item>
