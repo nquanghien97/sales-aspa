@@ -29,7 +29,7 @@ function CreateFiles(props: CreateFilesProps) {
     try {
       const formData = new FormData();
       salesPolicy.forEach((file) => {
-        formData.append("salesPolicy", file as unknown as File); // Không có [] trong key
+        formData.append("SALES_POLICY", file as unknown as File); // Không có [] trong key
       });
       
       await createFiles({
