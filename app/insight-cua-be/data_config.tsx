@@ -186,8 +186,8 @@ export const data_config_weight = ({ puberty, BMIBelowStandard, BMIAboveStandard
         title: <p className="font-semibold">Cân nặng trên trung bình</p>,
         content: (
           <div className="text-lg font-semibold list-disc">
-            <p><strong>Về chiều cao:</strong> tốc độ của con đang cao hơn, biểu hiện của phát triển sớm. có nguy cơ dậy thì sớm hơn các bạn cùng độ tuổi, đa phần các bé cao hơn rất dễ có tình trạng loãng xương, cốt hóa sớm và ngừng cao sớm do nhu cầu dinh dưỡng cho xương cao hơn bình thường</p>
-            <p>{'-->'} Nên giai đoạn này kịp thời bổ sung cho dinh dưỡng cho xương của con, đảm bảo mật độ xương tốt nhất cho con</p>
+            <p><strong>Về cân nặng:</strong> tình trạng con đang béo, nguy cơ dậy thì sớm, đóng khung xương sớm</p>
+            <p>{'-->'} Mẹ cần kiểm soát cân nặng cho con</p>
           </div>
         ),
       },

@@ -135,8 +135,8 @@ function Body(props: BodyProps) {
         <div className="mb-4 bg-insight-item rounded-2xl p-4">
           <h2 className="text-2xl font-semibold uppercase mb-2 text-[#2563eb]">Thông tin khách hàng:</h2>
           <ul className="flex flex-wrap text-lg">
-            <li className="w-1/2 py-1"><strong>- Tên Ba/Mẹ:</strong> {fullName}</li>
-            <li className="w-1/2 py-1"><strong>- Số điện thoại:</strong> {phoneNumber}</li>
+            {fullName && <li className="w-1/2 py-1"><strong>- Họ tên:</strong> {fullName}</li>}
+            {phoneNumber && <li className="w-1/2 py-1"><strong>- Email:</strong> {phoneNumber}</li>}
             <li className="w-1/2 py-1"><strong>- Giới tính con:</strong> {gender && optionsGender[gender]}</li>
             <li className="w-1/2 py-1"><strong>- Chiều cao con:</strong> {currentHeight} cm</li>
             <li className="w-1/2 py-1"><strong>- Tuổi con:</strong> {currentAge} tuổi</li>
