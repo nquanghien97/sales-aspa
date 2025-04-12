@@ -59,51 +59,44 @@ function MaturationProcess(props: MaturationProcessProps) {
           <div className="p-4 flex justify-between">
             <Image src="/logo-ngang.png" unoptimized alt='logo' width={200} height={150} />
           </div>
-          <h2
-            className="text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-md text-center mb-4"
-            style={{ textShadow: "2px 2px 0px rgba(255,255,255,0.8)" }}
-          >
-            3 Giai đoạn tăng chiều cao
-          </h2>
-          <div className="flex gap-6 mb-8 p-4 w-full text-base">
-            <div className="w-1/3 px-8 flex flex-col">
-              <div className="mb-2">
-                <Image src="/gd1.png" alt="gd1" width={829} height={327} />
-              </div>
-              <div className="flex-1 bg-amber-100 p-4 rounded-lg shadow-xl-custom border-2 border-white">
-                <ul className="text-blue-800 space-y-2">
-                  <li>- Trẻ ăn ngon miệng hơn, ngủ sâu giấc, da hồng hào hơn.</li>
-                  <li>- Tiêu hóa ổn định, giảm táo bón và đầy bụng.</li>
-                  <li>- Chiều cao chưa thay đổi rõ, nhưng có thể bắt đầu thích nghi tốt với dinh dưỡng.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="w-1/3 px-8 flex flex-col">
-              <div className="mb-2">
-                <Image src="/gd2.png" alt="gd2" width={829} height={327} />
-              </div>
-              <div className="flex-1 bg-amber-100 p-4 rounded-lg shadow-xl-custom border-2 border-white">
-                <ul className="text-blue-800 space-y-2">
-                  <li>- Dáng con cao thẳng hơn, chân duỗi dài, vai mở rộng.</li>
-                  <li>- Quần áo bắt đầu chật và thích vận động hơn trước.</li>
-                  <li>- Chiều cao có dấu hiệu tăng đều đặn</li>
-                </ul>
+          <div className="p-4 flex gap-4 justify-between">
+            <div>
+              <h2
+                className="text-4xl font-bold text-blue-600 drop-shadow-md text-center mb-4 uppercase"
+                style={{ textShadow: "2px 2px 0px rgba(255,255,255,0.8)" }}
+              >
+                1. Thông tin khách hàng
+              </h2>
+              <div className="border border-amber-300 px-4 mb-4 bg-white">
+                <div className="border-b py-4 border-amber-300">
+                  <h3 className="uppercase text-[#fcd34d] font-semibold text-xl">Thông tin ba/mẹ</h3>
+                  <ul className="text-blue-700">
+                    <li><strong>Tên Ba/Mẹ:</strong> Trần Thị X</li>
+                    <li><strong>Số điện thoại:</strong> 0123456789</li>
+                  </ul>
+                </div>
+                <div className="py-4">
+                  <h3 className="uppercase text-[#fcd34d] font-semibold text-xl">Thông tin của bé</h3>
+                  <ul className="text-blue-700">
+                    <li><strong>Giới tính:</strong> Nam</li>
+                    <li><strong>Tuổi:</strong> 2 tuổi</li>
+                    <li><strong>Chiều cao:</strong> 84cm</li>
+                    <li><strong>Cân nặng:</strong> 10.6kg</li>
+                  </ul>
+                </div>
               </div>
             </div>
-
-            <div className="w-1/3 px-8 flex flex-col">
-              <div className="mb-2">
-                <Image src="/gd3.png" alt="gd3" width={829} height={327} />
-              </div>
-              <div className="flex-1 bg-amber-100 p-4 rounded-lg shadow-xl-custom border-2 border-white">
-                <ul className="text-blue-800 space-y-2">
-                  <li>- Trẻ cao rõ rệt, thay đổ thấy áo cộc, quần ngắn nhanh chóng.</li>
-                  <li>- Thần thái tự tin, năng động hơn, bắt đầu so chiều cao với bạn bè.</li>
-                </ul>
-              </div>
+            <div>
+              <h2
+                className="text-4xl font-bold text-blue-600 drop-shadow-md text-center mb-4 uppercase"
+                style={{ textShadow: "2px 2px 0px rgba(255,255,255,0.8)" }}
+              >
+                2. Hành trình trưởng thành
+              </h2>
+              <p className="text-[#fcd34d] font-semibold text-xl text-center">Tổng 3 giai đoạn con có thể cao lên từ 7.9 - 11.3cm</p>
             </div>
           </div>
+
           <div className="p-4">
             <p className="text-3xl font-bold text-blue-600 uppercase mb-8 text-center">Hiệu quả tăng chiều cao</p>
             <div className="overflow-x-auto">
@@ -225,15 +218,14 @@ function MaturationProcess(props: MaturationProcessProps) {
           </div>
         </div>
 
-        {/* hành trình trưởng thành */}
         <div className="relative w-full p-4 overflow-hidden" ref={elementRef2}>
           <div className="relative z-10">
-            <div className="text-center mb-12">
+            <div className="text-center mb-4">
               <h2
-                className="text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-md"
+                className="text-4xl font-bold text-blue-600 drop-shadow-md text-center mb-4 uppercase"
                 style={{ textShadow: "2px 2px 0px rgba(255,255,255,0.8)" }}
               >
-                HÀNH TRÌNH TRƯỞNG THÀNH
+                3. Cơ sở khoa học
               </h2>
             </div>
             <div className="overflow-x-auto">
@@ -285,7 +277,44 @@ function MaturationProcess(props: MaturationProcessProps) {
                     </td>
                   </tr>
 
-                  {/* Row 2: CƠ SỞ KHOA HỌC */}
+                  {/* Row 2: BIỂU HIỆN */}
+                  <tr>
+                    <td className="border border-amber-300 bg-amber-50 p-3 text-blue-700 font-bold text-center align-middle text-base">
+                      BIỂU HIỆN
+                    </td>
+                    <td className="border border-amber-300 bg-white p-3 text-blue-700">
+                      <ul className="list-none space-y-2 text-base">
+                        <li>
+                          - Trẻ ăn ngon miệng hơn, ngủ sâu giấc, da hồng hào hơn.
+                        </li>
+                        <li>
+                          - Tiêu hóa ổn định, giảm táo bón và đầy bụng.
+                        </li>
+                        <li>- Chiều cao chưa thay đổi rõ, nhưng cơ thể bắt đầu thích nghi tốt với dinh dưỡng.</li>
+                      </ul>
+                    </td>
+                    <td className="border border-amber-300 bg-white p-3 text-blue-700">
+                      <ul className="list-none space-y-2 text-base">
+                        <li>
+                          - Dáng con cao thẳng hơn, chân duỗi dài, vai mở rộng.
+                        </li>
+                        <li>
+                          - Quần áo bắt đầu chật và thích vận động hơn trước.
+                        </li>
+                        <li>
+                          - Chiều cao có dấu hiệu tăng dần đều đặn
+                        </li>
+                      </ul>
+                    </td>
+                    <td className="border border-amber-300 bg-white p-3 text-blue-700">
+                      <ul className="list-none space-y-2 text-base">
+                        <li>- Trẻ cao rõ rệt, thay đồ thấy áo cộc, quần áo ngắn nhanh chóng.</li>
+                        <li>- Thần thái tự tin, năng động hơn, bắt đầu so chiều cao với bạn bè.</li>
+                      </ul>
+                    </td>
+                  </tr>
+
+                  {/* Row 3: CƠ SỞ KHOA HỌC */}
                   <tr>
                     <td className="border border-amber-300 bg-amber-50 p-3 text-blue-700 font-bold text-center align-middle text-base">
                       CƠ SỞ
@@ -299,8 +328,7 @@ function MaturationProcess(props: MaturationProcessProps) {
                           protein, khoáng chất, và đường chất mới.
                         </li>
                         <li>
-                          - Cơ thể tái tạo microbiome ảnh hưởng trực tiếp đến hấp thu canxi, magie, kẽm – khoáng chất quan
-                          trọng cho xương.
+                          - Sự tái lập microbiome ảnh hưởng trực tiếp tới hấp thu canxi, magie, kẽm - khoáng chất quan trọng cho xương.
                         </li>
                         <li>- GH chưa tiết mạnh nếu giấc ngủ, vận động chưa ổn</li>
                         <li>- IGF-1 chưa đủ mạnh để làm tăng trưởng chiều cao ngay</li>
@@ -330,7 +358,7 @@ function MaturationProcess(props: MaturationProcessProps) {
                     </td>
                   </tr>
 
-                  {/* Row 3: DẪN CHỨNG */}
+                  {/* Row 4: DẪN CHỨNG */}
                   <tr>
                     <td className="border border-amber-300 bg-amber-50 p-3 text-blue-700 font-bold text-center align-middle text-base">
                       DẪN CHỨNG
@@ -366,7 +394,7 @@ function MaturationProcess(props: MaturationProcessProps) {
                           dốc lên từ tháng 2-3 nếu dinh dưỡng ổn định.
                         </li>
                         <li>
-                          - <strong>Physiology of Bone - Elsevier (2021):</strong> IGF-1 cần thời gian tích lũy để kích thích tăng trưởng
+                          - <strong>Physiology of Bone - Elsevier (2020):</strong> IGF-1 cần thời gian tích lũy để kích thích tăng trưởng
                           thực sự ở sụn tăng trưởng.
                         </li>
                         <li>
@@ -393,7 +421,7 @@ function MaturationProcess(props: MaturationProcessProps) {
                     </td>
                   </tr>
 
-                  {/* Row 4: TÁC ĐỘNG WOWTOP */}
+                  {/* Row 5: TÁC ĐỘNG WOWTOP */}
                   <tr>
                     <td className="border border-amber-300 bg-amber-50 p-3 text-blue-700 font-bold text-center align-middle text-base">
                       TÁC ĐỘNG
@@ -402,25 +430,25 @@ function MaturationProcess(props: MaturationProcessProps) {
                     </td>
                     <td className="border border-amber-300 bg-white p-3 text-blue-700">
                       <ul className="list-none space-y-2 text-base">
-                        <li>- Cung cấp FOS, GOS, BB12 + phục hồi lợi khuẩn ruột, tối ưu hấp thu Canxi & Đạm.</li>
-                        <li>- OPO giúp giảm táo bón – tăng khả năng chuyển hóa chất béo & canxi trong sữa mẹ.</li>
-                        <li>- CBP & CPP bắt đầu hoạt động từ sớm, tạo tiền đề tăng IGF-1 nội sinh.</li>
+                        <li>- Cung cấp <strong>FOS, GOS, BB12</strong> {'->'} phục hồi lợi khuẩn ruột, tối ưu hấp thu Canxi & Đạm.</li>
+                        <li>- <strong>OPO</strong> giúp giảm táo bón – tăng khả năng chuyển hóa chất béo & canxi trong sữa mẹ.</li>
+                        <li>- <strong>CBP & CPP</strong> bắt đầu hoạt động từ sớm, tạo tiền đề tăng IGF-1 nội sinh.</li>
                       </ul>
                     </td>
                     <td className="border border-amber-300 bg-white p-3 text-blue-700">
                       <ul className="list-none space-y-2 text-base">
-                        <li>- CBP (125mg/100g): kích thích nguyên bào xương, tăng IGF-1</li>
-                        <li>- CPP (571mg/100g): tăng hấp thu Canxi vào xương gấp 2 lần</li>
-                        <li>- Canxi + D3 + K1 + Phospho: khoáng hóa tối ưu, tỷ lệ Ca/P ≈ 1.8 + sinh học lý tưởng</li>
-                        <li>- Magie, Kẽm, Collagen thủy phân: hỗ trợ enzym xương – chống mất xương</li>
+                        <li>- <strong>CBP</strong> (125mg/100g): kích thích nguyên bào xương, tăng IGF-1</li>
+                        <li>- <strong>CPP</strong> (571mg/100g): tăng hấp thu Canxi vào xương gấp 2 lần</li>
+                        <li>- <strong>Canxi + D3 + K1 + Phospho</strong>: khoáng hóa tối ưu, tỷ lệ Ca/P ≈ 1.8 + sinh học lý tưởng</li>
+                        <li>- <strong>Magie, Kẽm, Collagen thủy phân</strong>: hỗ trợ enzym xương – chống mất xương</li>
                       </ul>
                     </td>
                     <td className="border border-amber-300 bg-white p-3 text-blue-700">
                       <ul className="list-none space-y-2 text-base">
-                        <li>- CBP + CPP tiếp tục thúc đẩy tăng sinh mô xương</li>
-                        <li>- Choline, DHA, Lactoferrin cải thiện giấc ngủ sâu + tăng tiết GH</li>
+                        <li>- <strong>CBP + CPP</strong> tiếp tục thúc đẩy tăng sinh mô xương</li>
+                        <li>- <strong>Choline, DHA, Lactoferrin</strong> cải thiện giấc ngủ sâu + tăng tiết GH</li>
                         <li>
-                          - Tăng cường hấp thu vi khoáng & kháng thể (IgG) + cơ thể khỏe mạnh, không gián đoạn tăng trưởng
+                          - Tăng cường hấp thu vi khoáng & kháng thể <strong>(IgG)</strong> + cơ thể khỏe mạnh, không gián đoạn tăng trưởng
                         </li>
                         <li>- Trẻ ăn khỏe, ngủ tốt, vận động tốt + môi trường hoàn hảo để phát triển chiều cao</li>
                       </ul>

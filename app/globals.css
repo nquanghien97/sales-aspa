@@ -137,4 +137,9 @@ p, li {
   background: linear-gradient(to right, #ebc9824d, #fbf8d04d, #e1b7544d, #f3c86d4d)
 }
 
+.ant-form-item-label {
+  display: flex !important;
+  align-items: center !important;
+}
+
 

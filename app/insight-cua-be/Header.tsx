@@ -116,7 +116,7 @@ function Header(props: HeaderProps) {
           <Form.Item
             initialValue={insightData?.currentHeight}
             label={<p className="min-w-[80px]">Chiều cao con (cm)</p>}
-            className="flex flex-col w-1/4 px-2"
+            className="flex flex-col w-1/4 px-2 !mb-0"
             name="currentHeight"
             rules={[
               {
@@ -143,7 +143,7 @@ function Header(props: HeaderProps) {
           <Form.Item
             initialValue={insightData?.currentWeight}
             label={<p className="min-w-[80px]">Cân nặng con (kg)</p>}
-            className="flex flex-col w-1/4 px-2"
+            className="flex flex-col w-1/4 px-2 !mb-0"
             name="currentWeight"
             rules={[
               {
@@ -170,7 +170,7 @@ function Header(props: HeaderProps) {
           <Form.Item
             initialValue={insightData?.gender}
             label={<p className="min-w-[80px]">Giới tính con</p>}
-            className="flex flex-col w-1/4 px-2"
+            className="flex flex-col w-1/4 px-2 !mb-0"
             name="gender"
             rules={[
               {
@@ -198,7 +198,7 @@ function Header(props: HeaderProps) {
           <Form.Item
             initialValue={insightData?.currentAge}
             label={<p className="min-w-[80px]">Tuổi con</p>}
-            className="flex flex-col w-1/4 px-2"
+            className="flex flex-col w-1/4 px-2 !mb-0"
             name="currentAge"
             rules={[
               {
@@ -226,20 +226,24 @@ function Header(props: HeaderProps) {
         <Form.Item
           initialValue={insightData?.puberty}
           label="Giai đoạn dậy thì"
+          wrapperCol={{ flex: "auto" }}
+          style={{ marginBottom: 0 }}
           name="puberty"
           rules={[{ required: true, message: "Vui lòng chọn giai đoạn dậy thì" }]}
         >
-          <Radio.Group onChange={(e) => {
-            setPuberty(e.target.value)
-            setInsightData((prev) => ({
-              ...prev,
-              currentHeight: prev?.currentHeight || '',
-              currentWeight: prev?.currentWeight || '',
-              currentAge: prev?.currentAge || '',
-              gender: prev?.gender || undefined,
-              puberty: e.target.value,
-            }))
-          }}>
+          <Radio.Group
+            className="flex flex-col gap-2"
+            onChange={(e) => {
+              setPuberty(e.target.value)
+              setInsightData((prev) => ({
+                ...prev,
+                currentHeight: prev?.currentHeight || '',
+                currentWeight: prev?.currentWeight || '',
+                currentAge: prev?.currentAge || '',
+                gender: prev?.gender || undefined,
+                puberty: e.target.value,
+              }))
+            }}>
             <Radio value="infant">0 - 2 tuổi</Radio>
             <Radio value="pre-puberty">Chưa dậy thì</Radio>
             <Radio value="puberty">Đang dậy thì</Radio>
