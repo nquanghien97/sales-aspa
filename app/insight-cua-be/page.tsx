@@ -56,6 +56,8 @@ function Content() {
         heightBelowStandard={heightBelowStandard}
         BMI={BMI}
         puberty={puberty}
+        currentWeight={currentWeight}
+        
       />
 
       <Body

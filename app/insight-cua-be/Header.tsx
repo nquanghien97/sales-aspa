@@ -1,12 +1,14 @@
-import React, { JSX, ReactNode } from 'react'
+import React, { JSX, ReactNode, useEffect } from 'react'
 import { data_config_height, data_config_weight, Gender } from './data_config';
-import { Checkbox, Form, Input, Select } from 'antd';
+import { Form, Input, Radio, Select } from 'antd';
 import { Button } from '@/components/ui/Button';
 import { data_bmi } from './data_bmi';
+import { useInsightStore } from '@/zustand/insight.store';
 
 interface HeaderProps {
   currentHeight: string;
   currentAge: string;
+  currentWeight: string;
   gender: Gender | undefined;
   heightAboveStandard: number;
   heightBelowStandard: number;
@@ -25,6 +27,7 @@ function Header(props: HeaderProps) {
     currentHeight,
     currentAge,
     gender,
+    currentWeight,
     heightAboveStandard,
     heightBelowStandard,
     BMI,
@@ -40,15 +43,45 @@ function Header(props: HeaderProps) {
 
   const [form] = Form.useForm();
 
-  const handleCheckboxChange = (value: 'infant' | 'pre-puberty' | 'puberty' | 'post-puberty') => {
-    if (puberty === value) {
-      setPuberty(undefined);
-    } else {
-      setPuberty(value);
+  const { setInsightData, insightData, isSubmited, setIsSubmited } = useInsightStore()
+
+  useEffect(() => {
+    setCurrentAge(currentAge || insightData?.currentAge || '')
+    setCurrentHeight(currentHeight || insightData?.currentHeight || '')
+    setCurrentWeight(currentWeight || insightData?.currentWeight || '')
+    setGender(gender || insightData?.gender || undefined)
+    setPuberty(puberty || insightData?.puberty || undefined)
+
+    if (currentAge && currentHeight && currentWeight && gender && puberty && isSubmited) {
+      const matchedHeightCondition = data_config_height({
+        heightAboveStandard,
+        heightBelowStandard,
+        puberty
+      }).find(condition => condition.condition({
+        currentHeight: +currentHeight,
+      }))
+      setDataResponseHeight({
+        title: matchedHeightCondition?.title,
+        content: matchedHeightCondition?.content
+      })
+
+      const matchWeightCondition = data_config_weight({
+        BMIAboveStandard: data_bmi[gender!]['95th'][Number(currentAge)],
+        BMIBelowStandard: data_bmi[gender!]['5th'][Number(currentAge)],
+        puberty
+      }).find(condition => condition.condition({
+        currentBMI: +BMI,
+      }))
+      setDataResponseWeight({
+        title: matchWeightCondition?.title,
+        content: matchWeightCondition?.content
+      })
     }
-  };
+
+  }, [insightData?.currentAge, insightData?.currentHeight, insightData?.currentWeight, insightData?.gender, insightData?.puberty, setCurrentAge, setCurrentHeight, setCurrentWeight, setGender, setPuberty, currentAge, currentHeight, currentWeight, gender, puberty, heightAboveStandard, heightBelowStandard, BMI, setDataResponseHeight, setDataResponseWeight, isSubmited])
 
   const handleSubmit = () => {
+    setIsSubmited(true)
 
     const matchedHeightCondition = data_config_height({
       heightAboveStandard,
@@ -81,6 +114,7 @@ function Header(props: HeaderProps) {
       <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center">
         <div className="flex flex-wrap">
           <Form.Item
+            initialValue={insightData?.currentHeight}
             label={<p className="min-w-[80px]">Chiều cao con (cm)</p>}
             className="flex flex-col w-1/4 px-2"
             name="currentHeight"
@@ -93,10 +127,21 @@ function Header(props: HeaderProps) {
           >
             <Input
               placeholder='Chiều cao con (cm)'
-              onChange={(e) => setCurrentHeight(e.target.value)}
+              onChange={(e) => {
+                setCurrentHeight(e.target.value)
+                setInsightData((prev) => ({
+                  ...prev,
+                  currentHeight: e.target.value,
+                  currentWeight: prev?.currentWeight || '',
+                  currentAge: prev?.currentAge || '',
+                  gender: prev?.gender || undefined,
+                  puberty: prev?.puberty || undefined,
+                }))
+              }}
             />
           </Form.Item>
           <Form.Item
+            initialValue={insightData?.currentWeight}
             label={<p className="min-w-[80px]">Cân nặng con (kg)</p>}
             className="flex flex-col w-1/4 px-2"
             name="currentWeight"
@@ -109,10 +154,21 @@ function Header(props: HeaderProps) {
           >
             <Input
               placeholder='Cân nặng con (kg)'
-              onChange={(e) => setCurrentWeight(e.target.value)}
+              onChange={(e) => {
+                setCurrentWeight(e.target.value)
+                setInsightData((prev) => ({
+                  ...prev,
+                  currentHeight: prev?.currentHeight || '',
+                  currentWeight: e.target.value,
+                  currentAge: prev?.currentAge || '',
+                  gender: prev?.gender || undefined,
+                  puberty: prev?.puberty || undefined,
+                }))
+              }}
             />
           </Form.Item>
           <Form.Item
+            initialValue={insightData?.gender}
             label={<p className="min-w-[80px]">Giới tính con</p>}
             className="flex flex-col w-1/4 px-2"
             name="gender"
@@ -126,10 +182,21 @@ function Header(props: HeaderProps) {
             <Select
               options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]}
               placeholder='Giới tính con'
-              onChange={(e) => setGender(e as Gender)}
+              onChange={(e) => {
+                setGender(e as Gender)
+                setInsightData((prev) => ({
+                  ...prev,
+                  currentHeight: prev?.currentHeight || '',
+                  currentWeight: prev?.currentWeight || '',
+                  currentAge: prev?.currentAge || '',
+                  gender: e,
+                  puberty: prev?.puberty || undefined,
+                }))
+              }}
             />
           </Form.Item>
           <Form.Item
+            initialValue={insightData?.currentAge}
             label={<p className="min-w-[80px]">Tuổi con</p>}
             className="flex flex-col w-1/4 px-2"
             name="currentAge"
@@ -142,49 +209,42 @@ function Header(props: HeaderProps) {
           >
             <Input
               placeholder='Tuổi con'
-              onChange={(e) => setCurrentAge(e.target.value)}
+              onChange={(e) => {
+                setCurrentAge(e.target.value)
+                setInsightData((prev) => ({
+                  ...prev,
+                  currentHeight: prev?.currentHeight || '',
+                  currentWeight: prev?.currentWeight || '',
+                  currentAge: e.target.value,
+                  gender: prev?.gender || undefined,
+                  puberty: prev?.puberty || undefined,
+                }))
+              }}
             />
           </Form.Item>
         </div>
         <Form.Item
+          initialValue={insightData?.puberty}
+          label="Giai đoạn dậy thì"
           name="puberty"
-          rules={[
-            {
-              required: true,
-              message: "Trường này là bắt buộc"
-            },
-          ]}
+          rules={[{ required: true, message: "Vui lòng chọn giai đoạn dậy thì" }]}
         >
-          <div className="flex flex-col gap-2 w-1/4">
-            <div className="flex gap-2 w-[140px] items-center">
-              <p className="text-[#2563eb] w-full">0 - 2 tuổi</p>
-              <Checkbox
-                checked={puberty === 'infant'}
-                onChange={() => handleCheckboxChange('infant')}
-              />
-            </div>
-            <div className="flex gap-2 w-[140px] items-center">
-              <p className="text-[#2563eb] w-full">Chưa dậy thì</p>
-              <Checkbox
-                checked={puberty === 'pre-puberty'}
-                onChange={() => handleCheckboxChange('pre-puberty')}
-              />
-            </div>
-            <div className="flex gap-2 w-[140px] items-center">
-              <p className="text-[#2563eb] w-full">Đang dậy thì</p>
-              <Checkbox
-                checked={puberty === 'puberty'}
-                onChange={() => handleCheckboxChange('puberty')}
-              />
-            </div>
-            <div className="flex gap-2 w-[140px] items-center">
-              <p className="text-[#2563eb] w-full">Đã dậy thì</p>
-              <Checkbox
-                checked={puberty === 'post-puberty'}
-                onChange={() => handleCheckboxChange('post-puberty')}
-              />
-            </div>
-          </div>
+          <Radio.Group onChange={(e) => {
+            setPuberty(e.target.value)
+            setInsightData((prev) => ({
+              ...prev,
+              currentHeight: prev?.currentHeight || '',
+              currentWeight: prev?.currentWeight || '',
+              currentAge: prev?.currentAge || '',
+              gender: prev?.gender || undefined,
+              puberty: e.target.value,
+            }))
+          }}>
+            <Radio value="infant">0 - 2 tuổi</Radio>
+            <Radio value="pre-puberty">Chưa dậy thì</Radio>
+            <Radio value="puberty">Đang dậy thì</Radio>
+            <Radio value="post-puberty">Đã dậy thì</Radio>
+          </Radio.Group>
         </Form.Item>
         <Button variant='primary' type='submit'>Xác nhận</Button>
       </Form>
