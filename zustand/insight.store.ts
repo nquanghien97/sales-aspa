@@ -1,12 +1,8 @@
+import { CustomerCaseTye } from "@/app/insight-khach-hang/page";
 import { create } from "zustand";
-import { Gender } from "@/utils/heightCalculator";
 
 interface InsightData {
-  currentHeight: string;
-  currentWeight: string;
-  currentAge: string;
-  gender: Gender | undefined;
-  puberty: "infant" | "pre-puberty" | "puberty" | "post-puberty" | undefined
+  customerCase?: CustomerCaseTye;
 }
 
 interface InsightStoreType {

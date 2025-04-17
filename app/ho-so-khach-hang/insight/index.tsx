@@ -1,6 +1,6 @@
-import Body from '@/app/insight-cua-be/Body';
-import { data_bmi } from '@/app/insight-cua-be/data_bmi';
-import { data_config_height, data_config_weight } from '@/app/insight-cua-be/data_config';
+import Body from '@/app/insight-khach-hang/Body';
+import { data_bmi } from '@/app/insight-khach-hang/data_bmi';
+import { data_config_height, data_config_weight } from '@/app/insight-khach-hang/data_config';
 import { Button } from '@/components/ui/Button';
 import { data_height } from '@/constants/data';
 import { Gender } from '@/utils/heightCalculator';

@@ -22,17 +22,17 @@ export interface MenuType {
 
 export const menu_sidebar: MenuType[] = [
   {
-    title: 'INSIGHT CỦA BÉ',
-    url: '/insight-cua-be',
+    title: 'INSIGHT KHÁCH HÀNG',
+    url: '/insight-khach-hang',
     icon: <ChildrenIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },
-  {
-    title: 'INSIGHT CỦA MẸ',
-    url: '/insight-cua-me',
-    icon: <WomenIcon width={16} height={16} />,
-    allowRole: ['ADMIN', 'USER']
-  },
+  // {
+  //   title: 'INSIGHT CỦA MẸ',
+  //   url: '/insight-cua-me',
+  //   icon: <WomenIcon width={16} height={16} />,
+  //   allowRole: ['ADMIN', 'USER']
+  // },
   {
     title: 'Giới thiệu giải pháp',
     url: '/gioi-thieu-giai-phap',
@@ -100,7 +100,7 @@ export const menu_sidebar: MenuType[] = [
     ]
   },
   {
-    title: 'HƯỚNG DẪN SỬ DỤNG SỮA',
+    title: 'HƯỚNG DẪN SỬ DỤNG',
     url: '/huong-dan-su-dung-sua',
     icon: <DocumentIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']

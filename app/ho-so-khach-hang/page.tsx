@@ -3,8 +3,6 @@
 import { Button } from '@/components/ui/Button';
 import { Checkbox, Form, Input, Select } from 'antd';
 import React, { useEffect, useState } from 'react'
-import HeightChart from './height-chart';
-import { toast } from 'react-toastify';
 import Insight from './insight';
 import MaturationProcess from './maturation-process';
 
@@ -25,8 +23,6 @@ export interface DataSubmit {
 function CustomerProfile() {
   const [puberty, setPuberty] = useState<'infant' | 'pre-puberty' | 'puberty' | 'post-puberty' | undefined>()
   const [currentHeight, setCurrentHeight] = useState('');
-  const [currentFatherHeight, setCurrentFatherHeight] = useState('');
-  const [currentMotherHeight, setCurrentMotherHeight] = useState('');
   const [currentWeight, setCurrentWeight] = useState('');
   const [gender, setGender] = useState<Gender>(Gender.BOY);
   const [currentAge, setCurrentAge] = useState('');
@@ -34,7 +30,6 @@ function CustomerProfile() {
   const [fullName, setFullName] = useState('');
   const [isShowResults, setIsShowResults] = useState(false);
 
-  const [isOpenHeightChart, setIsOpenHeightChart] = useState(false);
   const [isOpenInsight, setIsOpenInsight] = useState(false);
   const [isOpenMaturationProcess, setIsOpenMaturationProcess] = useState(false);
   const [isRequiredFatherHeight, setIsRequiredFatherHeight] = useState(false);
@@ -65,20 +60,6 @@ function CustomerProfile() {
 
   return (
     <>
-      <HeightChart
-        open={isOpenHeightChart}
-        onCancel={() => setIsOpenHeightChart(false)}
-        data={{
-          currentHeight: Number(currentHeight),
-          currentFatherHeight: Number(currentFatherHeight),
-          currentMotherHeight: Number(currentMotherHeight),
-          currentWeight: Number(currentWeight),
-          gender,
-          currentAge: Number(currentAge),
-          phoneNumber,
-          fullName,
-        }}
-      />
       <Insight
         open={isOpenInsight}
         onClose={() => setIsOpenInsight(false)}
@@ -168,26 +149,6 @@ function CustomerProfile() {
                   />
                 </Form.Item>
                 <Form.Item
-                  label={<p className="min-w-[120px]">Chiều cao bố (cm)</p>}
-                  className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
-                  name="currentFatherHeight"
-                >
-                  <Input
-                    placeholder='Chiều cao bố (cm)'
-                    onChange={(e) => setCurrentFatherHeight(e.target.value)}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label={<p className="min-w-[120px]">Chiều cao mẹ (cm)</p>}
-                  className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredMotherHeight && 'blink-shadow'}`}
-                  name="currentMotherHeight"
-                >
-                  <Input
-                    placeholder='Chiều cao mẹ (cm)'
-                    onChange={(e) => setCurrentMotherHeight(e.target.value)}
-                  />
-                </Form.Item>
-                <Form.Item
                   label={<p className="min-w-[120px]">Số điện thoại</p>}
                   className={`flex flex-col px-2 w-[40%] !mb-0 ${isRequiredFatherHeight && 'blink-shadow'}`}
                   name="phoneNumber"
@@ -260,32 +221,6 @@ function CustomerProfile() {
           <div className="flex gap-4">
             <div>
               <Button variant='primary' onClick={() => setIsOpenInsight(true)}>Xem Insight của bé</Button>
-            </div>
-            <div>
-              <Button
-                variant='primary'
-                onClick={() => {
-                  if (!currentFatherHeight && !currentMotherHeight) {
-                    setIsRequiredFatherHeight(true);
-                    setIsRequiredMotherHeight(true);
-                    toast.warning('Vui lòng nhập chiều cao bố và chiều cao mẹ để xem phác đồ dự đoán chiều cao')
-                    return;
-                  }
-                  if (!currentMotherHeight) {
-                    setIsRequiredMotherHeight(true);
-                    toast.warning('Vui lòng nhậpchiều cao mẹ để xem phác đồ dự đoán chiều cao')
-                    return;
-                  }
-                  if (!currentFatherHeight) {
-                    setIsRequiredFatherHeight(true);
-                    toast.warning('Vui lòng nhậpchiều cao bố để xem phác đồ dự đoán chiều cao')
-                    return;
-                  }
-
-                  setIsOpenHeightChart(true)
-                }}
-              >Xem phác đồ dự đoán chiều cao
-              </Button>
             </div>
             <div>
               <Button variant='primary' onClick={() => setIsOpenMaturationProcess(true)}>Xem quá trình trưởng thành của bé</Button>

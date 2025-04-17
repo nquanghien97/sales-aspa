@@ -4,8 +4,8 @@ CREATE TABLE `files` (
     `url` LONGTEXT NOT NULL,
     `type` ENUM('image', 'video', 'pdf') NOT NULL,
     `fileName` VARCHAR(191) NULL,
-    `fileCategorySlug` VARCHAR(191) NOT NULL,
-    `category` ENUM('SALESPOLICY', 'PRODUCTS', 'PRODUCTDOCUMENTS', 'FEEDBACKS') NOT NULL,
+    `fileCategorySlug` VARCHAR(191) NULL,
+    `category` ENUM('SALES_POLICY', 'PRODUCTS', 'PRODUCT_DOCUMENTS', 'FEEDBACKS') NOT NULL,
     `authorId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -26,6 +26,17 @@ CREATE TABLE `user` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `insight_mother` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `keyword` VARCHAR(191) NOT NULL,
+    `explain` LONGTEXT NOT NULL,
+    `solution` LONGTEXT NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `category` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `keyword` VARCHAR(191) NOT NULL,
@@ -42,7 +53,7 @@ CREATE TABLE `file_categories` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
-    `category` ENUM('SALESPOLICY', 'PRODUCTS', 'PRODUCTDOCUMENTS', 'FEEDBACKS') NOT NULL,
+    `category` ENUM('SALES_POLICY', 'PRODUCTS', 'PRODUCT_DOCUMENTS', 'FEEDBACKS') NOT NULL,
     `order` INTEGER NOT NULL DEFAULT 0,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -58,6 +69,20 @@ CREATE TABLE `proposal` (
     `status` ENUM('PENDING', 'APPROVED') NOT NULL DEFAULT 'PENDING',
     `categoryType` ENUM('INSIGHT_MOTHER', 'HANDLE_REJECTION') NOT NULL,
     `categoryId` INTEGER NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `customers` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `province` VARCHAR(191) NOT NULL,
+    `district` VARCHAR(191) NULL,
+    `ward` VARCHAR(191) NULL,
+    `address` VARCHAR(191) NULL,
+    `fullName` VARCHAR(191) NOT NULL,
+    `job` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
