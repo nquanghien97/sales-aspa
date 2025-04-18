@@ -2,7 +2,7 @@ import React, { JSX } from 'react';
 import FilesIcon from '@/assets/icons/FilesIcon';
 import ClipboardCheckIcon from '@/assets/icons/ClipboardCheckIcon';
 import LightIcon from '@/assets/icons/LightIcon';
-import { CustomerCaseTye } from './page';
+import { CustomerCaseTye } from './types';
 
 interface BodyProps {
   elementRef?: React.RefObject<HTMLDivElement | null>

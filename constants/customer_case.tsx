@@ -1,4 +1,4 @@
-import { CustomerCaseTye } from "@/app/insight-khach-hang/page"
+import { CustomerCaseTye } from "@/app/insight-khach-hang/types"
 
 export const customer_case = (customerCase: CustomerCaseTye) => {
   console.log(CustomerCaseTye.case_1)

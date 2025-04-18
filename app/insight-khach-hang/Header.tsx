@@ -3,8 +3,8 @@ import { Form, Radio } from 'antd';
 import { Button } from '@/components/ui/Button';
 import { useInsightStore } from '@/zustand/insight.store';
 import { customer_case } from '@/constants/customer_case';
-import { CustomerCaseTye } from './page';
 import { toast } from 'react-toastify';
+import { CustomerCaseTye } from './types';
 
 interface HeaderProps {
   customerCase: CustomerCaseTye | undefined;

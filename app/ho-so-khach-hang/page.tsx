@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/Button';
 import { Checkbox, Form, Input, Select } from 'antd';
 import React, { useEffect, useState } from 'react'
-import Insight from './insight';
 import MaturationProcess from './maturation-process';
 
 enum Gender {
@@ -22,15 +21,10 @@ export interface DataSubmit {
 
 function CustomerProfile() {
   const [puberty, setPuberty] = useState<'infant' | 'pre-puberty' | 'puberty' | 'post-puberty' | undefined>()
-  const [currentHeight, setCurrentHeight] = useState('');
-  const [currentWeight, setCurrentWeight] = useState('');
-  const [gender, setGender] = useState<Gender>(Gender.BOY);
   const [currentAge, setCurrentAge] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [fullName, setFullName] = useState('');
+  
   const [isShowResults, setIsShowResults] = useState(false);
 
-  const [isOpenInsight, setIsOpenInsight] = useState(false);
   const [isOpenMaturationProcess, setIsOpenMaturationProcess] = useState(false);
   const [isRequiredFatherHeight, setIsRequiredFatherHeight] = useState(false);
   const [isRequiredMotherHeight, setIsRequiredMotherHeight] = useState(false);
@@ -60,17 +54,6 @@ function CustomerProfile() {
 
   return (
     <>
-      <Insight
-        open={isOpenInsight}
-        onClose={() => setIsOpenInsight(false)}
-        currentHeight={currentHeight}
-        currentWeight={currentWeight}
-        gender={gender}
-        currentAge={currentAge}
-        puberty={puberty}
-        phoneNumber={phoneNumber}
-        fullName={fullName}
-      />
       <MaturationProcess
         open={isOpenMaturationProcess}
         onClose={() => setIsOpenMaturationProcess(false)}
@@ -96,7 +79,7 @@ function CustomerProfile() {
                 >
                   <Input
                     placeholder='Chiều cao con (cm)'
-                    onChange={(e) => setCurrentHeight(e.target.value)}
+                    // onChange={(e) => setCurrentHeight(e.target.value)}
                   />
                 </Form.Item>
                 <Form.Item
@@ -112,7 +95,7 @@ function CustomerProfile() {
                 >
                   <Input
                     placeholder='Cân nặng con (kg)'
-                    onChange={(e) => setCurrentWeight(e.target.value)}
+                    // onChange={(e) => setCurrentWeight(e.target.value)}
                   />
                 </Form.Item>
                 <Form.Item
@@ -129,7 +112,7 @@ function CustomerProfile() {
                   <Select
                     options={[{ label: 'Nam', value: 'BOY' }, { label: 'Nữ', value: 'GIRL' }]}
                     placeholder='Giới tính con'
-                    onChange={(e) => setGender(e as Gender)}
+                    // onChange={(e) => setGender(e as Gender)}
                   />
                 </Form.Item>
                 <Form.Item
@@ -155,7 +138,7 @@ function CustomerProfile() {
                 >
                   <Input
                     placeholder='Số điện thoại'
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    // onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                 </Form.Item>
                 <Form.Item
@@ -165,7 +148,7 @@ function CustomerProfile() {
                 >
                   <Input
                     placeholder='Tên Ba/Mẹ'
-                    onChange={(e) => setFullName(e.target.value)}
+                    // onChange={(e) => setFullName(e.target.value)}
                   />
                 </Form.Item>
               </div>
@@ -220,7 +203,7 @@ function CustomerProfile() {
         {isShowResults && (
           <div className="flex gap-4">
             <div>
-              <Button variant='primary' onClick={() => setIsOpenInsight(true)}>Xem Insight của bé</Button>
+              <Button variant='primary' onClick={() => {}}>Xem Insight của bé</Button>
             </div>
             <div>
               <Button variant='primary' onClick={() => setIsOpenMaturationProcess(true)}>Xem quá trình trưởng thành của bé</Button>
