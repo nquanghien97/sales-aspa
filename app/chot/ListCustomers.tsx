@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import data_address from '@/constants/data_address.json'
 
 function ListCustomers() {
-  const [customers, setCustomers] = useState<CustomersEntity[]>([]);
+  const [customers, setCustomers] = useState<CustomersEntity[]>();
   const [loading, setLoading] = useState(false);
 
   const [form] = Form.useForm();
@@ -54,9 +54,12 @@ function ListCustomers() {
           </Button>
         </div>
       </Form>
+      {customers?.length === 0 && (
+        <div className="flex justify-center">Không có khách hàng ở tỉnh/thành phố này</div>
+      )}
       <div className="max-h-[700px] overflow-auto">
         <ul>
-          {customers.map((customer, index) => (
+          {customers?.map((customer, index) => (
             <li className="flex flex-col bg-[white] my-2 px-4 py-2 rounded-xl" key={customer.id}>
               <p className="font-bold">{index + 1}.</p>
               <ul className="list-disc pl-4">

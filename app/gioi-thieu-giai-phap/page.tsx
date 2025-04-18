@@ -1,113 +1,168 @@
-export default function page() {
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import Header from './Header'
+import { CategoryEntity } from '@/entities/category'
+import { searchParams } from '@/dto/insight-mother'
+import { formatDate } from '@/utils/formatDate'
+import Select from '@/components/ui/Select'
+import Pagination from '@/components/ui/Pagination'
+import LoadingIcon from '@/components/ui/LoadingIcon'
+import { ButtonIcon } from '@/components/ui/ButtonIcon'
+import DeleteIcon from '@/assets/icons/DeleteIcon'
+import withAuth from '@/hocs/withAuth'
+import Delete from './actions/Delete'
+import Update from './actions/Update'
+import { useAuthStore } from '@/zustand/auth.store'
+import DataIcon from '@/assets/icons/DataIcon'
+import { getSolutions } from '@/services/solutions'
+
+function Solutions() {
+  const [datas, setDatas] = useState<CategoryEntity[]>([]);
+  const [searchParams, setSearchParams] = useState<searchParams>({});
+  const [refreshKey, setRefreshKey] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<CategoryEntity>();
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+
+  const { me } = useAuthStore();
+
+  useEffect(() => {
+    document.title = "GIỚI THIỆU GIẢI PHÁP";
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true)
+        const res = await getSolutions({
+          ...searchParams,
+          page,
+          pageSize,
+        })
+        setDatas(res.listSolutions);
+        setTotal(res.total);
+      } catch (err) {
+        console.error('Error fetching data:', err)
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [page, pageSize, searchParams, refreshKey])
+
+  const renderBody = () => {
+    if (loading) return (
+      <tr>
+        <td colSpan={5}>
+          <LoadingIcon color="#1677ff" className='m-auto my-4' />
+        </td>
+      </tr>
+    )
+    if (datas.length === 0) return (
+      <tr>
+        <td colSpan={9} className="!text-center">
+          Không có dữ liệu
+        </td>
+      </tr>
+    )
+    return (
+      datas.map((data, index) => (
+        <tr key={data.id}>
+          <th className="px-4 py-2 text-left font-medium border border-black">{(index + 1) + pageSize * (page - 1)}</th>
+          <th className="px-4 py-2 text-left font-medium border border-black">{data.keyword}</th>
+          <th className="px-4 py-2 text-left font-medium border border-black"><div dangerouslySetInnerHTML={{ __html: data.content}} /></th>
+          <th className="px-4 py-2 text-left font-medium border border-black">{formatDate(data.createdAt)}</th>
+          {me?.role === 'ADMIN' && (
+            <th className="px-4 py-2 text-left font-medium border border-black">
+              <div className="flex gap-2">
+                {/* update user */}
+                <ButtonIcon
+                  onClick={() => {
+                    setIsOpenUpdate(true);
+                    setData(data);
+                  }}
+                >
+                  <DataIcon color='#1677ff' title='Cập nhật thông tin' width={20} height={20} />
+                </ButtonIcon>
+                <ButtonIcon
+                  onClick={() => {
+                    setIsOpenDelete(true);
+                    setData(data);
+                  }}
+                >
+                  <DeleteIcon color='#1677ff' title='Xóa dữ liệu' width={20} height={20} />
+                </ButtonIcon>
+              </div>
+            </th>
+          )}
+        </tr>
+      ))
+    )
+  }
 
   return (
-    <div className="mx-auto p-4">
-      <h1 className="text-center text-4xl font-bold mb-4 py-4">GIỚI THIỆU GIẢI PHÁP</h1>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr>
-              <th className="border border-gray-400 bg-[#d8e4bc] p-2 text-center font-medium">TỰ DUY, PHÂN TÍCH</th>
-              <th className="border border-gray-400 bg-[#d8e4bc] p-2 text-center font-medium">KỊCH BẢN</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium">CƠ CHẾ TĂNG CHIỀU CAO</td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>Em xin chia sẻ chỉ nhanh cơ chế tăng chiều cao gồm 2 giai đoạn:</p>
-                <p>
-                  <span className="font-semibold">Giai đoạn 1: Tạo khung xương</span> nguyên bản xuất nhận lên phòng to tạo thành khung xương -
-                  giống như xây khung cho ngôi nhà vậy
-                </p>
-                <p>
-                  <span className="font-semibold">Giai đoạn 2: Làm cứng xương</span> mạch máu mang can xi vào các khoảng trống vào lấp đầy và
-                  làm cứng khung xương. Như là ta đổ bê tông vào khung thép ạ
-                </p>
-                <br />
-                <p>
-                  Do đó, giai đoạn quyết định chiều cao của bé là GĐ xây khung xương. Nhưng có lúc có đủ, có cao thì chiều
-                  cao mới tốt ạ!
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase" rowSpan={2}>
-                CBP đánh vào cơ chế 1
-              </td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>
-                  Đấy. Thì với bé nhà mình thì em cũng chia sẻ là sữa của bên em thì đang là dòng sữa nhập khẩu nguyên lon từ bên New Zealand về cũng đang là dòng top 1 về tăng chiều cao
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>
-                  Sữa là sữa đầu tiên tại Việt Nam có chứa thành phần CBP là vàng ròng của sữa tăng chiều cao, giúp con tăng sinh nguyên bào xương, phát triển khung xương dài hơn mà ở Việt Nam chưa có một sữa nào có.
-                </p>
-                <br />
-                <p className="italic font-semibold">
-                  Trong trường hợp bé cao hơn chuẩn:
-                  <br />
-                  Sữa bên em có hàm lượng canxi số 1 thị trường, 1475mg canxi trên 100g sữa, ngoài ra có thành phần CBP và CPP là vàng ròng của sữa non giúp tăng hấp thu canxi tại ruột và xương. Điều này hỗ trợ giúp cung cấp đầy đủ dinh dưỡng cho xương cho bạn nhà mình, giúp có một mật độ xương tốt nhất cho bé
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">CƠ CHẾ CÂN NẶNG-BÉO</td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>
-                  Ngoài ra, bé nhà mình đang dự cân, sữa sửa dụng 100% đường Lactose, có chất xơ hoà tan FOS/GOS giảm hấp thu chất béo. Đặc biệt sữa có chứng nhận Non GMO không sử dụng chất biến đổi Gen giảm nguy cơ dậy thì sớm. Ở Việt Nam chỉ có 2 dòng sữa đang có chứng nhận này mẹ nhé của Peadisure và Wowtop. Mẹ hoàn toàn yên tâm nguy cơ con dậy thì sớm không cao được nữa.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">CƠ CHẾ CÂN NẶNG- GẦY</td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>Sữa cải thiện cân nặng cho bé rất tốt chị.</p>
-                <p>
-                  <strong>Trường hợp bé biếng ăn:</strong>
-                  <br />
-                  Thường bé biếng ăn do thiếu các vi chất kẽm, sắt, Selen, Vitamin A, khiến bé không có cảm giác thèm ăn, nên khi ăn sẽ không thấy ngon miệng. Sữa WOWTOP đầy đủ 4 vi chất trên giúp kích thích vị giác ăn uống của bé. Ngoài ra, Sữa Wowtop cung cấp đủ dinh dưỡng cho bé đủ 6 nhóm chất với hơn 30 loại Vitamin và khoáng chất, ngoài ra sữa còn cải thiện hệ tiêu hoá giúp hấp thu tốt dưỡng chất nhờ công thức cải tiến tỷ lệ đạm whey gần nhất sữa mẹ, có chất béo OPO, cùng hơn 390 triệu lợi khuẩn và chất xơ hoà tan FOS/GOS.
-                </p>
-                <p>
-                  <strong>Trường hợp bé ăn nhiều không vẫn gầy:</strong>
-                  <br />
-                  Bé nhà mình ăn uống tốt rồi, mình cần cải thiện hấp thu cho bé. Sữa Wowtop cung cấp đủ dinh dưỡng cho bé đủ 6 nhóm chất với hơn 30 loại Vitamin và khoáng chất, ngoài ra sữa còn cải thiện hệ tiêu hoá giúp hấp thu tốt dưỡng chất nhờ công thức cải tiến tỷ lệ đạm whey gần nhất sữa mẹ, có chất béo OPO, cùng hơn 390 triệu lợi khuẩn và chất xơ hoà tan FOS/GOS.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">Đánh vào nguyên liệu</td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>
-                  Và ngoài ra sữa bên em là sữa đạt tiêu chuẩn quốc tế có chứng nhận non GMO là nguyên liệu sạch không gây đột biến gen. Nguyên liệu tự nhiên và bò được chăn thả tự nhiên nên là ở Việt Nam ngoài Pediasure ra thì có Wowtop bên em chị ạ. Còn các sữa khác thì chưa có sữa nào có.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">
-                Đánh vào chức năng thêm: Trí não, miễn dịch, tăng sức đề kháng
-              </td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>
-                  Vâng, bên cạnh đấy thì ngoài tăng chiều cao bổ sung sữa bên em còn tăng cường thêm cả thành phần tăng cường trí não nhờ ARA, DHA. Sữa WOWTOP có chứa chất xơ hòa tan FOS/GOS cùng 390 triệu lợi khuẩn BB12 giúp bé tiêu hóa tốt hơn, hạn chế táo bón và tăng khả năng hấp thu canxi. Đặc biệt, thành phần Lactoferrin và IgG từ sữa non giúp tăng cường miễn dịch, bảo vệ bé khỏi các tác nhân gây bệnh
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-400 bg-[#d8e4bc] p-2 align-top font-medium uppercase">Đánh vào vị sữa</td>
-              <td className="border border-gray-400 p-2 text-justify">
-                <p>
-                  Vâng, sữa thì có chị vị ngọt thanh ngọt mát thôi, nó sẽ giống cái vị sữa tươi chị ạ, sữa tươi của TH ấy, nó có cái độ mịn của dòng sữa cao cấp mà Việt Nam mình chưa có sữa nào có cái dòng độ mịn đấy đa phần ở Việt Nam là sẽ cái sữa vón cục và khó tan thì cái sữa này nó rất là dễ tan và nó sẽ giống như cái vị sữa tươi chị nhé, rất là dễ uống.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <>
+      {data && (<Update data={data} open={isOpenUpdate} onClose={() => setIsOpenUpdate(false)} setRefreshKey={setRefreshKey} />)}
+      {data && (<Delete data={data} open={isOpenDelete} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} />)}
+      <div>
+        <h1 className="text-center text-4xl font-bold mb-4 py-4">GIỚI THIỆU GIẢI PHÁP</h1>
+        <div className="bg-[#f4d798] shadow-xl rounded-xl p-4">
+          <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} />
+          <table className="w-full border-collapse">
+            <thead className="bg-[#f0c568]">
+              <tr>
+                <th className="px-4 py-2 text-left border border-black">STT</th>
+                <th className="px-4 py-2 text-left border border-black">Từ khóa</th>
+                <th className="px-4 py-2 text-left border border-black">Nội dung</th>
+                <th className="px-4 py-2 text-left border border-black">Thời gian tạo</th>
+                {me?.role === 'ADMIN' && <th className="px-4 py-2 text-left border border-black">Chức năng</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {renderBody()}
+            </tbody>
+          </table>
+          <div className="mt-4 flex justify-between items-center w-full">
+            <div>
+              <Select
+                options={[
+                  { label: '1', value: '1' },
+                  { label: '10', value: '10' },
+                  { label: '20', value: '20' },
+                  { label: '50', value: '50' },
+                  { label: '100', value: '100' },
+                ]}
+                defaultValue='10'
+                onChange={(e) => {
+                  setPageSize(Number(e))
+                  setPage(1)
+                }}
+              />
+            </div>
+            <Pagination
+              totalCount={total}
+              onPageChange={(page) => {
+                setSearchParams((pre) => ({ ...pre, page }));
+                setPage(page);
+              }}
+              siblingCount={1}
+              currentPage={page}
+              pageSize={pageSize}
+            />
+            <div className="whitespace-nowrap">
+              <span>Kết quả {1 + (pageSize * (page - 1))} - {(pageSize * page)} của tổng {total} bản ghi</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
+const SolutionsWithAuth = withAuth(Solutions)
+
+export default SolutionsWithAuth

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { CategoryEntity } from '@/entities/category'
-import { handleRejectionParams } from '@/dto/insight-mother'
+import { searchParams } from '@/dto/insight-mother'
 import { formatDate } from '@/utils/formatDate'
 import Select from '@/components/ui/Select'
 import Pagination from '@/components/ui/Pagination'
@@ -19,7 +19,7 @@ import { getCategories } from '@/services/category'
 
 function HandleRejection() {
   const [datas, setDatas] = useState<CategoryEntity[]>([]);
-  const [searchParams, setSearchParams] = useState<handleRejectionParams>({});
+  const [searchParams, setSearchParams] = useState<searchParams>({});
   const [refreshKey, setRefreshKey] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
