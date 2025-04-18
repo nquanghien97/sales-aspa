@@ -59,32 +59,34 @@ function CreateCategory(props: CreateProps) {
       className='!w-full lg:!w-1/2 min-h-[300px]'
       footer={false}
     >
-      <h1 className="mb-4 text-2xl font-bold text-center">Thêm mới tiêu đề</h1>
-      <div>
-        <Form form={form} onFinish={onSubmit} initialValues={{ title: '' }}>
-          <div className="flex items-center h-[40px] mb-6">
-            <p className="w-[106px] text-left text-[#2563eb]">Tiêu đề</p>
-            <Form.Item
-              className="!mb-0 w-full flex-1"
-              name="title"
-              rules={[
-                {
-                  required: true,
-                  message: "Trường này là bắt buộc"
-                },
-              ]}
-            >
-              <Input className="py-2" />
-            </Form.Item>
-          </div>
-          <div className="flex justify-center gap-4">
-            <Button variant='danger' onClick={handleClose}>Hủy</Button>
-            <Button variant='primary' type="submit">
-              Xác nhận
-              {loading && <LoadingIcon />}
-            </Button>
-          </div>
-        </Form>
+      <div className="p-4">
+        <h1 className="mb-4 text-2xl font-bold text-center">Thêm mới tiêu đề</h1>
+        <div>
+          <Form form={form} onFinish={onSubmit} initialValues={{ title: '' }}>
+            <div className="flex items-center h-[40px] mb-6">
+              <p className="w-[106px] text-left text-[#2563eb]">Tiêu đề</p>
+              <Form.Item
+                className="!mb-0 w-full flex-1"
+                name="title"
+                rules={[
+                  {
+                    required: true,
+                    message: "Trường này là bắt buộc"
+                  },
+                ]}
+              >
+                <Input className="py-2" />
+              </Form.Item>
+            </div>
+            <div className="flex justify-center gap-4">
+              <Button variant='danger' onClick={handleClose}>Hủy</Button>
+              <Button variant='primary' type="submit">
+                Xác nhận
+                {loading && <LoadingIcon />}
+              </Button>
+            </div>
+          </Form>
+        </div>
       </div>
     </Modal>
   )

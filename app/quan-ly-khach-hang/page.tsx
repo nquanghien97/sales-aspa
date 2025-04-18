@@ -28,7 +28,7 @@ function CustomersManagement() {
   const [isOpenUpdateCustomer, setIsOpenUpdateCustomer] = useState(false);
 
   useEffect(() => {
-    document.title = "Quản lý khách hàng"
+    document.title = "QUẢN LÝ KHÁCH HÀNG";
   }, []);
 
   useEffect(() => {

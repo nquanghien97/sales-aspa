@@ -101,7 +101,7 @@ export const menu_sidebar: MenuType[] = [
   },
   {
     title: 'HƯỚNG DẪN SỬ DỤNG',
-    url: '/huong-dan-su-dung-sua',
+    url: '/huong-dan-su-dung',
     icon: <DocumentIcon width={16} height={16} />,
     allowRole: ['ADMIN', 'USER']
   },

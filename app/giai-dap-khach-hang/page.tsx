@@ -110,7 +110,7 @@ function HandleRejection() {
     <>
       {data && (<Update data={data} open={isOpenUpdate} onClose={() => setIsOpenUpdate(false)} setRefreshKey={setRefreshKey} />)}
       {data && (<Delete data={data} open={isOpenDelete} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} />)}
-      <div>
+      <div className="px-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">GIẢI ĐÁP KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl rounded-xl p-4">
           <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} />

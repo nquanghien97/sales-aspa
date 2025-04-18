@@ -31,6 +31,10 @@ function CustomerProfile() {
 
   const [form] = Form.useForm();
 
+  useEffect(() => {
+      document.title = "HỒ SƠ KHÁCH HÀNG"
+    }, []);
+
   const handleCheckboxChange = (value: 'infant' | 'pre-puberty' | 'puberty' | 'post-puberty') => {
     setPuberty(value);
   }

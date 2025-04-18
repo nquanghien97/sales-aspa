@@ -26,6 +26,10 @@ function Feedbacks() {
   const [refreshKey, setRefreshKey] = useState(false);
 
   useEffect(() => {
+      document.title = "FEEDBACKS KHÁCH HÀNG";
+    }, []);
+
+  useEffect(() => {
     setItemsFeedbacks(fileCategories?.filter(item => item.category === 'FEEDBACKS') || []);
   }, [fileCategories]);
 

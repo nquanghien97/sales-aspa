@@ -34,7 +34,7 @@ function Confirms() {
   const { me } = useAuthStore();
 
   useEffect(() => {
-    document.title = "GIỚI THIỆU GIẢI PHÁP";
+    document.title = "CHỐT";
   }, []);
 
   useEffect(() => {

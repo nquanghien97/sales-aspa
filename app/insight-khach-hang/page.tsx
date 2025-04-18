@@ -18,7 +18,7 @@ function Content() {
   const [isOpenDocument, setIsOpenDocument] = useState(false);
 
   useEffect(() => {
-    document.title = "Insight khách hàng"
+    document.title = "INSIGHT KHÁCH HÀNG"
   }, []);
 
   return (

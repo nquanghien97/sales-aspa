@@ -33,7 +33,7 @@ function Products() {
   const { me } = useAuthStore()
 
   useEffect(() => {
-    document.title = 'Sản phẩm'
+    document.title = 'SẢN PHẨM'
   }, [])
 
   const onSearch = () => {

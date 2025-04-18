@@ -32,7 +32,7 @@ function UsersManagement() {
   const [isOpenUpdateUser, setIsOpenUpdateUser] = useState(false);
 
   useEffect(() => {
-    document.title = "Quản lý người dùng"
+    document.title = "QUẢN LÝ NGƯỜI DÙNG";
   }, []);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ function UsersManagement() {
       {user && (<UpdateUser user={user} open={isOpenUpdateUser} onClose={() => setIsOpenUpdateUser(false)} setRefreshKey={setRefreshKey} />)}
       {user && (<ChangePasswordUser user={user} open={isOpenChangePassword} onClose={() => setIsOpenChangePassword(false)} setRefreshKey={setRefreshKey} />)}
       {user && (<DeleteUser user={user} open={isOpenDeleteUser} onClose={() => setIsOpenDeleteUser(false)} setRefreshKey={setRefreshKey} />)}
-      <div>
+      <div className="px-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">QUẢN LÝ NGƯỜI DÙNG</h1>
         <div className="bg-[#f4d798] rounded-xl p-4 shadow-xl">
           <Header setSearchParams={setSearchParams} setRefreshKey={setRefreshKey} />

@@ -33,7 +33,7 @@ function ProductDocuments() {
   const { me } = useAuthStore()
 
   useEffect(() => {
-    document.title = 'Giấy tờ sản phẩm'
+    document.title = 'GIẤY TỜ SẢN PHẨM'
   }, []);
 
   const onSearch = () => {
@@ -64,7 +64,7 @@ function ProductDocuments() {
   }, [page, pageSize, searchParams, refreshKey])
 
   return (
-    <div>
+    <div className="px-4">
       <CreateFiles open={isOpenCreateFiles} onClose={() => setIsOpenCreateFiles(false)} setRefreshKey={setRefreshKey} />
       {fileId && <DeleteFile open={isOpenDeleteFiles} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} id={fileId} />}
       <h1 className="text-center text-4xl font-bold mb-4 py-4">Giấy tờ sản phẩm</h1>
