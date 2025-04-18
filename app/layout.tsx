@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-[#faf2de] font-normal`}
+        className={`font-normal`}
       >
         {pathname.startsWith('/login') ? (
           children

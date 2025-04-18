@@ -57,7 +57,7 @@ function MaturationProcess(props: MaturationProcessProps) {
       <div className="bg-[url('/bgr.png')] bg-[length:100%_100%]">
         <div ref={elementRef1}>
           <div className="p-4 flex justify-between">
-            <Image src="/logo-ngang.png" unoptimized alt='logo' width={200} height={150} />
+            <Image src="/logo-aspa.png" unoptimized alt='logo' width={200} height={150} />
           </div>
           <div className="p-4 flex gap-4 justify-between">
             <div>

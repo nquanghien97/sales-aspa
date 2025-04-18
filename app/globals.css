@@ -142,4 +142,8 @@ p, li {
   align-items: center !important;
 }
 
+.bg-aspa {
+  background: linear-gradient(to right, #310038, #ba02c2);
+}
+
 

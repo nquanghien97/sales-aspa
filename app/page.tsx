@@ -10,7 +10,7 @@ const Home = () => {
   }, []);
 
   return (
-    <h1 className="text-center text-2xl">Website tư vấn</h1>
+    <h1 className="text-center text-2xl my-4 font-bold">WEBSITE TRỢ LỰC SALES</h1>
   );
 }
 
