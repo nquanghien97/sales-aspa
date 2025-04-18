@@ -1,8 +1,8 @@
-import { CustomerCaseTye } from "@/app/insight-khach-hang/types";
 import { create } from "zustand";
 
 interface InsightData {
-  customerCase?: CustomerCaseTye;
+  age?: string;
+  time?: string;
 }
 
 interface InsightStoreType {

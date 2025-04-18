@@ -2,7 +2,7 @@ import React, { JSX } from 'react';
 import FilesIcon from '@/assets/icons/FilesIcon';
 import ClipboardCheckIcon from '@/assets/icons/ClipboardCheckIcon';
 import LightIcon from '@/assets/icons/LightIcon';
-import { CustomerCaseTye } from './types';
+import { AgeType, TimeType } from './types';
 
 interface BodyProps {
   elementRef?: React.RefObject<HTMLDivElement | null>
@@ -11,18 +11,20 @@ interface BodyProps {
     conclude?: JSX.Element;
     solution?: JSX.Element;
   } | undefined
-  customerCase: CustomerCaseTye | undefined
+  age?: AgeType
+  time?: TimeType
 }
 
 function Body(props: BodyProps) {
   const {
     elementRef,
     content,
-    customerCase
+    age,
+    time
   } = props;
 
   return (
-    (customerCase && content) && (
+    (age && time && content) && (
       <div className="p-6 bg-gradient-to-br from-rose-50 to-white" ref={elementRef}>
         <h1 className="text-3xl font-bold text-rose-800 mb-8 text-center">Đánh Giá & Giải Pháp Chăm Sóc Da</h1>
 

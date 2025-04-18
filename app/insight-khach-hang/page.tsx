@@ -5,10 +5,11 @@ import withAuth from '@/hocs/withAuth'
 import Header from './Header'
 import Body from './Body'
 import Document from './Documents'
-import { CustomerCaseTye } from './types'
+import { AgeType, TimeType } from './types'
 
 function Content() {
-  const [customerCase, setCustomerCase] = useState<CustomerCaseTye>();
+  const [age, setAge] = useState<AgeType>();
+  const [time, setTime] = useState<TimeType>();
   const [content, setContent] = useState<{
     customer_status?: JSX.Element;
     conclude?: JSX.Element;
@@ -34,14 +35,17 @@ function Content() {
       </div>
 
       <Header
-        setCustomerCase={setCustomerCase}
-        customerCase={customerCase}
+        age={age}
+        setAge={setAge}
+        time={time}
+        setTime={setTime}
         setContent={setContent}
       />
 
       <Body
         content={content}
-        customerCase={customerCase}
+        age={age}
+        time={time}
       />
     </div>
   )

@@ -1,11 +1,10 @@
-import { CustomerCaseTye } from "@/app/insight-khach-hang/types"
+import { AgeType, TimeType } from "@/app/insight-khach-hang/types"
 
-export const customer_case = (customerCase: CustomerCaseTye) => {
-  console.log(CustomerCaseTye.case_1)
+export const customer_case = ({ age, time }: { age: AgeType, time: TimeType }) => {
   return (
     [
       {
-        condition: () => customerCase === CustomerCaseTye.case_1,
+        condition: () => age === AgeType["Độ tuổi dưới 30 tuổi"] && time === TimeType["Nám xuất hiện từ lúc nhỏ"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -50,7 +49,7 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_2,
+        condition: () => age === AgeType["Độ tuổi dưới 30 tuổi"] && time === TimeType["Nám xuất hiện từ lúc dậy thì"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -110,7 +109,66 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_3,
+        condition: () => age === AgeType["Độ tuổi dưới 30 tuổi"] && time === TimeType["Nám xuất hiện sau sinh"],
+        content: {
+          customer_status: (
+            <div className="p-6">
+              <p className="text-gray-700 leading-relaxed">
+                - Đây là tình trạng nám do nội tiết tố suy giảm  dẫn tới không kiểm soát được hoạt động của hắc sắc tố melanin tạo thành các mảng nám rõ trên má, trán, cằm, khiến da sạm, xỉn màu và kém sức sống.
+              </p>
+              <p className="text-gray-700 leading-relaxed mt-4">
+                {'=>'} Nhóm khách hàng này thường đi kèm theo triệu chứng rụng tóc , suy giảm trí nhớ , cân nặng khó giảm , da khô - sạm - nám.
+              </p>
+            </div>
+          ),
+          conclude: (
+            <div className="p-6">
+              <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                <p className="text-gray-700 leading-relaxed">
+                  {'=>'} Nhóm này có khả năng phục hồi rất tốt nếu được chăm sóc và cân bằng nội tiết tố kịp thời . Đặc biệt, vì các mẹ sau sinh thường thiếu ngủ, stress, kiệt sức, nên việc cải thiện làn da cần kết hợp giữa phục hồi nội tiết + tái tạo tế bào da + chăm sóc sức khỏe tinh thần.
+                </p>
+              </div>
+            </div>
+          ),
+          solution: (
+            <div className="p-6">
+              <p className="text-gray-700 leading-relaxed mb-4">
+                {'=>'} Mục tiêu: Bộ sản phẩm sẽ giúp điều hòa lại nội tiết tố sau sinh  từ đó giúp kiểm soát melanin khiến nám không tăng sinh một cách an toàn , cung cấp dinh dưỡng nuôi da (bù đắp vào cấu trúc da bất ổn ) giúp làm sáng đều màu da – tăng sinh collagen tự nhiên giúp gảim lão hóa  – đồng thời hỗ trợ cơ thể khỏe hơn, ngủ ngon hơn, từ đó giúp da phục hồi nhanh và hạn chế tái nám.
+              </p>
+              <ul className="space-y-3 mt-4">
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 h-5 w-5 rounded-full bg-emerald-500 flex items-center justify-center mt-1">
+                    <span className="text-white text-xs font-bold">1</span>
+                  </div>
+                  <p className="ml-3 text-gray-700">
+                    <span className="font-medium">ASPALADY</span> là sản phẩm giúp kiểm soát tế bào sắc tố melanin , điều hòa lại phản ứng thái quá của tế bào sắc tố từ đó giúp hạn chế tàn nhang đậm lên về sau.
+                  </p>
+                </li>
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 h-5 w-5 rounded-full bg-emerald-500 flex items-center justify-center mt-1">
+                    <span className="text-white text-xs font-bold">2</span>
+                  </div>
+                  <p className="ml-3 text-gray-700">
+                    Phá hủy và Loại bỏ sắc tố nám đã hình thành trên bề mặt ra bằng kem bôi nám
+                    <span className="font-medium"> Dimolaure</span>
+                  </p>
+                </li>
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 h-5 w-5 rounded-full bg-emerald-500 flex items-center justify-center mt-1">
+                    <span className="text-white text-xs font-bold">3</span>
+                  </div>
+                  <p className="ml-3 text-gray-700">
+                    Bảo vệ da da bị suy yếu trước các tác động bên ngoài:
+                    <span className="font-medium"> kem chống nắng</span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          )
+        }
+      },
+      {
+        condition: () => age === AgeType["Độ tuổi 30- 40 tuổi"] && time === TimeType["Nám xuất hiện từ lúc dậy thì"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -175,7 +233,7 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_4,
+        condition: () => age === AgeType["Độ tuổi 30- 40 tuổi"] && time === TimeType["Nám xuất hiện sau sinh"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -237,7 +295,7 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_5,
+        condition: () => age === AgeType["Độ tuổi 40 - 60 tuổi"] && time === TimeType["Nám xuất hiện từ lúc dậy thì"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -299,7 +357,7 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_6,
+        condition: () => age === AgeType["Độ tuổi 40 - 60 tuổi"] && time === TimeType["Nám xuất hiện sau sinh"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -361,7 +419,7 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_7,
+        condition: () => age === AgeType["Độ tuổi trên 60 tuổi"] && time === TimeType["Nám xuất hiện từ lúc dậy thì"],
         content: {
           customer_status: (
             <div className="p-6">
@@ -423,7 +481,7 @@ export const customer_case = (customerCase: CustomerCaseTye) => {
         }
       },
       {
-        condition: () => customerCase === CustomerCaseTye.case_8,
+        condition: () => age === AgeType["Độ tuổi trên 60 tuổi"] && time === TimeType["Nám xuất hiện sau sinh, tiền mãn kinh"],
         content: {
           customer_status: (
             <div className="p-6">
