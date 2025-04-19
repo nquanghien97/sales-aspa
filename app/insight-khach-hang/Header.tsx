@@ -1,21 +1,14 @@
-import React, { JSX, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Form, Radio } from 'antd';
-import { Button } from '@/components/ui/Button';
+// import { Button } from '@/components/ui/Button';
 import { useInsightStore } from '@/zustand/insight.store';
-import { customer_case } from '@/constants/customer_case';
-import { toast } from 'react-toastify';
-import { AgeType, TimeType } from './types';
+import { CUSTOMER_INSIGHT_AGE, CUSTOMER_INSIGHT_TIME } from '@prisma/client';
 
 interface HeaderProps {
-  age?: AgeType
-  setAge: React.Dispatch<React.SetStateAction<AgeType | undefined>>
-  time?: TimeType
-  setTime: React.Dispatch<React.SetStateAction<TimeType | undefined>>
-  setContent: React.Dispatch<React.SetStateAction<{
-    customer_status?: JSX.Element;
-    conclude?: JSX.Element;
-    solution?: JSX.Element;
-  } | undefined>>
+  age?: CUSTOMER_INSIGHT_AGE
+  setAge: React.Dispatch<React.SetStateAction<CUSTOMER_INSIGHT_AGE | undefined>>
+  time?: CUSTOMER_INSIGHT_TIME
+  setTime: React.Dispatch<React.SetStateAction<CUSTOMER_INSIGHT_TIME | undefined>>
 }
 function Header(props: HeaderProps) {
   const {
@@ -23,52 +16,22 @@ function Header(props: HeaderProps) {
     setAge,
     time,
     setTime,
-    setContent
   } = props;
 
   const [form] = Form.useForm();
 
-  const { setInsightData, insightData, isSubmited, setIsSubmited } = useInsightStore()
+  const { setInsightData, insightData } = useInsightStore()
 
   useEffect(() => {
-    setAge((age || insightData?.age) as AgeType | undefined)
-    setTime((time || insightData?.time) as TimeType | undefined)
+    setAge((age || insightData?.age) as CUSTOMER_INSIGHT_AGE | undefined)
+    setTime((time || insightData?.time) as CUSTOMER_INSIGHT_TIME | undefined)
 
-    if (age && time && isSubmited) {
-      const matchedCondition = customer_case({
-        age,
-        time
-      }).find(condition => condition.condition())
-      setContent({
-        customer_status: matchedCondition?.content.customer_status,
-        conclude: matchedCondition?.content.conclude,
-        solution: matchedCondition?.content.solution
-      });
-    }
-
-  }, [age, insightData?.age, insightData?.time, isSubmited, setAge, setContent, setTime, time])
-
-  const handleSubmit = () => {
-    setIsSubmited(true)
-    if (!age || !time) {
-      toast.warning('Vui lòng chọn trường hợp trước khi xác nhận')
-      return
-    }
-    const matchedCondition = customer_case({
-      age,
-      time
-    }).find(condition => condition.condition())
-    setContent({
-      customer_status: matchedCondition?.content.customer_status,
-      conclude: matchedCondition?.content.conclude,
-      solution: matchedCondition?.content.solution
-    })
-  }
+  }, [age, insightData?.age, insightData?.time, setAge, setTime, time])
 
   return (
     <div className="bg-[#f4d798] shadow-xl p-4 rounded-xl mb-4">
       <h2 className="mb-4 text-xl">Nhập thông tin khách hàng</h2>
-      <Form form={form} onFinish={handleSubmit} className="flex gap-4 items-center">
+      <Form form={form} className="flex gap-4 items-center">
         <Form.Item
           initialValue={insightData?.age}
           label="Độ tuổi"
@@ -86,10 +49,10 @@ function Header(props: HeaderProps) {
                 customerCase: e.target.value,
               }))
             }}>
-            <Radio value="Độ tuổi dưới 30 tuổi">Độ tuổi dưới 30 tuổi</Radio>
-            <Radio value="Độ tuổi 30- 40 tuổi">Độ tuổi 30- 40 tuổi</Radio>
-            <Radio value="Độ tuổi 40 - 60 tuổi">Độ tuổi 40 - 60 tuổi</Radio>
-            <Radio value="Độ tuổi trên 60 tuổi">Độ tuổi trên 60 tuổi</Radio>
+            <Radio value="UNDER_30">Độ tuổi dưới 30 tuổi</Radio>
+            <Radio value="FROM_30_TO_40">Độ tuổi 30- 40 tuổi</Radio>
+            <Radio value="FROM_40_TO_60">Độ tuổi 40 - 60 tuổi</Radio>
+            <Radio value="ABOVE_60">Độ tuổi trên 60 tuổi</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
@@ -109,13 +72,13 @@ function Header(props: HeaderProps) {
                 customerCase: e.target.value,
               }))
             }}>
-            <Radio value="Nám xuất hiện từ lúc nhỏ">Nám xuất hiện từ lúc nhỏ</Radio>
-            <Radio value="Nám xuất hiện từ lúc dậy thì">Nám xuất hiện từ lúc dậy thì</Radio>
-            <Radio value="Nám xuất hiện sau sinh">Nám xuất hiện sau sinh</Radio>
-            <Radio value="Nám xuất hiện sau sinh, tiền mãn kinh">Nám xuất hiện sau sinh , tiền mãn kinh</Radio>
+            <Radio value="SINCE_CHILDHOOD">Nám xuất hiện từ lúc nhỏ</Radio>
+            <Radio value="SINCE_PUBERTY">Nám xuất hiện từ lúc dậy thì</Radio>
+            <Radio value="AFTER_GIVING_BIRTH">Nám xuất hiện sau sinh</Radio>
+            <Radio value="AFTER_BIRTH_AND_PERIMENOPAUSE">Nám xuất hiện sau sinh , tiền mãn kinh</Radio>
           </Radio.Group>
         </Form.Item>
-        <Button variant='primary' type='submit'>Xác nhận</Button>
+        {/* <Button variant='primary' type='submit'>Xác nhận</Button> */}
       </Form>
     </div>
   )

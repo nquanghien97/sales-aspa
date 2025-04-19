@@ -130,3 +130,29 @@ model confirms {
   content   String   @db.LongText
   createdAt DateTime @default(now())
 }
+
+enum CUSTOMER_INSIGHT_AGE {
+  UNDER_30
+  FROM_30_TO_40
+  FROM_40_TO_60
+  ABOVE_60
+}
+
+enum CUSTOMER_INSIGHT_TIME {
+  SINCE_CHILDHOOD
+  SINCE_PUBERTY
+  AFTER_GIVING_BIRTH
+  AFTER_BIRTH_AND_PERIMENOPAUSE
+}
+
+model customer_insight {
+  id             Int                       @id @default(autoincrement())
+  age            CUSTOMER_INSIGHT_AGE
+  time           CUSTOMER_INSIGHT_TIME
+  customerStatus String                    @db.LongText
+  conclude       String                    @db.LongText
+  solution       String                    @db.LongText
+  createdAt      DateTime                  @default(now())
+
+  @@unique([age, time], name: "unique_age_time")
+}
