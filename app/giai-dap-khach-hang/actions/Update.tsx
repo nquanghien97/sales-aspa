@@ -1,11 +1,10 @@
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input'
 import LoadingIcon from '@/components/ui/LoadingIcon';
-import Modal from '@/components/ui/Modal'
 import { CategoryEntity } from '@/entities/category';
 import { updateCategory } from '@/services/category';
 import { Editor } from '@tinymce/tinymce-react';
-import { Form } from 'antd';
+import { Form, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -29,12 +28,12 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
   const [form] = Form.useForm();
 
   useEffect(() => {
-      if(data) {
-        form.setFieldsValue({
-          keyword: data.keyword
-        })
-      }
-    }, [data, form])
+    if (data) {
+      form.setFieldsValue({
+        keyword: data.keyword
+      })
+    }
+  }, [data, form])
 
   const onSubmit = async ({ keyword }: FormValues) => {
     setLoading(true);
@@ -56,10 +55,12 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
     <Modal
       open={open}
       onClose={onClose}
-      className='w-1/2'
+      onCancel={onClose}
+      className='!w-2/3 !top-2'
+      footer={false}
     >
-      <h1 className="mb-4 text-2xl font-bold text-center">Cập nhật nội dung</h1>
-      <div>
+      <h1 className="p-4 text-2xl font-bold text-center">Cập nhật nội dung</h1>
+      <div className="p-4">
         <Form form={form} onFinish={onSubmit} initialValues={{ keyword: data.keyword }}>
           <div className="flex items-center h-[40px] mb-6">
             <p className="w-[106px] text-left text-[#2563eb]">Từ khóa</p>
@@ -84,7 +85,7 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
                 value={content}
                 onEditorChange={(newContent) => setContent(newContent)}
                 init={{
-                  height: 300,
+                  height: 600,
                   flex: 1,
                   menubar: false,
                   extended_valid_elements: "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
@@ -92,16 +93,17 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
                   plugins: [
                     'table',
                     'media',
+                    // 'textcolor'
                   ],
                   toolbar:
                     'undo redo | formatselect | bold italic backcolor | ' +
                     'alignleft aligncenter alignright alignjustify | ' +
                     'bullist numlist outdent indent | table | forecolor | removeformat | media',
-                    setup: (editor) => {
-                      editor.on('init', () => {
-                        editor.setContent(data.content)
-                      })
-                    }
+                  setup: (editor) => {
+                    editor.on('init', () => {
+                      editor.setContent(data.content)
+                    })
+                  }
                 }}
               />
             </div>

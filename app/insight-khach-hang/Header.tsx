@@ -50,9 +50,8 @@ function Header(props: HeaderProps) {
               }))
             }}>
             <Radio value="UNDER_30">Độ tuổi dưới 30 tuổi</Radio>
-            <Radio value="FROM_30_TO_40">Độ tuổi 30- 40 tuổi</Radio>
-            <Radio value="FROM_40_TO_60">Độ tuổi 40 - 60 tuổi</Radio>
-            <Radio value="ABOVE_60">Độ tuổi trên 60 tuổi</Radio>
+            <Radio value="FROM_30_TO_45">Độ tuổi 30- 45 tuổi</Radio>
+            <Radio value="ABOVE_45">Độ tuổi trên 45 tuổi</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
@@ -75,7 +74,7 @@ function Header(props: HeaderProps) {
             <Radio value="SINCE_CHILDHOOD">Nám xuất hiện từ lúc nhỏ</Radio>
             <Radio value="SINCE_PUBERTY">Nám xuất hiện từ lúc dậy thì</Radio>
             <Radio value="AFTER_GIVING_BIRTH">Nám xuất hiện sau sinh</Radio>
-            <Radio value="AFTER_BIRTH_AND_PERIMENOPAUSE">Nám xuất hiện sau sinh , tiền mãn kinh</Radio>
+            <Radio value="PERIMENOPAUSE">Nám xuất hiện tiền mãn kinh</Radio>
           </Radio.Group>
         </Form.Item>
         {/* <Button variant='primary' type='submit'>Xác nhận</Button> */}

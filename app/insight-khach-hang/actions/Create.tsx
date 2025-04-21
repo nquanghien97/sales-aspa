@@ -90,9 +90,8 @@ function CreateUser(props: CreateUserProps) {
                 placeholder="Chọn độ tuổi"
                 options={[
                   { label: 'Độ tuổi dưới 30 tuổi', value: 'UNDER_30' },
-                  { label: 'Độ tuổi 30- 40 tuổi', value: 'FROM_30_TO_40' },
-                  { label: 'Độ tuổi 40 - 60 tuổi', value: 'FROM_40_TO_60' },
-                  { label: 'Độ tuổi trên 60 tuổi', value: 'ABOVE_60' }
+                  { label: 'Độ tuổi 30- 45 tuổi', value: 'FROM_30_TO_45' },
+                  { label: 'Độ tuổi trên 45 tuổi', value: 'ABOVE_45' }
                 ]}
               />
             </Form.Item>
@@ -115,7 +114,7 @@ function CreateUser(props: CreateUserProps) {
                   { label: 'Nám xuất hiện từ lúc nhỏ', value: 'SINCE_CHILDHOOD' },
                   { label: 'Nám xuất hiện từ lúc dậy thì', value: 'SINCE_PUBERTY' },
                   { label: 'Nám xuất hiện sau sinh', value: 'AFTER_GIVING_BIRTH' },
-                  { label: 'Nám xuất hiện sau sinh , tiền mãn kinh', value: 'AFTER_BIRTH_AND_PERIMENOPAUSE' }
+                  { label: 'Nám xuất hiện tiền mãn kinh', value: 'PERIMENOPAUSE' }
                 ]}
               />
             </Form.Item>

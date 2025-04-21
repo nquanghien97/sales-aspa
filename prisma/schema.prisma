@@ -55,7 +55,7 @@ enum user_role {
 
 model insight_mother {
   id        Int      @id @default(autoincrement())
-  keyword   String
+  keyword   String   @db.LongText
   explain   String   @db.LongText
   solution  String   @db.LongText
   createdAt DateTime @default(now())
@@ -68,7 +68,7 @@ enum CATEGORY {
 
 model category {
   id        Int      @id @default(autoincrement())
-  keyword   String
+  keyword   String   @db.LongText
   content   String   @db.LongText
   authorId  Int
   author    user     @relation(fields: [authorId], references: [id])
@@ -96,7 +96,7 @@ enum PROPOSAL_STATUS {
 
 model proposal {
   id           Int             @id @default(autoincrement())
-  keyword      String
+  keyword      String          @db.LongText
   authorId     Int
   author       user            @relation(fields: [authorId], references: [id])
   status       PROPOSAL_STATUS @default(PENDING)
@@ -119,40 +119,39 @@ model customers {
 
 model solutions {
   id        Int      @id @default(autoincrement())
-  keyword   String
+  keyword   String   @db.LongText
   content   String   @db.LongText
   createdAt DateTime @default(now())
 }
 
 model confirms {
   id        Int      @id @default(autoincrement())
-  keyword   String
+  keyword   String   @db.LongText
   content   String   @db.LongText
   createdAt DateTime @default(now())
 }
 
 enum CUSTOMER_INSIGHT_AGE {
   UNDER_30
-  FROM_30_TO_40
-  FROM_40_TO_60
-  ABOVE_60
+  FROM_30_TO_45
+  ABOVE_45
 }
 
 enum CUSTOMER_INSIGHT_TIME {
   SINCE_CHILDHOOD
   SINCE_PUBERTY
   AFTER_GIVING_BIRTH
-  AFTER_BIRTH_AND_PERIMENOPAUSE
+  PERIMENOPAUSE
 }
 
 model customer_insight {
-  id             Int                       @id @default(autoincrement())
+  id             Int                   @id @default(autoincrement())
   age            CUSTOMER_INSIGHT_AGE
   time           CUSTOMER_INSIGHT_TIME
-  customerStatus String                    @db.LongText
-  conclude       String                    @db.LongText
-  solution       String                    @db.LongText
-  createdAt      DateTime                  @default(now())
+  customerStatus String                @db.LongText
+  conclude       String                @db.LongText
+  solution       String                @db.LongText
+  createdAt      DateTime              @default(now())
 
   @@unique([age, time], name: "unique_age_time")
 }
