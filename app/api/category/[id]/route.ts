@@ -58,7 +58,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
   try {
     const { id } = await params;
 
-    const { keyword, content } = await req.json();
+    const { keyword, content, customer_status } = await req.json();
 
     if (!id) return NextResponse.json({
       success: false,
@@ -101,6 +101,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: numb
       },
       data: {
         keyword,
+        customer_status,
         content,
       }
     })

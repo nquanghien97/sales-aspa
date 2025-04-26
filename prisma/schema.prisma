@@ -44,8 +44,6 @@ model user {
   category category[]
 
   image files[]
-
-  proposal proposal[]
 }
 
 enum user_role {
@@ -62,20 +60,19 @@ model insight_mother {
 }
 
 enum CATEGORY {
-  INSIGHT_MOTHER
-  HANDLE_REJECTION
+  CUSTOMER_ANSWER
 }
 
 model category {
-  id        Int      @id @default(autoincrement())
-  keyword   String   @db.LongText
-  content   String   @db.LongText
-  authorId  Int
-  author    user     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-  category  CATEGORY
+  id              Int      @id @default(autoincrement())
+  keyword         String   @db.LongText
+  customer_status String?  @db.LongText
+  content         String   @db.LongText
+  authorId        Int
+  author          user     @relation(fields: [authorId], references: [id])
+  createdAt       DateTime @default(now())
+  category        CATEGORY
 
-  proposal proposal[]
 }
 
 model file_categories {
@@ -92,18 +89,6 @@ model file_categories {
 enum PROPOSAL_STATUS {
   PENDING
   APPROVED
-}
-
-model proposal {
-  id           Int             @id @default(autoincrement())
-  keyword      String          @db.LongText
-  authorId     Int
-  author       user            @relation(fields: [authorId], references: [id])
-  status       PROPOSAL_STATUS @default(PENDING)
-  categoryType CATEGORY
-  categoryId   Int?
-  category     category?       @relation(fields: [categoryId], references: [id])
-  createdAt    DateTime        @default(now())
 }
 
 model customers {

@@ -5,7 +5,7 @@ const ButtonIcon = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttribute
 
     return (
       <button
-        className={`outline-0 cursor-pointer border-transparent duration-300 rounded-full p-2 flex justify-center items-center min-h-8 min-w-8 bg-transparent hover:bg-[#f0f0f0] ${className || ""}`}
+        className={`${className || ""} outline-0 cursor-pointer border-transparent duration-300 rounded-full p-2 flex justify-center items-center min-h-8 min-w-8 bg-transparent hover:bg-[#f0f0f0]`}
         ref={ref}
         {...props}
       />

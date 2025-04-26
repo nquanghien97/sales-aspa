@@ -8,7 +8,7 @@ import { Form, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-interface UpdateHandleRejectionProps {
+interface UpdateCustomerAnswerProps {
   open: boolean
   onClose: () => void
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,10 +19,11 @@ interface FormValues {
   keyword: string
 }
 
-function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
+function UpdateCustomerAnswer(props: UpdateCustomerAnswerProps) {
   const { open, onClose, setRefreshKey, data } = props;
 
   const [loading, setLoading] = useState(false);
+  const [customerStatus, setCustomerStatus] = useState('')
   const [content, setContent] = useState('');
 
   const [form] = Form.useForm();
@@ -38,7 +39,7 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
   const onSubmit = async ({ keyword }: FormValues) => {
     setLoading(true);
     try {
-      await updateCategory({ id: data.id, data: { keyword, content } })
+      await updateCategory({ id: data.id, data: { keyword, customer_status: customerStatus, content } })
       toast.success('Cập nhật thông tin thành công');
       setRefreshKey(pre => !pre);
       onClose();
@@ -79,7 +80,37 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
           </div>
           <div className="mb-4">
             <div className="flex items-center mb-2">
-              <p className="w-[106px] text-left text-[#2563eb]">Nội dung</p>
+              <p className="w-[106px] text-left text-[#2563eb]">Đánh giá tình trạng</p>
+              <Editor
+                apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
+                value={customerStatus}
+                onEditorChange={(newContent) => setCustomerStatus(newContent)}
+                init={{
+                  height: 300,
+                  flex: 1,
+                  menubar: false,
+                  extended_valid_elements: "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
+                  valid_elements: '*[*]',
+                  plugins: [
+                    'table',
+                    'media',
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | ' +
+                    'alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | table | forecolor | removeformat | media',
+                  setup: (editor) => {
+                    editor.on('init', () => {
+                      editor.setContent(data.customer_status || '')
+                    })
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <div className="flex items-center mb-2">
+              <p className="w-[106px] text-left text-[#2563eb]">Giải pháp</p>
               <Editor
                 apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
                 value={content}
@@ -121,4 +152,4 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
   )
 }
 
-export default UpdateHandleRejection
+export default UpdateCustomerAnswer

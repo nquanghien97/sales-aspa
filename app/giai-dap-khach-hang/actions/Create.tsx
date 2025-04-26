@@ -21,6 +21,7 @@ function CreateUser(props: CreateUserProps) {
   const { open, onClose, setRefreshKey } = props;
 
   const [loading, setLoading] = useState(false);
+  const [customerStatus, setCustomerStatus] = useState('')
   const [content, setContent] = useState('')
 
   const [form] = Form.useForm();
@@ -28,6 +29,7 @@ function CreateUser(props: CreateUserProps) {
   const handleClose = () => {
     onClose();
     setContent('')
+    setCustomerStatus('')
     form.setFieldsValue({
       keyword: '',
     })
@@ -39,8 +41,9 @@ function CreateUser(props: CreateUserProps) {
 
       await createCategory({
         keyword: data.keyword,
+        customer_status: customerStatus,
         content,
-        category: 'HANDLE_REJECTION'
+        category: 'CUSTOMER_ANSWER'
       })
 
       setRefreshKey(pre => !pre);
@@ -83,13 +86,38 @@ function CreateUser(props: CreateUserProps) {
           </div>
           <div className="mb-4">
             <div className="flex items-center mb-2">
-              <p className="w-[106px] text-left text-[#2563eb]">Nội dung</p>
+              <p className="w-[106px] text-left text-[#2563eb]">Đánh giá tình trạng</p>
+              <Editor
+                apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
+                value={content}
+                onEditorChange={(newContent) => setCustomerStatus(newContent)}
+                init={{
+                  height: 300,
+                  flex: 1,
+                  menubar: false,
+                  extended_valid_elements: "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
+                  valid_elements: '*[*]',
+                  plugins: [
+                    'table',
+                    'media',
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | ' +
+                    'alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | table | forecolor | removeformat | media'
+                }}
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <div className="flex items-center mb-2">
+              <p className="w-[106px] text-left text-[#2563eb]">Giải pháp</p>
               <Editor
                 apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
                 value={content}
                 onEditorChange={(newContent) => setContent(newContent)}
                 init={{
-                  height: 600,
+                  height: 300,
                   flex: 1,
                   menubar: false,
                   extended_valid_elements: "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",

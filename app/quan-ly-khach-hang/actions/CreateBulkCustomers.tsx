@@ -68,6 +68,10 @@ function CreateBulkCustomers(props: CreateBulkCustomersProps) {
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
+      if (!file.name.endsWith(".xlsx") && !file.name.endsWith(".xls")) {
+        toast.warning("Vui lòng chọn file Excel (.xlsx hoặc .xls)");
+        return;
+      }
       const reader = new FileReader();
 
       reader.onload = (event) => {

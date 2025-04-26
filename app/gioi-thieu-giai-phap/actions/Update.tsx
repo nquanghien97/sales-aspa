@@ -8,7 +8,7 @@ import { Form, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-interface UpdateHandleRejectionProps {
+interface UpdateSolutionsProps {
   open: boolean
   onClose: () => void
   setRefreshKey: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,7 +19,7 @@ interface FormValues {
   keyword: string
 }
 
-function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
+function UpdateSolutions(props: UpdateSolutionsProps) {
   const { open, onClose, setRefreshKey, data } = props;
 
   const [loading, setLoading] = useState(false);
@@ -120,4 +120,4 @@ function UpdateHandleRejection(props: UpdateHandleRejectionProps) {
   )
 }
 
-export default UpdateHandleRejection
+export default UpdateSolutions

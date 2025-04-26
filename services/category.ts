@@ -1,7 +1,7 @@
 import { api } from "@/utils/api";
 import { CATEGORY } from "@prisma/client";
 
-export function createCategory(data: { keyword: string, content: string, category: CATEGORY }) {
+export function createCategory(data: { keyword: string, customer_status?: string, content: string, category: CATEGORY }) {
   return api(`/api/category`, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -17,7 +17,7 @@ export function getCategories({ search, page, pageSize, category }: { search?: s
   return api(`/api/category?${params.toString()}`);
 }
 
-export function updateCategory({ id, data } : { id: number, data: { keyword: string, content: string } }) {
+export function updateCategory({ id, data } : { id: number, data: { keyword: string, customer_status?: string, content: string } }) {
   return api(`/api/category/${id}`, {
     method: 'PUT',
     body: JSON.stringify(data),

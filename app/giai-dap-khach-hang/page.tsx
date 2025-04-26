@@ -16,8 +16,10 @@ import Update from './actions/Update'
 import { useAuthStore } from '@/zustand/auth.store'
 import DataIcon from '@/assets/icons/DataIcon'
 import { getCategories } from '@/services/category'
+import EyeIcon from '@/assets/icons/EyeIcon'
+import DetailContent from './DetailContent'
 
-function HandleRejection() {
+function CustomerAnswer() {
   const [datas, setDatas] = useState<CategoryEntity[]>([]);
   const [searchParams, setSearchParams] = useState<searchParams>({});
   const [refreshKey, setRefreshKey] = useState(false);
@@ -28,6 +30,7 @@ function HandleRejection() {
   const [data, setData] = useState<CategoryEntity>();
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+  const [isOpenDetailContent, setIsOpenDetailContent] = useState(false);
 
   const { me } = useAuthStore();
 
@@ -43,7 +46,7 @@ function HandleRejection() {
           ...searchParams,
           page,
           pageSize,
-          category: 'HANDLE_REJECTION'
+          category: 'CUSTOMER_ANSWER'
         })
         setDatas(res.data);
         setTotal(res.total);
@@ -75,12 +78,33 @@ function HandleRejection() {
         <tr key={data.id}>
           <th className="px-4 py-2 text-left font-medium border border-black">{(index + 1) + pageSize * (page - 1)}</th>
           <th className="px-4 py-2 text-left font-medium border border-black">{data.keyword}</th>
-          <th className="px-4 py-2 text-left font-medium border border-black"><div dangerouslySetInnerHTML={{ __html: data.content}} /></th>
+          <th className="px-4 py-2 text-left font-medium border border-black">
+            <div className="flex items-center gap-2">
+              <div dangerouslySetInnerHTML={{ __html: data.customer_status || '' }} />
+              <ButtonIcon onClick={() => {
+                setData(data)
+                setIsOpenDetailContent(true)
+              }}>
+                <EyeIcon title="Xem chi tiết" width={16} height={16} />
+              </ButtonIcon>
+            </div>
+          </th>
+          <th className="px-4 py-2 text-left font-medium border border-black">
+            <div className="flex items-center gap-2">
+              <div dangerouslySetInnerHTML={{ __html: data.content }} />
+              <ButtonIcon onClick={() => {
+                setData(data)
+                setIsOpenDetailContent(true)
+              }}>
+                <EyeIcon title="Xem chi tiết" width={16} height={16} />
+              </ButtonIcon>
+            </div>
+          </th>
           <th className="px-4 py-2 text-left font-medium border border-black">{formatDate(data.createdAt)}</th>
-          <th className="px-4 py-2 text-left font-medium border border-black">{data.author.fullName}</th>
+          {/* <th className="px-4 py-2 text-left font-medium border border-black">{data.author.fullName}</th> */}
           {me?.role === 'ADMIN' && (
             <th className="px-4 py-2 text-left font-medium border border-black">
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-col">
                 {/* update user */}
                 <ButtonIcon
                   onClick={() => {
@@ -110,6 +134,7 @@ function HandleRejection() {
     <>
       {data && (<Update data={data} open={isOpenUpdate} onClose={() => setIsOpenUpdate(false)} setRefreshKey={setRefreshKey} />)}
       {data && (<Delete data={data} open={isOpenDelete} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} />)}
+      {data && <DetailContent data={data} open={isOpenDetailContent} onClose={() => setIsOpenDetailContent(false)} />}
       <div className="px-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">GIẢI ĐÁP KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl rounded-xl p-4">
@@ -117,12 +142,13 @@ function HandleRejection() {
           <table className="w-full border-collapse">
             <thead className="bg-[#f0c568]">
               <tr>
-                <th className="px-4 py-2 text-left border border-black">STT</th>
-                <th className="px-4 py-2 text-left border border-black">Từ khóa</th>
-                <th className="px-4 py-2 text-left border border-black">Nội dung</th>
-                <th className="px-4 py-2 text-left border border-black">Thời gian tạo</th>
-                <th className="px-4 py-2 text-left border border-black">Người tạo</th>
-                {me?.role === 'ADMIN' && <th className="px-4 py-2 text-left border border-black">Chức năng</th>}
+                <th className="px-4 py-2 text-left border border-black w-[2%]">STT</th>
+                <th className="px-4 py-2 text-left border border-black w-[15%]">Từ khóa</th>
+                <th className="px-4 py-2 text-left border border-black w-[35%]">Đánh giá tình trạng</th>
+                <th className="px-4 py-2 text-left border border-black w-[35%]">Nội dung</th>
+                <th className="px-4 py-2 text-left border border-black w-[9%]">Thời gian tạo</th>
+                {/* <th className="px-4 py-2 text-left border border-black">Người tạo</th> */}
+                {me?.role === 'ADMIN' && <th className="px-4 py-2 text-left border border-black w-[3%]">Chức năng</th>}
               </tr>
             </thead>
             <tbody>
@@ -166,6 +192,6 @@ function HandleRejection() {
   )
 }
 
-const HandleRejectionWithAuth = withAuth(HandleRejection)
+const CustomerAnswerWithAuth = withAuth(CustomerAnswer)
 
-export default HandleRejectionWithAuth
+export default CustomerAnswerWithAuth
