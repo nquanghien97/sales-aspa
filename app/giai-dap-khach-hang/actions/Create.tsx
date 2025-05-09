@@ -89,7 +89,7 @@ function CreateUser(props: CreateUserProps) {
               <p className="w-[106px] text-left text-[#2563eb]">Đánh giá tình trạng</p>
               <Editor
                 apiKey="hkoepxco9p2gme5kius6axtlk3n83yberu5a59m56l7dhgn3"
-                value={content}
+                value={customerStatus}
                 onEditorChange={(newContent) => setCustomerStatus(newContent)}
                 init={{
                   height: 300,
@@ -104,7 +104,7 @@ function CreateUser(props: CreateUserProps) {
                   toolbar:
                     'undo redo | formatselect | bold italic backcolor | ' +
                     'alignleft aligncenter alignright alignjustify | ' +
-                    'bullist numlist outdent indent | table | forecolor | removeformat | media'
+                    'bullist numlist outdent indent | table | forecolor | removeformat | media',
                 }}
               />
             </div>
