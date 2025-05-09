@@ -18,6 +18,7 @@ import DataIcon from '@/assets/icons/DataIcon'
 import { getCategories } from '@/services/category'
 import EyeIcon from '@/assets/icons/EyeIcon'
 import DetailContent from './DetailContent'
+import DetailCustomerStatus from './DetailCustomerStatus'
 
 function CustomerAnswer() {
   const [datas, setDatas] = useState<CategoryEntity[]>([]);
@@ -31,6 +32,7 @@ function CustomerAnswer() {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenDetailContent, setIsOpenDetailContent] = useState(false);
+  const [isOpenDetailCustomerStatus, setIsOpenDetailCustomerStatus] = useState(false);
 
   const { me } = useAuthStore();
 
@@ -84,7 +86,7 @@ function CustomerAnswer() {
               {data.customer_status && (
                 <ButtonIcon onClick={() => {
                   setData(data)
-                  setIsOpenDetailContent(true)
+                  setIsOpenDetailCustomerStatus(true)
                 }}>
                   <EyeIcon title="Xem chi tiết" width={16} height={16} />
                 </ButtonIcon>
@@ -139,6 +141,7 @@ function CustomerAnswer() {
       {data && (<Update data={data} open={isOpenUpdate} onClose={() => setIsOpenUpdate(false)} setRefreshKey={setRefreshKey} />)}
       {data && (<Delete data={data} open={isOpenDelete} onClose={() => setIsOpenDelete(false)} setRefreshKey={setRefreshKey} />)}
       {data && <DetailContent data={data} open={isOpenDetailContent} onClose={() => setIsOpenDetailContent(false)} />}
+      {data && <DetailCustomerStatus data={data} open={isOpenDetailCustomerStatus} onClose={() => setIsOpenDetailCustomerStatus(false)} />}
       <div className="px-4">
         <h1 className="text-center text-4xl font-bold mb-4 py-4">GIẢI ĐÁP KHÁCH HÀNG</h1>
         <div className="bg-[#f4d798] shadow-xl rounded-xl p-4">
