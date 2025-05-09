@@ -152,7 +152,7 @@ function CustomerAnswer() {
                 <th className="px-4 py-2 text-left border border-black w-[2%]">STT</th>
                 <th className="px-4 py-2 text-left border border-black w-[15%]">Từ khóa</th>
                 <th className="px-4 py-2 text-left border border-black w-[35%]">Đánh giá tình trạng</th>
-                <th className="px-4 py-2 text-left border border-black w-[35%]">Nội dung</th>
+                <th className="px-4 py-2 text-left border border-black w-[35%]">Giải pháp</th>
                 <th className="px-4 py-2 text-left border border-black w-[9%]">Thời gian tạo</th>
                 {/* <th className="px-4 py-2 text-left border border-black">Người tạo</th> */}
                 {me?.role === 'ADMIN' && <th className="px-4 py-2 text-left border border-black w-[3%]">Chức năng</th>}
