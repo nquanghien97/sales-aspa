@@ -1,7 +1,7 @@
 import { api } from "@/utils/api";
 import { CATEGORY } from "@prisma/client";
 
-export function createCategory(data: { keyword: string, customer_status?: string, content: string, category: CATEGORY }) {
+export function createCategory(data: { keyword: string, customerStatus?: string, content: string, category: CATEGORY }) {
   return api(`/api/category`, {
     method: 'POST',
     body: JSON.stringify(data),

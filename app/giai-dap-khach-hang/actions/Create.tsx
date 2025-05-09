@@ -41,7 +41,7 @@ function CreateUser(props: CreateUserProps) {
 
       await createCategory({
         keyword: data.keyword,
-        customer_status: customerStatus,
+        customerStatus,
         content,
         category: 'CUSTOMER_ANSWER'
       })

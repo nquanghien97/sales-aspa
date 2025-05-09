@@ -81,23 +81,27 @@ function CustomerAnswer() {
           <th className="px-4 py-2 text-left font-medium border border-black">
             <div className="flex items-center gap-2">
               <div dangerouslySetInnerHTML={{ __html: data.customer_status || '' }} />
-              <ButtonIcon onClick={() => {
-                setData(data)
-                setIsOpenDetailContent(true)
-              }}>
-                <EyeIcon title="Xem chi tiết" width={16} height={16} />
-              </ButtonIcon>
+              {data.customer_status && (
+                <ButtonIcon onClick={() => {
+                  setData(data)
+                  setIsOpenDetailContent(true)
+                }}>
+                  <EyeIcon title="Xem chi tiết" width={16} height={16} />
+                </ButtonIcon>
+              )}
             </div>
           </th>
           <th className="px-4 py-2 text-left font-medium border border-black">
             <div className="flex items-center gap-2">
               <div dangerouslySetInnerHTML={{ __html: data.content }} />
-              <ButtonIcon onClick={() => {
-                setData(data)
-                setIsOpenDetailContent(true)
-              }}>
-                <EyeIcon title="Xem chi tiết" width={16} height={16} />
-              </ButtonIcon>
+              {data.content && (
+                <ButtonIcon onClick={() => {
+                  setData(data)
+                  setIsOpenDetailContent(true)
+                }}>
+                  <EyeIcon title="Xem chi tiết" width={16} height={16} />
+                </ButtonIcon>
+              )}
             </div>
           </th>
           <th className="px-4 py-2 text-left font-medium border border-black">{formatDate(data.createdAt)}</th>

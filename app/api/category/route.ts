@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { keyword, content, category } = await req.json()
+    const { keyword, content, customerStatus, category } = await req.json()
 
-    if (!keyword || !content || !category) {
+    if (!keyword || !category) {
       return NextResponse.json(
         { success: false, message: "Thiếu dữ liệu bắt buộc." },
         { status: 400 }
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
       data: {
         keyword,
         content,
+        customer_status: customerStatus,
         category,
         authorId: Number(user.user_id)
       }
