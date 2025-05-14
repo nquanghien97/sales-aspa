@@ -7,7 +7,7 @@ import PolicyIcon from "@/assets/icons/PolicyIcon";
 import ProductIcon from "@/assets/icons/ProductIcon";
 // import ProposalIcon from "@/assets/icons/Proposal";
 import UsersIcon from "@/assets/icons/UsersIcon";
-import WomenIcon from "@/assets/icons/WomenIcon";
+// import WomenIcon from "@/assets/icons/WomenIcon";
 import { FILE_CATEGORY } from "@prisma/client";
 import { JSX } from "react";
 
@@ -33,18 +33,18 @@ export const menu_sidebar: MenuType[] = [
   //   icon: <WomenIcon width={16} height={16} />,
   //   allowRole: ['ADMIN', 'USER']
   // },
-  {
-    title: 'Giới thiệu giải pháp',
-    url: '/gioi-thieu-giai-phap',
-    icon: <WomenIcon width={16} height={16} />,
-    allowRole: ['ADMIN', 'USER']
-  },
-  {
-    title: 'Chốt',
-    url: '/chot',
-    icon: <WomenIcon width={16} height={16} />,
-    allowRole: ['ADMIN', 'USER']
-  },
+  // {
+  //   title: 'Giới thiệu giải pháp',
+  //   url: '/gioi-thieu-giai-phap',
+  //   icon: <WomenIcon width={16} height={16} />,
+  //   allowRole: ['ADMIN', 'USER']
+  // },
+  // {
+  //   title: 'Chốt',
+  //   url: '/chot',
+  //   icon: <WomenIcon width={16} height={16} />,
+  //   allowRole: ['ADMIN', 'USER']
+  // },
   {
     title: 'Giải đáp khách hàng',
     url: '/giai-dap-khach-hang',
@@ -57,12 +57,12 @@ export const menu_sidebar: MenuType[] = [
     icon: <UsersIcon width={16} height={16} />,
     allowRole: ['ADMIN']
   },
-  {
-    title: 'Quản lý khách hàng',
-    url: '/quan-ly-khach-hang',
-    icon: <UsersIcon width={16} height={16} />,
-    allowRole: ['ADMIN']
-  },
+  // {
+  //   title: 'Quản lý khách hàng',
+  //   url: '/quan-ly-khach-hang',
+  //   icon: <UsersIcon width={16} height={16} />,
+  //   allowRole: ['ADMIN']
+  // },
   {
     title: 'Quản lý tư liệu',
     url: '#',
@@ -98,17 +98,5 @@ export const menu_sidebar: MenuType[] = [
         allowRole: ['ADMIN', 'USER']
       }
     ]
-  },
-  {
-    title: 'HƯỚNG DẪN SỬ DỤNG',
-    url: '/huong-dan-su-dung',
-    icon: <DocumentIcon width={16} height={16} />,
-    allowRole: ['ADMIN', 'USER']
-  },
-  {
-    title: 'Hồ sơ khách hàng',
-    url: '/ho-so-khach-hang',
-    icon: <FilesIcon width={16} height={16} />,
-    allowRole: ['ADMIN', 'USER'],
   },
 ]
